@@ -1,5 +1,13 @@
-package com.manulaiko.blackeye.simulator.account.equipment.item.ship;
+package com.manulaiko.blackeye.simulator.account.equipment.item;
 
+import java.util.HashMap;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import com.manulaiko.blackeye.launcher.Main;
+
+import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.exceptions.NotFound;
 
 /**
@@ -16,31 +24,31 @@ public class Factory
     /**
      * Instanced hangars
      */
-    private java.util.HashMap<Integer, Ship> _ships = new java.util.HashMap<>();
+    private HashMap<Integer, Item> _items = new HashMap<>();
 
     ///////////////////////
     // Start get methods //
     ///////////////////////
     /**
-     * Returns given ship
+     * Returns given item
      *
-     * @param id Ship id
+     * @param id Item id
      *
-     * @return The ship
+     * @return The item
      *
-     * @throws NotFound If ship doesn't exist
+     * @throws NotFound If item doesn't exist
      */
-    public Ship getByID(int id) throws com.manulaiko.tabitha.exceptions.NotFound
+    public Item getByID(int id) throws com.manulaiko.tabitha.exceptions.NotFound
     {
-        if(!this._ships.containsKey(id)) {
-            Ship s = this.loadByID(id);
+        if(!this._items.containsKey(id)) {
+            Item s = this.loadByID(id);
 
-            this._ships.put(id, s);
+            this._items.put(id, s);
 
             return s;
         }
 
-        return this._ships.get(id);
+        return this._items.get(id);
     }
 
     /**
@@ -48,9 +56,29 @@ public class Factory
      *
      * @return All ships
      */
-    public java.util.HashMap<Integer, Ship> getAllShips()
+    public HashMap<Integer, Item> getAllItems()
     {
-        return this._ships;
+        return this._items;
+    }
+
+    /**
+     * Returns account's items
+     *
+     * @param id Account's id
+     *
+     * @return Account's items
+     */
+    public HashMap<Integer, Item> getByAccountID(int id)
+    {
+        HashMap<Integer, Item> items = new HashMap<>();
+
+        this._items.forEach((key, value) -> {
+            if(value.accountID == id) {
+                items.put(key, value);
+            }
+        });
+
+        return items;
     }
 
     /**
@@ -60,7 +88,7 @@ public class Factory
      */
     public int getAmount()
     {
-        return this._ships.size();
+        return this._items.size();
     }
     /////////////////////
     // End get methods //
@@ -78,23 +106,23 @@ public class Factory
      *
      * @throws NotFound If ship doesn't exist in database
      */
-    public Ship loadByID(int id) throws com.manulaiko.tabitha.exceptions.NotFound
+    public Item loadByID(int id) throws NotFound
     {
         try {
-            java.sql.PreparedStatement ps = com.manulaiko.blackeye.launcher.Main.mysqlManager.prepare("SELECT * FROM `accounts_equipment_ships` WHERE `id`=?");
+            PreparedStatement ps = Main.mysqlManager.prepare("SELECT * FROM `accounts_equipment_items` WHERE `id`=?");
             ps.setInt(1, id);
 
-            java.sql.ResultSet result = ps.executeQuery();
+            ResultSet result = ps.executeQuery();
 
             if(result.next()) {
                 Builder builder = new Builder(result);
 
-                return builder.getShip();
+                return builder.getItem();
             } else {
-                throw new com.manulaiko.tabitha.exceptions.NotFound("ship", "id: " + id);
+                throw new NotFound("item", "id: " + id);
             }
-        } catch(java.sql.SQLException e) {
-            throw new com.manulaiko.tabitha.exceptions.NotFound("ship", "id: " + id);
+        } catch(SQLException e) {
+            throw new NotFound("item", "id: " + id);
         }
     }
 
@@ -104,18 +132,18 @@ public class Factory
     public void loadAll()
     {
         try {
-            java.sql.ResultSet result = com.manulaiko.blackeye.launcher.Main.mysqlManager.query("SELECT * FROM `accounts_equipment_ships`");
+            ResultSet result = Main.mysqlManager.query("SELECT * FROM `accounts_equipment_items`");
 
             while(result.next()) {
                 Builder builder = new Builder(result);
 
-                Ship s = builder.getShip();
+                Item i = builder.getItem();
 
-                this._ships.put(s.id, s);
+                this._items.put(i.id, i);
             }
         } catch(Exception e) {
-            com.manulaiko.tabitha.Console.println("Couldn't load ships!");
-            com.manulaiko.tabitha.Console.println(e.getMessage());
+            Console.println("Couldn't load items!");
+            Console.println(e.getMessage());
         }
     }
     //////////////////////

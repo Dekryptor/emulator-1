@@ -1,106 +1,101 @@
-package com.manulaiko.blackeye.simulator.account.equipment.item.ship;
+package com.manulaiko.blackeye.simulator.account.equipment.item;
+
+import java.sql.ResultSet;
+
+import com.manulaiko.blackeye.launcher.GameManager;
+
+import com.manulaiko.tabitha.Console;
 
 /**
- * Ship builder class
+ * Item builder class
  *
  * Implements the builder design pattern
  *
  * @author Manulaiko <manulaiko@gmail.com>
  *
- * @package com.manulaiko.blackeye.simulator.account.equipment.ship
+ * @package com.manulaiko.blackeye.simulator.account.equipment.item
  */
 public class Builder
 {
     /**
-     * Configuration object
+     * Item object
      *
-     * The current ship we're building
+     * The current item we're building
      */
-    private Ship _ship;
+    private Item _item;
 
     /**
      * Constructor
      *
      * @param rs Query result
      */
-    public Builder(java.sql.ResultSet rs)
+    public Builder(ResultSet rs)
     {
         try {
-            this._ship = new Ship(
+            this._item = new Item(
                     rs.getInt("id"),
-                    rs.getInt("gfx"),
-                    rs.getInt("maps_id"),
-                    rs.getInt("ships_id"),
-                    rs.getString("position"),
-                    rs.getInt("health"),
-                    rs.getInt("nanohull"),
-                    rs.getInt("shield")
+                    rs.getInt("accounts_id"),
+                    rs.getInt("items_id"),
+                    rs.getInt("levels_id"),
+                    rs.getInt("amount")
             );
 
-            this._build(this._ship.mapID, this._ship.shipID, this._ship.positionJSON);
+            this._build(this._item.itemID);
         } catch(Exception e) {
-            com.manulaiko.tabitha.Console.println("Couldn't build ship!");
-            com.manulaiko.tabitha.Console.println(e.getMessage());
+            Console.println("Couldn't build item!");
+            Console.println(e.getMessage());
         }
     }
 
     /**
      * Cloning constructor
      *
-     * Use this constructor for cloning a ship
+     * Use this constructor for cloning a item
      *
-     * @para ship Ship clone
+     * @para item Item clone
      */
-    public Builder(Ship ship)
+    public Builder(Item item)
     {
         try {
-            this._ship = new Ship(
-                    ship.id,
-                    ship.gfx,
-                    ship.mapID,
-                    ship.shipID,
-                    ship.positionJSON,
-                    ship.health,
-                    ship.nanohull,
-                    ship.shield
+            this._item = new Item(
+                    item.id,
+                    item.accountID,
+                    item.itemID,
+                    item.level,
+                    item.amount
             );
 
-            this._build(ship.mapID, ship.shipID, ship.positionJSON);
+            this._build(item.itemID);
         } catch(Exception e) {
-            com.manulaiko.tabitha.Console.println("Couldn't clone ship!");
-            com.manulaiko.tabitha.Console.println(e.getMessage());
+            Console.println("Couldn't clone item!");
+            Console.println(e.getMessage());
         }
     }
 
     /**
-     * Builds the ship
+     * Builds the item
      *
-     * @param mapID        Map ID
-     * @param shipID       ships_id
-     * @param positionJSON Position json
+     * @param itemID Item id
      */
-    private void _build(int mapID, int shipID, String positionJSON)
+    private void _build(int itemID)
     {
         try {
-            this._ship.setMap(com.manulaiko.blackeye.launcher.GameManager.maps.getByID(mapID));
-            this._ship.setShip(com.manulaiko.blackeye.launcher.GameManager.ships.getByID(shipID));
+            com.manulaiko.blackeye.simulator.item.Item item = GameManager.items.getByID(itemID);
 
-            org.json.JSONArray position = new org.json.JSONArray(positionJSON);
-
-            this._ship.setPosition(new java.awt.Point(position.getInt(0), position.getInt(1)));
+            this._item.setItem(item);
         } catch(Exception e) {
-            com.manulaiko.tabitha.Console.println("Couldn't build ship!");
-            com.manulaiko.tabitha.Console.println(e.getMessage());
+            Console.println("Couldn't build ship!");
+            Console.println(e.getMessage());
         }
     }
 
     /**
-     * Returns the ship
+     * Returns the item
      *
-     * @return The ship
+     * @return The item
      */
-    public Ship getShip()
+    public Item getItem()
     {
-        return this._ship;
+        return this._item;
     }
 }
