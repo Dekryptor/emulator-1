@@ -2,8 +2,7 @@ package com.manulaiko.blackeye.simulator.account.equipment.configuration;
 
 import java.util.ArrayList;
 
-import com.manulaiko.blackeye.simulator.item.Item;
-import com.manulaiko.blackeye.simulator.item.items.*;
+import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 
 /**
  * Configuration class
@@ -18,6 +17,21 @@ public class Configuration
      * Configuration ID
      */
     public int id;
+
+    /**
+     * Account ID
+     */
+    public int accountID;
+
+    /**
+     * `accounts_equipment_ships_id`
+     */
+    public int shipID;
+
+    /**
+     * Configuration
+     */
+    public int configuration;
 
     /**
      * Speed
@@ -52,12 +66,22 @@ public class Configuration
     /**
      * Lasers
      */
-    public ArrayList<Laser> lasers = new ArrayList<>();
+    public ArrayList<Item> lasers = new ArrayList<>();
+
+    /**
+     * Lasers JSON
+     */
+    public String lasersJSON;
 
     /**
      * Hellstorms
      */
-    public ArrayList<Hellstorm> hellstorms = new ArrayList<>();
+    public ArrayList<Item> hellstorms = new ArrayList<>();
+
+    /**
+     * Hellstorms JSON
+     */
+    public String hellstormsJSON;
 
     /**
      * Generators
@@ -65,18 +89,38 @@ public class Configuration
     public ArrayList<Item> generators = new ArrayList<>();
 
     /**
+     * Generators JSON
+     */
+    public String generatorsJSON;
+
+    /**
      * Extras
      */
-    public ArrayList<Extra> extras = new ArrayList<>();
+    public ArrayList<Item> extras = new ArrayList<>();
+
+    /**
+     * Extras JSON
+     */
+    public String extrasJSON;
 
     /**
      * Constructor
      *
-     * @param id         Configuration ID
+     * @param id            Configuration ID
+     * @param accountID     Account's ID
+     * @param shipID        accounts_equipment_ships_id
+     * @param configuration Configuration number
      */
-    public Configuration(int id)
+    public Configuration(int id, int accountID, int shipID, int configuration, String lasers, String hellstorms, String generators, String extras)
     {
-        this.id = id;
+        this.id             = id;
+        this.accountID      = accountID;
+        this.shipID         = shipID;
+        this.configuration  = configuration;
+        this.lasersJSON     = lasers;
+        this.hellstormsJSON = hellstorms;
+        this.generatorsJSON = generators;
+        this.extrasJSON     = extras;
     }
 
     /**
@@ -88,10 +132,10 @@ public class Configuration
     {
         int damage = 0;
 
-        for(Laser laser : this.lasers) {
-            damage += laser.value;
+        for(Item laser : this.lasers) {
+            damage += laser.item.value;
 
-            if(laser.isElite) {
+            if(laser.item.isElite) {
                 this.eliteLasers += 1;
             }
         }
@@ -109,11 +153,9 @@ public class Configuration
         int speed = 0;
 
         for(Item generator : this.generators) {
-            if(!(generator instanceof Shield)) {
-                continue;
+            if(generator.item.category.equalsIgnoreCase("generator_speed")) {
+                speed += generator.item.value;
             }
-
-            speed += generator.value;
         }
 
         return speed;
@@ -129,11 +171,9 @@ public class Configuration
         int shield = 0;
 
         for(Item generator : this.generators) {
-            if(!(generator instanceof Generator)) {
-                continue;
+            if(generator.item.category.equalsIgnoreCase("generator_shield")) {
+                shield += generator.item.value;
             }
-
-            shield += generator.value;
         }
 
         return shield;
@@ -149,15 +189,15 @@ public class Configuration
         double absorption = 0.00;
         int    shields    = 0;
 
+        /* TODO add shield absorption
         for(Item generator : this.generators) {
-            if(!(generator instanceof Generator)) {
-                continue;
-            }
-            Shield shield = (Shield)generator;
+            if(generator.item.category.equalsIgnoreCase("generator_shield")) {
 
+            }
             absorption += shield.absorption;
             shields    += 1;
-        }
+        }*/
+
 
         return (absorption / shields);
     }
@@ -178,5 +218,57 @@ public class Configuration
         }
 
         return expansions;
+    }
+
+    /**
+     * Calculates and sets configuration's stats
+     */
+    public void calculate()
+    {
+        this.damage           = this.calculateDamage();
+        this.shield           = this.calculateShield();
+        this.speed            = this.calculateSpeed();
+        this.shieldAbsorption = this.calculateShieldAbsorption();
+        this.expansions       = this.calculateExpansions();
+    }
+
+    /**
+     * Adds a laser to the array
+     *
+     * @param laser Laser to add
+     */
+    public void addLaser(Item laser)
+    {
+        this.lasers.add(laser);
+    }
+
+    /**
+     * Adds a hellstorm to the array
+     *
+     * @param hellstorm Hellstorm to add
+     */
+    public void addHellstorm(Item hellstorm)
+    {
+        this.hellstorms.add(hellstorm);
+    }
+
+    /**
+     * Adds a generator to the array
+     *
+     * @param generator Generator to add
+     */
+    public void addGenerator(Item generator)
+    {
+        this.generators.add(generator);
+    }
+
+    /**
+     * Adds an extra to the array
+     *
+     * @param extra Extra to add
+     */
+    public void addExtra(Item extra)
+    {
+        this.extras.add(extra);
     }
 }
