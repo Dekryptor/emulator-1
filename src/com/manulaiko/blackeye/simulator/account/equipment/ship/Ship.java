@@ -69,6 +69,11 @@ public class Ship
     public int shield;
 
     /**
+     * Ship's active configuration
+     */
+    public int activeConfiguration;
+
+    /**
      * Wether ship is cloaked or not
      */
     public boolean isCloaked = false;
@@ -84,17 +89,19 @@ public class Ship
      * @param health       Health points
      * @param nanohull     Nanohull points
      * @param shield       Shield points
+     * @param activeConfig Active configuration
      */
-    public Ship(int id, int gfx, int mapID, int shipID, String positionJSON, int health, int nanohull, int shield)
+    public Ship(int id, int gfx, int mapID, int shipID, String positionJSON, int health, int nanohull, int shield, int activeConfig)
     {
-        this.id           = id;
-        this.gfx          = gfx;
-        this.mapID        = mapID;
-        this.shipID       = shipID;
-        this.positionJSON = positionJSON;
-        this.health       = health;
-        this.nanohull     = nanohull;
-        this.shield       = shield;
+        this.id                  = id;
+        this.gfx                 = gfx;
+        this.mapID               = mapID;
+        this.shipID              = shipID;
+        this.positionJSON        = positionJSON;
+        this.health              = health;
+        this.nanohull            = nanohull;
+        this.shield              = shield;
+        this.activeConfiguration = activeConfig;
     }
 
     /**

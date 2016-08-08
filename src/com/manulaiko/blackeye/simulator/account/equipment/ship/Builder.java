@@ -43,7 +43,8 @@ public class Builder
                     rs.getString("position"),
                     rs.getInt("health"),
                     rs.getInt("nanohull"),
-                    rs.getInt("shield")
+                    rs.getInt("shield"),
+                    rs.getInt("active_configuration")
             );
 
             this._build(this._ship.mapID, this._ship.shipID, this._ship.positionJSON);
@@ -71,7 +72,8 @@ public class Builder
                     ship.positionJSON,
                     ship.health,
                     ship.nanohull,
-                    ship.shield
+                    ship.shield,
+                    ship.activeConfiguration
             );
 
             this._build(ship.mapID, ship.shipID, ship.positionJSON);

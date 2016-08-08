@@ -19,11 +19,6 @@ public class Configuration
     public int id;
 
     /**
-     * Account ID
-     */
-    public int accountID;
-
-    /**
      * `accounts_equipment_ships_id`
      */
     public int shipID;
@@ -107,14 +102,12 @@ public class Configuration
      * Constructor
      *
      * @param id            Configuration ID
-     * @param accountID     Account's ID
      * @param shipID        accounts_equipment_ships_id
      * @param configuration Configuration number
      */
-    public Configuration(int id, int accountID, int shipID, int configuration, String lasers, String hellstorms, String generators, String extras)
+    public Configuration(int id, int shipID, int configuration, String lasers, String hellstorms, String generators, String extras)
     {
         this.id             = id;
-        this.accountID      = accountID;
         this.shipID         = shipID;
         this.configuration  = configuration;
         this.lasersJSON     = lasers;

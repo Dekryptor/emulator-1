@@ -81,6 +81,9 @@ public class Builder
             Ship s = GameManager.accounts.hangars.ships.getByID(accounts_equipment_ships_id);
 
             this._hangar.setShip(s);
+            this._hangar.setConfigurations(GameManager.accounts.hangars.configurations.getByShipID(s.id));
+
+            this._hangar.changeConfiguration(s.activeConfiguration);
         } catch(NotFound e) {
             Console.println("Ship "+ accounts_equipment_ships_id +" does not exist!");
         }

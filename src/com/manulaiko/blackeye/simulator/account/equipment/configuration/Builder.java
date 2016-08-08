@@ -37,7 +37,6 @@ public class Builder
         try {
             this._configuration = new Configuration(
                     rs.getInt("id"),
-                    rs.getInt("accounts_id"),
                     rs.getInt("accounts_equipment_ships_id"),
                     rs.getInt("configuration"),
                     rs.getString("lasers"),
@@ -55,6 +54,7 @@ public class Builder
         } catch(Exception e) {
             Console.println("Couldn't build configuration!");
             Console.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -70,7 +70,6 @@ public class Builder
         try {
             this._configuration = new Configuration(
                     configuration.id,
-                    configuration.accountID,
                     configuration.shipID,
                     configuration.configuration,
                     configuration.lasersJSON,

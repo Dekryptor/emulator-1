@@ -89,11 +89,12 @@ public class Hangar
      */
     public void changeConfiguration(int id)
     {
-        if(!this.configurations.containsKey(id)) {
-            return;
-        }
-
-        this.activeConfiguration = this.configurations.get(id);
+        this.configurations.forEach((key, value) -> {
+            if(value.configuration == id) {
+                this.activeConfiguration = value;
+                this.activeConfiguration.calculate();
+            }
+        });
     }
 
     /**
@@ -104,6 +105,16 @@ public class Hangar
     public void addConfiguration(Configuration configuration)
     {
         this.configurations.put((this.configurations.size() + 1), configuration);
+    }
+
+    /**
+     * Sets configuration's map
+     *
+     * @param configurations Configuration's map
+     */
+    public void setConfigurations(HashMap<Integer, Configuration> configurations)
+    {
+        this.configurations = configurations;
     }
 
     /**

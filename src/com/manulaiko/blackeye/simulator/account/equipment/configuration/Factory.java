@@ -52,6 +52,30 @@ public class Factory
     }
 
     /**
+     * Returns the configurations associated with given `accounts_equipment_ships_id`
+     *
+     * @param id Ship's id
+     *
+     * @return Ship's configurations
+     */
+    public HashMap<Integer, Configuration> getByShipID(int id)
+    {
+        if(this._configurations.size() == 0) {
+            this.loadAll();
+        }
+
+        HashMap<Integer, Configuration> configs = new HashMap<>();
+
+        this._configurations.forEach((key, value) -> {
+            if(value.shipID == id) {
+                configs.put(key, value);
+            }
+        });
+
+        return configs;
+    }
+
+    /**
      * Returns all hangars
      *
      * @return All hangars

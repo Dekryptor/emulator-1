@@ -31,6 +31,11 @@ public class Factory
      */
     public com.manulaiko.blackeye.simulator.account.equipment.ship.Factory ships = new com.manulaiko.blackeye.simulator.account.equipment.ship.Factory();
 
+    /**
+     * Hangar factory for table `accounts_equipment_configurations`
+     */
+    public com.manulaiko.blackeye.simulator.account.equipment.configuration.Factory configurations = new com.manulaiko.blackeye.simulator.account.equipment.configuration.Factory();
+
     ///////////////////////
     // Start get methods //
     ///////////////////////
