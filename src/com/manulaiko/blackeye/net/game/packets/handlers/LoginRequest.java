@@ -94,9 +94,9 @@ public class LoginRequest extends com.manulaiko.blackeye.net.game.packets.Packet
         p.rankID     = connection.account.ranksID;
         p.clanTag    = connection.account.clan.tag;
         p.ggRings    = 4;
-        p.useSysFont = 0; //No idea
+        p.useSysFont = 1; //No idea
 
-        connection.send("0|A|SET|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1");
+        connection.send("0|A|SET|1|1|1|1|1|1|1|1|1|1|1|0|0|1|1|1|1|1|1|0|0|0|0|0|1");
         connection.send(p.toString());
         connection.send("0|m|1");
         connection.send("0|A|ADM|CLI|1");
