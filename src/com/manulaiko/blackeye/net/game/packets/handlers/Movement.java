@@ -1,5 +1,7 @@
 package com.manulaiko.blackeye.net.game.packets.handlers;
 
+import java.awt.Point;
+
 import com.manulaiko.tabitha.utils.Vector;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
@@ -29,8 +31,6 @@ public class Movement extends com.manulaiko.blackeye.net.game.packets.Packet
         Vector oldPosition = new Vector(this._packet.readInt(), this._packet.readInt());
         Vector newPosition = new Vector(this._packet.readInt(), this._packet.readInt());
 
-        com.manulaiko.tabitha.Console.println("Moving "+ connection.account.id +" from "+ oldPosition.toString() +" to "+ newPosition.toString() +", speed: "+ speed);
-
         Vector direction = new Vector(
                 oldPosition.getX() - newPosition.getX(),
                 oldPosition.getY() - newPosition.getY()
@@ -45,6 +45,7 @@ public class Movement extends com.manulaiko.blackeye.net.game.packets.Packet
         p.newY = (int)newPosition.getY();
         p.time = time;
 
-        connection.account.hangar.ship.map.broadcastPacket(p.toString());
+        connection.account.hangar.ship.map.broadcastPacket(p.toString(), connection.account.id);
+        connection.account.hangar.ship.position = new Point((int)newPosition.getX(), (int)newPosition.getY());
     }
 }
