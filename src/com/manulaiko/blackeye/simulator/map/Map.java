@@ -67,7 +67,7 @@ public class Map
     /**
      * Players on the map
      */
-    public HashMap<Integer, Account> accounts = new HashMap<>();
+    public HashMap<Integer, Connection> accounts = new HashMap<>();
 
     /**
      * Whether map is pvp or not
@@ -186,9 +186,7 @@ public class Map
      */
     public void addAccount(Connection connection)
     {
-        Account account = connection.account;
-
-        if(this.accounts.containsKey(account.id)) {
+        if(this.accounts.containsKey(connection.account.id)) {
             return;
         }
 
@@ -198,7 +196,7 @@ public class Map
         this.sendAccounts(connection);
         this.sendCollectables(connection);
 
-        this.accounts.put(account.id, account);
+        this.accounts.put(connection.account.id, connection);
 
         Console.println("Account "+ connection.account.id +" joined map "+ this.id);
     }
@@ -210,20 +208,16 @@ public class Map
      */
     public void sendNPCs(Connection connection)
     {
-        for(Entry<Integer, NPC> npc : this.npcs.entrySet()) {
-            // TODO check if NPC is near user
-
-            NPC n = npc.getValue();
-
+        this.npcs.forEach((key, value) -> {
             CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
 
-            p.id            = npc.getKey();
-            p.shipID        = n.gfx;
+            p.id            = key;
+            p.shipID        = value.gfx;
             p.expansion     = 0;
             p.clanTag       = "";
-            p.name          = n.name;
-            p.x             = (int)n.position.getX();
-            p.y             = (int)n.position.getY();
+            p.name          = value.name;
+            p.x             = (int)value.position.getX();
+            p.y             = (int)value.position.getY();
             p.factionID     = 0;
             p.clanID        = 0;
             p.rankID        = 0;
@@ -234,7 +228,7 @@ public class Map
             p.isCloaked     = true;
 
             connection.send(p.toString());
-        }
+        });
     }
 
     /**
@@ -244,10 +238,8 @@ public class Map
      */
     public void sendAccounts(Connection connection)
     {
-        for(Entry<Integer, Account> account : this.accounts.entrySet()) {
-            // TODO check if Account is near user
-
-            Account a = account.getValue();
+        this.accounts.forEach((key, value) -> {
+            Account a = value.account;
 
             CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
 
@@ -273,10 +265,6 @@ public class Map
             }
 
             connection.send(p.toString());
-
-            if(a.connection == null) {
-                continue;
-            }
 
             // Now send hero's accounts to the other user
             a = connection.account;
@@ -302,8 +290,8 @@ public class Map
                 p.warningIcon = this.isStarter;
             }
 
-            account.getValue().connection.send(p.toString());
-        }
+            value.send(p.toString());
+        });
     }
 
     /**
@@ -313,19 +301,17 @@ public class Map
      */
     public void sendPortals(Connection connection)
     {
-        for(Entry<Integer, Portal> portal : this.portals.entrySet()) {
-            Portal p = portal.getValue();
-
+        this.portals.forEach((key, value) -> {
             CreatePortal packet = (CreatePortal) ServerManager.game.packetFactory.getCommandByName("CreatePortal");
 
-            packet.id     = portal.getKey();
+            packet.id     = key;
             packet.gfx    = 1;
             packet.ptarid = 1;
-            packet.x      = (int)p.position.getX();
-            packet.y      = (int)p.position.getY();
+            packet.x      = (int)value.position.getX();
+            packet.y      = (int)value.position.getY();
 
             connection.send(packet.toString());
-        }
+        });
     }
 
     /**
@@ -357,18 +343,16 @@ public class Map
      */
     public void sendCollectables(Connection connection)
     {
-        for(Entry<Integer, Collectable> collectable : this.collectables.entrySet()) {
-            Collectable c = collectable.getValue();
-
+        this.collectables.forEach((key, value) -> {
             CreateCollectable p = (CreateCollectable) ServerManager.game.packetFactory.getCommandByName("CreateCollectable");
 
-            p.id  = collectable.getKey();
-            p.gfx = c.gfx;
-            p.x   = (int)c.position.getX();
-            p.y   = (int)c.position.getY();
+            p.id  = key;
+            p.gfx = value.gfx;
+            p.x   = (int)value.position.getX();
+            p.y   = (int)value.position.getY();
 
             connection.send(p.toString());
-        }
+        });
     }
 
     /**
@@ -467,16 +451,10 @@ public class Map
      */
     public void broadcastPacket(String packet, int id)
     {
-
-        for(Entry<Integer, Account> account : this.accounts.entrySet()) {
-            Account a = account.getValue();
-
-            if(
-                a.connection != null &&
-                a.id != id
-            ) {
-                a.connection.send(packet);
+        this.accounts.forEach((key, value) -> {
+            if(value.id != id) {
+                value.send(packet);
             }
-        }
+        });
     }
 }
