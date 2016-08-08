@@ -133,10 +133,8 @@ public class Builder
     private void _build(int id, Point limits, JSONArray npcs, JSONArray stations, JSONArray collectables)
     {
         try {
-            Console.println("Building map "+ id +"...");
             //Load NPCs
             if(Main.configuration.getBoolean("maps.load_npcs")) {
-                Console.println("Loading NPCs...");
                 //Loop through all kind of NPCs there are in map
                 for(int i = 0; i < npcs.length(); i++) {
                     JSONObject npc = npcs.getJSONObject(i);
@@ -160,7 +158,6 @@ public class Builder
 
             //Load portals
             if(Main.configuration.getBoolean("maps.load_portals")) {
-                Console.println("Loading Portals...");
                 GameManager.portals.getByMapID(id).forEach((Integer i, Portal p) -> {
                     this.addPortal(p);
                 });
@@ -168,7 +165,6 @@ public class Builder
 
             //Load stations
             if(Main.configuration.getBoolean("maps.load_stations")) {
-                Console.println("Loading Stations...");
                 //Loop through all available stations
                 for(int i = 0; i < stations.length(); i++) {
                     JSONObject station = stations.getJSONObject(i);
