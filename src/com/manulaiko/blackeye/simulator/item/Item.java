@@ -30,11 +30,6 @@ public class Item
     public String category;
 
     /**
-     * Filter
-     */
-    public int filter;
-
-    /**
      * Price
      */
     public int price;
@@ -60,18 +55,16 @@ public class Item
      * @param lootID   loot id
      * @param name     Item name
      * @param category Category
-     * @param filter   Item filter
      * @param price    Price
      * @param isElite  Whether item is elite or not
      * @param value    Item value
      */
-    public Item(int id, String lootID, String name, String category, int filter, int price, boolean isElite, int value)
+    public Item(int id, String lootID, String name, String category, int price, boolean isElite, int value)
     {
         this.id       = id;
         this.lootID   = lootID;
         this.name     = name;
         this.category = category;
-        this.filter   = filter;
         this.price    = price;
         this.isElite  = isElite;
         this.value    = value;

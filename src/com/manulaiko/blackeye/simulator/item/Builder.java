@@ -35,7 +35,6 @@ public class Builder
                     rs.getString("loot_id"),
                     rs.getString("name"),
                     rs.getString("category"),
-                    rs.getInt("filter"),
                     rs.getInt("price"),
                     rs.getBoolean("is_elite"),
                     rs.getInt("value")
@@ -61,7 +60,6 @@ public class Builder
                     item.lootID,
                     item.name,
                     item.category,
-                    item.filter,
                     item.price,
                     item.isElite,
                     item.value
