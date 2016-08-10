@@ -1,4 +1,8 @@
-package com.manulaiko.blackeye.simulator.portal;
+package com.manulaiko.blackeye.simulator.map.portal;
+
+import com.manulaiko.blackeye.launcher.ServerManager;
+
+import com.manulaiko.blackeye.net.game.packets.commands.CreatePortal;
 
 import com.manulaiko.tabitha.utils.Point;
 
@@ -110,5 +114,25 @@ public class Portal
         this.isWorking      = isWorking;
         this.factionScrap   = factionScrap;
         this.gfx            = gfx;
+    }
+
+    /**
+     * Builds and returns CreatePortal packet
+     *
+     * @return Create portal packet
+     */
+    public CreatePortal getCreatePortalCommand()
+    {
+        CreatePortal p = (CreatePortal) ServerManager.game.packetFactory.getCommandByName("CreatePortal");
+
+        p.id           = this.id;
+        p.gfx          = this.gfx;
+        p.x            = this.position.getX();
+        p.y            = this.position.getY();
+        p.isVisible    = this.isVisible;
+        p.isWorking    = this.isWorking;
+        p.factionScrap = this.factionScrap;
+
+        return p;
     }
 }

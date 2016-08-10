@@ -10,11 +10,10 @@ import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packets.commands.*;
 
-import com.manulaiko.blackeye.simulator.portal.Portal;
+import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 import com.manulaiko.blackeye.simulator.station.Station;
-import com.manulaiko.blackeye.simulator.account.Account;
 
 
 import com.manulaiko.tabitha.Console;
@@ -258,13 +257,7 @@ public class Map
     public void sendPortals(Connection connection)
     {
         this.portals.forEach((key, value) -> {
-            CreatePortal packet = (CreatePortal) ServerManager.game.packetFactory.getCommandByName("CreatePortal");
-
-            packet.id     = key;
-            packet.gfx    = 1;
-            packet.ptarid = 1;
-            packet.x      = (int)value.position.getX();
-            packet.y      = (int)value.position.getY();
+            CreatePortal packet = value.getCreatePortalCommand();
 
             connection.send(packet.toString());
         });

@@ -1,4 +1,4 @@
-package com.manulaiko.blackeye.simulator.portal;
+package com.manulaiko.blackeye.simulator.map.portal;
 
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  *
- * @package com.manulaiko.blackeye.simulator.portal
+ * @package com.manulaiko.blackeye.simulator.map.portal
  */
 public class Factory
 {
