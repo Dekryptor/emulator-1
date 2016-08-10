@@ -49,7 +49,7 @@ public class GameManager
     /**
      * Collectables table
      */
-    public static com.manulaiko.blackeye.simulator.collectable.Factory collectables = new com.manulaiko.blackeye.simulator.collectable.Factory();
+    public static com.manulaiko.blackeye.simulator.map.collectable.Factory collectables = new com.manulaiko.blackeye.simulator.map.collectable.Factory();
 
     /**
      * Ships table
