@@ -146,9 +146,10 @@ public class Configuration
         int speed = 0;
 
         for(Item generator : this.generators) {
-            if(generator.item.category.equalsIgnoreCase("generator_speed")) {
-                speed += generator.item.value;
+            if(!generator.item.category.equalsIgnoreCase("generator_speed")) {
+                continue;
             }
+            speed += generator.item.value;
         }
 
         return speed;
@@ -164,9 +165,10 @@ public class Configuration
         int shield = 0;
 
         for(Item generator : this.generators) {
-            if(generator.item.category.equalsIgnoreCase("generator_shield")) {
-                shield += generator.item.value;
+            if(!generator.item.category.equalsIgnoreCase("generator_shield")) {
+                continue;
             }
+            shield += generator.item.value;
         }
 
         return shield;
@@ -183,9 +185,10 @@ public class Configuration
         int    shields    = 0;
 
         for(Item generator : this.generators) {
-            if(generator.item.category.equalsIgnoreCase("generator_shield")) {
-
+            if(!generator.item.category.equalsIgnoreCase("generator_shield")) {
+                continue;
             }
+
             try {
                 absorption += generator.item.extras.getDouble("absorption");
                 shields += 1;
