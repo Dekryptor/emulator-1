@@ -1,4 +1,4 @@
-package com.manulaiko.blackeye.simulator.station;
+package com.manulaiko.blackeye.simulator.map.station;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 

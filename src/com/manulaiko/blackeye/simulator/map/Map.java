@@ -13,7 +13,7 @@ import com.manulaiko.blackeye.net.game.packets.commands.*;
 import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
-import com.manulaiko.blackeye.simulator.station.Station;
+import com.manulaiko.blackeye.simulator.map.station.Station;
 
 
 import com.manulaiko.tabitha.Console;
