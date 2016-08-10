@@ -470,9 +470,11 @@ public class Map
         this.accounts.forEach((key, value) -> {
             if(key != account.id) {
                 if(value.account.hangar.ship.position.isInRange(position, distance)) {
-                    account.hangar.ship.nearAccounts.put(value.account.id, value.account);
+                    if(!(account.hangar.ship.nearAccounts.containsKey(key))) {
+                        account.hangar.ship.nearAccounts.put(value.account.id, value.account);
 
-                    account.connection.send(value.account.getCreateShipCommand().toString());
+                        account.connection.send(value.account.getCreateShipCommand().toString());
+                    }
                 } else if(account.hangar.ship.nearAccounts.containsKey(key)) {
                     account.hangar.ship.nearAccounts.remove(key);
 
@@ -497,9 +499,11 @@ public class Map
 
         this.npcs.forEach((key, value) -> {
             if(value.position.isInRange(position, distance)) {
-                account.hangar.ship.nearNPCs.put(key, value);
+                if(!(account.hangar.ship.nearNPCs.containsKey(key))) {
+                    account.hangar.ship.nearNPCs.put(key, value);
 
-                account.connection.send(value.getCreateShipCommand().toString());
+                    account.connection.send(value.getCreateShipCommand().toString());
+                }
             } else if(account.hangar.ship.nearNPCs.containsKey(key)) {
                 account.hangar.ship.nearNPCs.remove(key);
 

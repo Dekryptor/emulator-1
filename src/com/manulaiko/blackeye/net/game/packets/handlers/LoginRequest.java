@@ -36,6 +36,7 @@ public class LoginRequest extends com.manulaiko.blackeye.net.game.packets.Packet
 
             if(account.sessionID.equals(sessionID) || sessionID.equalsIgnoreCase("test")) {
                 connection.account = account;
+                account.connection = connection;
 
                 try {
                     this.sendLoginData(connection);
