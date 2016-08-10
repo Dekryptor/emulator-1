@@ -44,7 +44,7 @@ public class GameManager
     /**
      * Portals table
      */
-    public static com.manulaiko.blackeye.simulator.portal.Factory portals = new com.manulaiko.blackeye.simulator.portal.Factory();
+    public static com.manulaiko.blackeye.simulator.map.portal.Factory portals = new com.manulaiko.blackeye.simulator.map.portal.Factory();
 
     /**
      * Collectables table
