@@ -1,23 +1,23 @@
 package com.manulaiko.tabitha.utils;
 
 /**
- * Vector class helper
+ * Point class helper
  *
  * @author S7KYuuki
  */
-public class Vector
+public class Point
 {
     /**
      * Adds 2 vectors
      *
-     * @param one Vector 1
-     * @param two Vector 2
+     * @param one Point 1
+     * @param two Point 2
      *
-     * @return Vector 1 + Vector 2
+     * @return Point 1 + Point 2
      */
-    public static Vector plus(Vector one, Vector two)
+    public static Point plus(Point one, Point two)
     {
-        return new Vector(
+        return new Point(
                 one.getX() + two.getX(),
                 one.getY() + two.getY()
         );
@@ -26,14 +26,14 @@ public class Vector
     /**
      * Minus 2 vectors
      *
-     * @param one Vector 1
-     * @param two Vector 2
+     * @param one Point 1
+     * @param two Point 2
      *
-     * @return Vector 1 - Vector 2
+     * @return Point 1 - Point 2
      */
-    public static Vector minus(Vector one, Vector two)
+    public static Point minus(Point one, Point two)
     {
-        return new Vector(
+        return new Point(
                 one.getX() - two.getX(),
                 one.getY() - two.getY()
         );
@@ -42,17 +42,17 @@ public class Vector
     /**
      * X Position
      */
-    private double _x;
+    private int _x;
 
     /**
      * Y Position
      */
-    private double _y;
+    private int _y;
 
     /**
      * Constructor
      */
-    public Vector()
+    public Point()
     {
 
     }
@@ -63,10 +63,21 @@ public class Vector
      * @param x X position
      * @param y Y Position
      */
-    public Vector(double x, double y)
+    public Point(int x, int y)
     {
         this._x = x;
         this._y = y;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param position X and Y position
+     */
+    public Point(int position)
+    {
+        this._x = position;
+        this._y = position;
     }
 
     /**
@@ -74,7 +85,7 @@ public class Vector
      *
      * @return X position
      */
-    public double getX()
+    public int getX()
     {
         return _x;
     }
@@ -84,7 +95,7 @@ public class Vector
      *
      * @return Y Position
      */
-    public double getY()
+    public int getY()
     {
         return _y;
     }
@@ -94,7 +105,7 @@ public class Vector
      *
      * @param x New position
      */
-    public void setX(double x)
+    public void setX(int x)
     {
         this._x = x;
     }
@@ -104,7 +115,7 @@ public class Vector
      *
      * @param y New position
      */
-    public void setY(double y)
+    public void setY(int y)
     {
         this._y = y;
     }
@@ -114,24 +125,40 @@ public class Vector
      *
      * @return Empty vector
      */
-    public Vector reset()
+    public Point reset()
     {
-        return new Vector(0, 0);
+        return new Point(0, 0);
     }
 
     /**
-     * Checks the distance between this vector and another
+     * Checks the distance between this vector and another.
      *
-     * @param vector Vector to calculate the distance
+     * @param point Point to calculate the distance.
      *
-     * @return The distance between this and Point
+     * @return The distance between this and Point.
      */
-    public double distanceTo(Vector vector)
+    public double distanceTo(Point point)
     {
-        double dx = this.getX() - vector.getX();
-        double dy = this.getX() - vector.getX();
+        double dx = this.getX() - point.getX();
+        double dy = this.getX() - point.getX();
 
-        return Math.sqrt((dx * dx) + (dy * dy));
+        return java.lang.Math.sqrt((dx * dx) + (dy * dy));
+    }
+
+    /**
+     * Checks if this point is in a range between two points.
+     *
+     * @param from Starting position.
+     * @param to   The radius of the range.
+     *
+     * @return True if this point is between `from` and `to`, false if not.
+     */
+    public boolean isInRange(Point from, Point to)
+    {
+        double distance = from.distanceTo(to);
+        double position = (this.getX() - from.getX()) + (this.getY() - from.getY());
+
+        return (position <= distance);
     }
 
     /**
@@ -147,15 +174,15 @@ public class Vector
     /**
      * Checks if this vector is the same as obj
      *
-     * @param obj Vector to check
+     * @param obj Point to check
      *
      * @return Whether this == obj
      */
     @Override
     public boolean equals(Object obj)
     {
-        if(obj instanceof Vector) {
-            Vector v2d = (Vector)obj;
+        if(obj instanceof Point) {
+            Point v2d = (Point)obj;
 
             return (
                     v2d.getX() == this.getX() &&
