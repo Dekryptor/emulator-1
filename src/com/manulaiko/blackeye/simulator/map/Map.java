@@ -270,19 +270,11 @@ public class Map
      */
     public void sendStations(Connection connection)
     {
-        for(Station s : this.stations) {
-            CreateStation p = (CreateStation) ServerManager.game.packetFactory.getCommandByName("CreateStation");
-
-            p.id      = 0;
-            p.name    = s.name;
-            p.type    = s.type;
-            p.faction = s.factionsID;
-            p.isDMZ   = true;
-            p.x       = (int)s.position.getX();
-            p.y       = (int)s.position.getY();
+        this.stations.forEach((value) -> {
+            CreateStation p = value.getCreateStationCommand();
 
             connection.send(p.toString());
-        }
+        });
     }
 
     /**

@@ -1,5 +1,9 @@
 package com.manulaiko.blackeye.simulator.station;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+
+import com.manulaiko.blackeye.net.game.packets.commands.CreateStation;
+
 import com.manulaiko.tabitha.utils.Point;
 
 /**
@@ -47,5 +51,25 @@ public class Station
         this.factionsID = factionsID;
         this.type       = type;
         this.name       = name;
+    }
+
+    /**
+     * Builds and returns CreateStation packet
+     *
+     * @return Create station packet
+     */
+    public CreateStation getCreateStationCommand()
+    {
+        CreateStation p = (CreateStation) ServerManager.game.packetFactory.getCommandByName("CreateStation");
+
+        p.id      = 0;
+        p.name    = this.name;
+        p.type    = this.type;
+        p.faction = this.factionsID;
+        p.isDMZ   = true;
+        p.x       = this.position.getX();
+        p.y       = this.position.getY();
+
+        return p;
     }
 }
