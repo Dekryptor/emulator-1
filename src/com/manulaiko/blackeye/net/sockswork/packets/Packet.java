@@ -7,8 +7,6 @@ import com.manulaiko.blackeye.net.sockswork.Connection;
  * Packet class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.game.packets
  */
 public abstract class Packet
 {

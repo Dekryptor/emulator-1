@@ -23,8 +23,6 @@ import com.manulaiko.tabitha.utils.Point;
  * Map class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator
  */
 public class Map
 {

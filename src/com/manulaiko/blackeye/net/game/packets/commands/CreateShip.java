@@ -6,8 +6,6 @@ package com.manulaiko.blackeye.net.game.packets.commands;
  * Builds the Create ship command
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *     
- * @package com.manulaiko.blackeye.net.game.packets.commands
  */
 public class CreateShip extends com.manulaiko.blackeye.net.game.packets.Command
 {

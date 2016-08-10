@@ -6,8 +6,6 @@ package com.manulaiko.blackeye.net.game.packets.commands;
  * Builds the Create collectable command
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *     
- * @package com.manulaiko.blackeye.net.game.packets.commands
  */
 public class CreateCollectable extends com.manulaiko.blackeye.net.game.packets.Command
 {

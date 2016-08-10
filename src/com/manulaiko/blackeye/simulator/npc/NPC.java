@@ -16,8 +16,6 @@ import com.manulaiko.tabitha.utils.Point;
  * NPC class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator
  */
 public class NPC
 {

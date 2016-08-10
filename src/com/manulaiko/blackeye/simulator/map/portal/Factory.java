@@ -16,8 +16,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Used for instance portal objects with lazy-load
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.map.portal
  */
 public class Factory
 {

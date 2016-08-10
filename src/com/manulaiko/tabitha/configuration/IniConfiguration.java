@@ -51,8 +51,6 @@ import com.manulaiko.tabitha.filesystem.File;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  *
- * @package com.manulaiko.tabitha.configuration
- *
  * @see http://stackoverflow.com/a/15638381
  */
 public class IniConfiguration implements IConfiguration

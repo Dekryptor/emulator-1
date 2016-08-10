@@ -17,8 +17,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Updates given account's sessionID
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.sockswork.packets.handlers
  */
 public class UpdateSessionID extends Packet
 {

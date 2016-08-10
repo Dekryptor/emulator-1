@@ -10,8 +10,6 @@ import com.manulaiko.tabitha.Console;
  * Implements the builder design pattern
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.item
  */
 public class Builder
 {

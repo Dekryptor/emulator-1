@@ -4,7 +4,6 @@ package com.manulaiko.blackeye.net.game.utils;
  * Packet class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- * @package com.manulaiko.blackeye.net.game
  */
 public class PacketParser
 {

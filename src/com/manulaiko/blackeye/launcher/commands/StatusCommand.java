@@ -8,8 +8,6 @@ import com.manulaiko.blackeye.launcher.ServerManager;
  * Shows current status of specified server(s), read description for more.
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.launcher.commands
  */
 public class StatusCommand implements com.manulaiko.tabitha.utils.ICommand
 {

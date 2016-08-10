@@ -31,8 +31,6 @@ import com.manulaiko.tabitha.utils.Point;
  *     }
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator
  */
 public class Portal
 {

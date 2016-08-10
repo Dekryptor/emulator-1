@@ -38,8 +38,6 @@ import java.util.regex.Matcher;
  *
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.filesystem
  */
 public class Directory
 {

@@ -26,8 +26,6 @@ import com.manulaiko.tabitha.configuration.IniConfiguration;
  * and is instanced depending on file extension.
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha
  */
 public class Configuration
 {

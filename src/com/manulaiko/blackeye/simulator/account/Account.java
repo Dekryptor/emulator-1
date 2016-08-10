@@ -14,8 +14,6 @@ import com.manulaiko.blackeye.simulator.level.Level;
  * Account class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.account
  */
 public class Account
 {

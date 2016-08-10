@@ -4,8 +4,6 @@ package com.manulaiko.tabitha.utils;
  * Command interface
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.utils
  */
 public interface ICommand
 {

@@ -4,8 +4,6 @@ package com.manulaiko.blackeye.simulator.clan;
  * Clan class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.clan
  */
 public class Clan
 {

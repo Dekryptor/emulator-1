@@ -9,8 +9,6 @@ import com.manulaiko.tabitha.Console;
  * Item class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.item
  */
 public class Item
 {

@@ -6,8 +6,6 @@ package com.manulaiko.tabitha.exceptions.database;
  * Occurs when couldn't connect to Database
  *
  * @author Manulaiko <manulaiko@gmail.com>
- * 
- * @package com.manulaiko.tabitha.exceptions.database
  */
 public class ConnectionFailed extends Exception
 {

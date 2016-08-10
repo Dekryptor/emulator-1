@@ -11,8 +11,6 @@ import com.manulaiko.tabitha.exceptions.filesystem.FileIsDirectory;
  * Serves as interface for all configuration object
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.configuration
  */
 public interface IConfiguration
 {

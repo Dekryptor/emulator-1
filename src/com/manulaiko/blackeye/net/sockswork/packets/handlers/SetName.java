@@ -8,8 +8,6 @@ import com.manulaiko.blackeye.launcher.ServerManager;
  * Sets account's name
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.sockswork.packets.handlers
  */
 public class SetName extends com.manulaiko.blackeye.net.sockswork.packets.Packet
 {

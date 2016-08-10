@@ -21,8 +21,6 @@ import com.manulaiko.tabitha.Console;
  * Handles client connection and parses packets
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.game
  */
 public class Connection extends com.manulaiko.tabitha.net.Connection
 {

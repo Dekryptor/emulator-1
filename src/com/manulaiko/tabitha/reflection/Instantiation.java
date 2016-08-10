@@ -25,8 +25,6 @@ import com.manulaiko.tabitha.Console;
  *     TestObject obj = (TestObject) Instantiation.instance(name);
  * 
  * @author Manulaiko <manulaiko@gmail.com>
- * 
- * @package com.manulaiko.tabitha.reflection
  */
 public class Instantiation
 {

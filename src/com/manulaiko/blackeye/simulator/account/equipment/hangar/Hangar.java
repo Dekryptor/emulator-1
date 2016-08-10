@@ -11,8 +11,6 @@ import com.manulaiko.blackeye.simulator.account.equipment.configuration.Configur
  * Hangar class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.account.equipment.hangar
  */
 public class Hangar
 {

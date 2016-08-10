@@ -6,8 +6,6 @@ package com.manulaiko.blackeye.launcher.commands;
  * Start specified server(s), read description for more.
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.launcher.commands
  */
 public class ReinitializeGameManagerCommand implements com.manulaiko.tabitha.utils.ICommand
 {

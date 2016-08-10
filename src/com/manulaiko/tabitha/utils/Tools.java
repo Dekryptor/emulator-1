@@ -8,8 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * Contains random methods and objects
  * 
  * @author Manulaiko <manulaiko@gmail.com>
- * 
- * @package com.manulaiko.tabitha.utils
  */
 public class Tools
 {

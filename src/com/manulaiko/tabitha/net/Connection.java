@@ -14,8 +14,6 @@ import com.manulaiko.tabitha.Console;
  * This class is used when the server accepts a connection
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.net
  */
 public abstract class Connection extends Thread
 {

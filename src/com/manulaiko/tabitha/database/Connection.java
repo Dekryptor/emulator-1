@@ -30,8 +30,6 @@ import com.manulaiko.tabitha.exceptions.database.ConnectionFailed;
  *     }
  * 
  * @author Manuliako <manulaiko@gmail.com>
- * 
- * @package com.manulaiko.tabitha.database
  */
 public class Connection
 {

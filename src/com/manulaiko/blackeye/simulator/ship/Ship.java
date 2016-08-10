@@ -8,8 +8,6 @@ import com.manulaiko.tabitha.Console;
  * Ship class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.ship
  */
 public class Ship
 {
@@ -124,8 +122,6 @@ public class Ship
      * Reward class
      *
      * @author Manulaiko
-     *
-     * @package com.manulaiko.blackeye.simulator.ship.Ship
      */
     public class Reward
     {

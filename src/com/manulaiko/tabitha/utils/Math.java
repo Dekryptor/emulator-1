@@ -6,8 +6,6 @@ package com.manulaiko.tabitha.utils;
  * Collection of different math helpers.
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.utils
  */
 public class Math
 {

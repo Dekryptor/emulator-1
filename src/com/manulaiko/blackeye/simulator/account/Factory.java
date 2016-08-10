@@ -17,8 +17,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Used for instance account objects with lazy-load
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.account
  */
 public class Factory
 {

@@ -9,8 +9,6 @@ import com.manulaiko.tabitha.Console;
  * Start specified server(s), read description for more.
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.launcher.commands
  */
 public class ReloadConfigurationCommand implements com.manulaiko.tabitha.utils.ICommand
 {

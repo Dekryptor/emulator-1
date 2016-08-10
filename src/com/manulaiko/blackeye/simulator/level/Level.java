@@ -4,8 +4,6 @@ package com.manulaiko.blackeye.simulator.level;
  * Level class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.level
  */
 public class Level
 {

@@ -13,8 +13,6 @@ import com.manulaiko.tabitha.utils.CommandPrompt;
  * Sets up everything to start BlackEye servers.
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.launcher
  */
 public class Main
 {

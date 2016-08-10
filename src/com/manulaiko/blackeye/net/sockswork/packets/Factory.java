@@ -16,8 +16,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Factory for building packets and retrieving handlers
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.game.packets
  */
 public class Factory
 {

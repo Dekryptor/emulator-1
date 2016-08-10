@@ -40,8 +40,6 @@ import com.manulaiko.tabitha.exceptions.filesystem.DirectoryIsFile;
  *     Console.println(file.getContent());
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.filesystem
  */
 public class File
 {

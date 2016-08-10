@@ -4,8 +4,6 @@ package com.manulaiko.blackeye.simulator.account.equipment.item;
  * Item class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.account.equipment.item
  */
 public class Item
 {

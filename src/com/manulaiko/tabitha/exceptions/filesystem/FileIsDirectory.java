@@ -18,8 +18,6 @@ package com.manulaiko.tabitha.exceptions.filesystem;
  *     }
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.exceptions
  */
 public class FileIsDirectory extends Exception
 {

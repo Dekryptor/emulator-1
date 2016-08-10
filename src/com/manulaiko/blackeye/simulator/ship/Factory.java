@@ -16,8 +16,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Used for instance ship objects with lazy-load
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.ship
  */
 public class Factory
 {

@@ -10,8 +10,6 @@ import com.manulaiko.tabitha.Console;
  * Manages socket servers for game, chat and sockswork
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.launcher.commands
  */
 public class ServerManager
 {

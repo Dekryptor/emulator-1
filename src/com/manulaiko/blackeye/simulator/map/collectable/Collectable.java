@@ -12,8 +12,6 @@ import com.manulaiko.tabitha.utils.Point;
  * Collectable class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator
  */
 public class Collectable
 {
@@ -105,7 +103,7 @@ public class Collectable
      *
      * @author Manulaiko
      *
-     * @package com.manulaiko.blackeye.simulator.map.collectable.Collectable
+    } catch(Exception e) { }.map.collectable.Collectable
      */
     public class Reward
     {

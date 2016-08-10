@@ -13,8 +13,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Implements the builder design pattern
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.clan
  */
 public class Builder
 {

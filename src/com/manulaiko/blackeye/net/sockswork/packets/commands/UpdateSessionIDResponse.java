@@ -6,8 +6,6 @@ package com.manulaiko.blackeye.net.sockswork.packets.commands;
  * Sends the response of a UpdateSessionID packet
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.sockswork.packets.handlers
  */
 public class UpdateSessionIDResponse extends com.manulaiko.blackeye.net.sockswork.packets.Command
 {

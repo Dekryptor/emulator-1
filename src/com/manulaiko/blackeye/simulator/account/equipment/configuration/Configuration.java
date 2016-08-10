@@ -10,8 +10,6 @@ import com.manulaiko.tabitha.Console;
  * Configuration class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.account.equipment.configuration
  */
 public class Configuration
 {

@@ -8,8 +8,6 @@ import com.manulaiko.blackeye.net.game.utils.PacketParser;
  * All the commands extends this class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.game.packets.commands
  */
 public abstract class Command
 {

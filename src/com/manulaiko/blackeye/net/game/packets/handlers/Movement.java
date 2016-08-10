@@ -12,8 +12,6 @@ import com.manulaiko.tabitha.utils.Point;
  * Handles received movement packets
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.game.packets.handlers
  */
 public class Movement extends com.manulaiko.blackeye.net.game.packets.Packet
 {

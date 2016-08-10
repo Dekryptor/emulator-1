@@ -12,8 +12,6 @@ import com.manulaiko.tabitha.Console;
  * Starts sockswork server
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.sockswork
  */
 public class Server extends com.manulaiko.tabitha.net.Server
 {

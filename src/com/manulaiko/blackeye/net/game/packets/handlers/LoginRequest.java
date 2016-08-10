@@ -18,8 +18,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Handles a login request packet
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.game.packets.handlers
  */
 public class LoginRequest extends com.manulaiko.blackeye.net.game.packets.Packet
 {

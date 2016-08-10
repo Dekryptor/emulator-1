@@ -14,8 +14,6 @@ package com.manulaiko.tabitha.exceptions.configuration;
  *     }
  *
  * @author Manulaiko <manulaiko@gmail.com>
- * 
- * @package com.manulaiko.tabitha.exceptions.configuration
  */
 public class UnsupportedType extends Exception
 {

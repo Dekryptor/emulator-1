@@ -8,8 +8,6 @@ import com.manulaiko.blackeye.launcher.GameManager;
  * Saves changes to database, read description for more.
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.launcher.commands
  */
 public class SaveCommand implements com.manulaiko.tabitha.utils.ICommand
 {

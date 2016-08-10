@@ -13,8 +13,6 @@ import com.manulaiko.tabitha.utils.Point;
  * Ship class
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.account.equipment.ship
  */
 public class Ship
 {

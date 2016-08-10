@@ -19,8 +19,6 @@ package com.manulaiko.tabitha.exceptions;
  *     }
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.exceptions
  */
 public class NotFound extends Exception
 {

@@ -8,8 +8,6 @@ import com.manulaiko.blackeye.launcher.ServerManager;
  * Sets account's data
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.sockswork.packets.handlers
  */
 public class GetData extends com.manulaiko.blackeye.net.sockswork.packets.Packet
 {

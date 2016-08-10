@@ -12,8 +12,6 @@ import com.manulaiko.tabitha.Console;
  * Starts game server
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.game
  */
 public class Server extends com.manulaiko.tabitha.net.Server
 {

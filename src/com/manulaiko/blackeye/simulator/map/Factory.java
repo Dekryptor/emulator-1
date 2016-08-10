@@ -16,8 +16,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Used for instance map objects with lazy-load
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.map
  */
 public class Factory
 {

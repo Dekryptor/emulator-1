@@ -17,8 +17,6 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  * Sets account's factionID
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.net.sockswork.packets.handlers
  */
 public class SetFactionID extends Packet
 {

@@ -13,8 +13,6 @@ import com.manulaiko.tabitha.utils.Tools;
  * It has methods for printing strings and reading input.
  * 
  * @author Manulaiko
- *
- * @package com.manulaiko.tabitha
  */
 public class Console
 {    

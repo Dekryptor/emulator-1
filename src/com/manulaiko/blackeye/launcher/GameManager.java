@@ -8,8 +8,6 @@ import com.manulaiko.tabitha.Console;
  * Loads database and manages the data used by the servers
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.launcher
  */
 public class GameManager
 {

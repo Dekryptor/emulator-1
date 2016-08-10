@@ -6,8 +6,6 @@ package com.manulaiko.blackeye.net.game.packets.commands;
  * Builds the Create station command
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *     
- * @package com.manulaiko.blackeye.net.game.packets.commands
  */
 public class CreateStation extends com.manulaiko.blackeye.net.game.packets.Command
 {

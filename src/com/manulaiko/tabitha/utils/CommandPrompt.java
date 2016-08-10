@@ -10,8 +10,6 @@ import java.util.ArrayList;
  * Offers an easy way to interact with the application with the use of commands
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.launcher
  */
 public class CommandPrompt
 {

@@ -22,8 +22,6 @@ import com.manulaiko.tabitha.utils.Point;
  * Implements the builder design pattern
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.blackeye.simulator.map
  */
 public class Builder
 {

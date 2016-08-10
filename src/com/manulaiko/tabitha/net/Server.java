@@ -61,8 +61,6 @@ import com.manulaiko.tabitha.Console;
  *     server.start();
  *
  * @author Manulaiko <manulaiko@gmail.com>
- *
- * @package com.manulaiko.tabitha.net
  */
 public abstract class Server implements Runnable
 {
