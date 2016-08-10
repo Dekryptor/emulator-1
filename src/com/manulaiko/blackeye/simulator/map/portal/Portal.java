@@ -130,7 +130,6 @@ public class Portal
         p.x            = this.position.getX();
         p.y            = this.position.getY();
         p.isVisible    = this.isVisible;
-        p.isWorking    = this.isWorking;
         p.factionScrap = this.factionScrap;
 
         return p;

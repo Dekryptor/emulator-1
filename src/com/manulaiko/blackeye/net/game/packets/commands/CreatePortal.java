@@ -14,7 +14,9 @@ public class CreatePortal extends com.manulaiko.blackeye.net.game.packets.Comman
     //////////////////
     // Start params //
     //////////////////
-    public int id, x, y, gfx, ptarid;
+    public int id, x, y, gfx, factionScrap;
+
+    public boolean isVisible;
     ////////////////
     // End params //
     ////////////////
@@ -27,9 +29,10 @@ public class CreatePortal extends com.manulaiko.blackeye.net.game.packets.Comman
         this._packet.add("p");
         this._packet.add(this.id);
         this._packet.add(this.gfx);
-        this._packet.add(this.ptarid);
         this._packet.add(this.x);
         this._packet.add(this.y);
+        this._packet.add(this.isVisible);
+        this._packet.add(this.factionScrap);
 
         return this._packet.toString();
     }
