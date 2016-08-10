@@ -82,6 +82,21 @@ public class Ship
     public boolean isCloaked = false;
 
     /**
+     * Whether the ship is moving or not
+     */
+    public boolean isMoving = false;
+
+    /**
+     * Whether the ship is in a demilitarized zone or not
+     */
+    public boolean isInDMZ = false;
+
+    /**
+     * Whether the ship can be equipped or not
+     */
+    public boolean canEquip = false;
+
+    /**
      * Near accounts
      */
     public HashMap<Integer, Account> nearAccounts = new HashMap<>();
@@ -150,5 +165,17 @@ public class Ship
     public void setMap(Map map)
     {
         this.map = map;
+    }
+
+    /**
+     * Updates the ship
+     */
+    public void update()
+    {
+        if(!this.isMoving) {
+            return;
+        }
+
+        // TODO Update ship movement
     }
 }

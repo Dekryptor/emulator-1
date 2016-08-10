@@ -10,6 +10,7 @@ import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packets.commands.*;
 
+import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
@@ -418,5 +419,132 @@ public class Map
                 value.send(packet);
             }
         });
+    }
+
+    /**
+     * Updates the map
+     */
+    public void update()
+    {
+        this.updateAccounts();
+        this.updateNPCs();
+    }
+
+    /**
+     * Updates accounts' status
+     */
+    public void updateAccounts()
+    {
+        this.accounts.forEach((key, value) -> {
+            value.account.update();
+
+            this.sendNearAccounts(value.account);
+            this.sendNearNPCs(value.account);
+
+            if(value.account.hangar.ship.isMoving) {
+                this.checkDMZ(value.account);
+            }
+        });
+    }
+
+    /**
+     * Updates NPCs' status
+     */
+    public void updateNPCs()
+    {
+        this.npcs.forEach((key, value) -> {
+
+        });
+    }
+
+    /**
+     * Sends near accounts
+     *
+     * @param account Main account
+     */
+    public void sendNearAccounts(Account account)
+    {
+        Point position = account.hangar.ship.position;
+        Point distance = new Point(position.getX() + 1000, position.getY() + 1000);
+
+        this.accounts.forEach((key, value) -> {
+            if(key != account.id) {
+                if(value.account.hangar.ship.position.isInRange(position, distance)) {
+                    account.hangar.ship.nearAccounts.put(value.account.id, value.account);
+
+                    account.connection.send(value.account.getCreateShipCommand().toString());
+                } else if(account.hangar.ship.nearAccounts.containsKey(key)) {
+                    account.hangar.ship.nearAccounts.remove(key);
+
+                    RemoveShip p = (RemoveShip) ServerManager.game.packetFactory.getCommandByName("RemoveShip");
+                    p.id = key;
+
+                    account.connection.send(p.toString());
+                }
+            }
+        });
+    }
+
+    /**
+     * Sends near NPCs
+     *
+     * @param account Main account
+     */
+    public void sendNearNPCs(Account account)
+    {
+        Point position = account.hangar.ship.position;
+        Point distance = new Point(position.getX() + 1000, position.getY() + 1000);
+
+        this.npcs.forEach((key, value) -> {
+            if(value.position.isInRange(position, distance)) {
+                account.hangar.ship.nearNPCs.put(key, value);
+
+                account.connection.send(value.getCreateShipCommand().toString());
+            } else if(account.hangar.ship.nearNPCs.containsKey(key)) {
+                account.hangar.ship.nearNPCs.remove(key);
+
+                RemoveShip p = (RemoveShip) ServerManager.game.packetFactory.getCommandByName("RemoveShip");
+                p.id = key;
+
+                account.connection.send(p.toString());
+            }
+        });
+    }
+
+    /**
+     * Checks if the account is in a demilitarized zone
+     *
+     * @param account Main account
+     */
+    public void checkDMZ(Account account)
+    {
+        Point   position = account.hangar.ship.position;
+        Point   distance = new Point(position.getX() + 1000, position.getY() + 1000);
+        boolean isInDMZ  = false;
+        boolean canEquip = false;
+
+        for(Portal p : this.portals.values()) {
+            if(p.position.isInRange(position, distance)) {
+                isInDMZ  = true;
+                canEquip = true;
+            }
+        }
+
+        if(!isInDMZ) {
+            for(Station s : this.stations) {
+                if(s.position.isInRange(position, distance)) {
+                    isInDMZ = true;
+
+                    break;
+                }
+            }
+        }
+
+        account.hangar.ship.isInDMZ  = isInDMZ;
+        account.hangar.ship.canEquip = canEquip;
+
+        if(isInDMZ) {
+            // TODO Send packets
+        }
     }
 }

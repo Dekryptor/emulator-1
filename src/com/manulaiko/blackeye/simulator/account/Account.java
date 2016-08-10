@@ -242,4 +242,14 @@ public class Account
 
         return p;
     }
+
+    /**
+     * Updates the account
+     */
+    public void update()
+    {
+        this.hangar.ship.update();
+
+        // TODO Update attack
+    }
 }

@@ -9,8 +9,13 @@ import com.manulaiko.tabitha.Console;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class GameManager
+public class GameManager extends Thread
 {
+    /**
+     * Optimal time on which the game should be updated
+     */
+    public static final double OPTIMAL_TIME = 1000000000 / 60;
+
     ///////////////////////////
     // Start Collection Maps //
     ///////////////////////////
@@ -129,6 +134,11 @@ public class GameManager
                     Console.println(GameManager.clans.getAmount() +" clans loaded!");
                 }
             }
+
+            Console.println("Starting GameManager thread...");
+            Thread t = new Thread(new GameManager(), "GAME MANAGER THREAD");
+            t.start();
+            Console.println("GameManager thread started!");
         } catch(Exception e) {
             return false;
         }
@@ -142,5 +152,39 @@ public class GameManager
     public static void save()
     {
         Console.println("TODO, complete the GameManager.save method");
+    }
+
+    /**
+     * Updates the game
+     */
+    public void run()
+    {
+        boolean isRunning = true;
+        double  delta     = 0D;
+
+        long lastTime = System.nanoTime();
+
+        while (isRunning) {
+            long now = System.nanoTime();
+            long lastTickDuration = now - lastTime;
+
+            delta += lastTickDuration / GameManager.OPTIMAL_TIME;
+            lastTime = now;
+
+            while (delta >= 1) {
+                this.update();
+                delta--;
+            }
+        }
+    }
+
+    /**
+     * Performs the update
+     */
+    public void update()
+    {
+        GameManager.maps.getAllMaps().forEach((key, value) -> {
+            value.update();
+        });
     }
 }
