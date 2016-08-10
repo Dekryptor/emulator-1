@@ -1,4 +1,4 @@
-package com.manulaiko.blackeye.simulator.collectable;
+package com.manulaiko.blackeye.simulator.map.collectable;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ import com.manulaiko.tabitha.exceptions.NotFound;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  *
- * @package com.manulaiko.blackeye.simulator.collectable
+ * @package com.manulaiko.blackeye.simulator.map.collectable
  */
 public class Factory
 {

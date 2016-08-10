@@ -1,4 +1,4 @@
-package com.manulaiko.blackeye.simulator.collectable;
+package com.manulaiko.blackeye.simulator.map.collectable;
 
 import java.sql.ResultSet;
 
@@ -14,7 +14,7 @@ import com.manulaiko.tabitha.utils.Point;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  *
- * @package com.manulaiko.blackeye.simulator.collectable
+ * @package com.manulaiko.blackeye.simulator.map.collectable
  */
 public class Builder
 {

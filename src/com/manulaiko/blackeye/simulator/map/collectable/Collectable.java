@@ -1,4 +1,4 @@
-package com.manulaiko.blackeye.simulator.collectable;
+package com.manulaiko.blackeye.simulator.map.collectable;
 
 import java.util.ArrayList;
 
@@ -105,7 +105,7 @@ public class Collectable
      *
      * @author Manulaiko
      *
-     * @package com.manulaiko.blackeye.simulator.collectable.Collectable
+     * @package com.manulaiko.blackeye.simulator.map.collectable.Collectable
      */
     public class Reward
     {

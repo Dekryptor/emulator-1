@@ -1,6 +1,10 @@
 package com.manulaiko.blackeye.simulator.account;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+
 import com.manulaiko.blackeye.net.game.Connection;
+import com.manulaiko.blackeye.net.game.packets.commands.CreateShip;
+import com.manulaiko.blackeye.net.game.packets.commands.ShipInitialization;
 
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.clan.Clan;
@@ -169,5 +173,75 @@ public class Account
     public void setLevel(Level level)
     {
         this.level = level;
+    }
+
+    /**
+     * Builds and returns the ShipInitialization packet
+     *
+     * @return Ship initialization packet
+     */
+    public ShipInitialization getShipInitializationCommand()
+    {
+        ShipInitialization p = (ShipInitialization) ServerManager.game.packetFactory.getCommandByName("ShipInitialization");
+
+        p.id         = this.id;
+        p.name       = this.name;
+        p.shipID     = this.hangar.ship.id;
+        p.speed      = this.hangar.getSpeed();
+        p.shield     = this.hangar.getShield();
+        p.maxShield  = this.hangar.getMaxShield();
+        p.health     = this.hangar.getHealth();
+        p.maxHealth  = this.hangar.getMaxHealth();
+        p.cargo      = this.hangar.getCargo();
+        p.maxCargo   = this.hangar.getMaxCargo();
+        p.x          = this.hangar.ship.position.getX();
+        p.y          = this.hangar.ship.position.getY();
+        p.mapID      = this.hangar.ship.mapID;
+        p.factionID  = this.factionsID;
+        p.clanID     = this.clan.id;
+        p.batteries  = this.hangar.getBatteriesAmount();
+        p.rockets    = this.hangar.getRocketsAmount();
+        p.oState     = this.hangar.getExpansions();
+        p.isPremium  = this.isPremium;
+        p.experience = this.experience;
+        p.honor      = this.honor;
+        p.levelID    = this.level.id;
+        p.credits    = this.credits;
+        p.uridium    = this.uridium;
+        p.jackpot    = this.jackpot;
+        p.rankID     = this.ranksID;
+        p.clanTag    = this.clan.tag;
+        p.ggRings    = 4;
+        p.useSysFont = 1; //No idea
+
+        return p;
+    }
+
+    /**
+     * Builds and returns CreateShip packet
+     *
+     * @return Create ship packet
+     */
+    public CreateShip getCreateShipCommand()
+    {
+        CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
+
+        p.id            = this.id;
+        p.shipID        = this.hangar.ship.ship.id;
+        p.expansion     = this.hangar.getExpansions();
+        p.clanTag       = this.clan.tag;
+        p.name          = this.name;
+        p.x             = this.hangar.ship.position.getX();
+        p.y             = this.hangar.ship.position.getY();
+        p.factionID     = this.factionsID;
+        p.clanID        = this.clansID;
+        p.rankID        = this.ranksID;
+        p.warningIcon   = false;
+        p.clanDiplomacy = 0;
+        p.ggRings       = 0;
+        p.isNPC         = false;
+        p.isCloaked     = this.hangar.ship.isCloaked;
+
+        return p;
     }
 }

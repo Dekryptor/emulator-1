@@ -1,6 +1,11 @@
 package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
+import java.util.HashMap;
+
+import com.manulaiko.blackeye.simulator.account.Account;
+import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.map.Map;
+import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 
 import com.manulaiko.tabitha.utils.Point;
 
@@ -74,9 +79,24 @@ public class Ship
     public int activeConfiguration;
 
     /**
-     * Wether ship is cloaked or not
+     * Whether ship is cloaked or not
      */
     public boolean isCloaked = false;
+
+    /**
+     * Near accounts
+     */
+    public HashMap<Integer, Account> nearAccounts = new HashMap<>();
+
+    /**
+     * Near NPCs
+     */
+    public HashMap<Integer, NPC> nearNPCs = new HashMap<>();
+
+    /**
+     * Near collectables
+     */
+    public HashMap<Integer, Collectable> nearCollectables = new HashMap<>();
 
     /**
      * Constructor

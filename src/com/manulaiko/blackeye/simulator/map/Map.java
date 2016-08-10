@@ -12,7 +12,7 @@ import com.manulaiko.blackeye.net.game.packets.commands.*;
 
 import com.manulaiko.blackeye.simulator.portal.Portal;
 import com.manulaiko.blackeye.simulator.npc.NPC;
-import com.manulaiko.blackeye.simulator.collectable.Collectable;
+import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 import com.manulaiko.blackeye.simulator.station.Station;
 import com.manulaiko.blackeye.simulator.account.Account;
 
@@ -140,7 +140,9 @@ public class Map
             id = 0;
         }
 
-        this.npcs.put(--id, npc);
+        npc.id = id;
+
+        this.npcs.put(id, npc);
     }
 
     /**
@@ -166,7 +168,9 @@ public class Map
             id = 0;
         }
 
-        this.collectables.put(id--, collectable);
+        collectable.id = id;
+
+        this.collectables.put(id, collectable);
     }
 
     /**
@@ -208,31 +212,13 @@ public class Map
      */
     public void sendNPCs(Connection connection)
     {
-        Point from = connection.account.hangar.ship.position;
-        Point to   = new Point(from.getX() + 1000, from.getY() + 1000);
+        //Point from = connection.account.hangar.ship.position;
+        //Point to   = new Point(from.getX() + 1000, from.getY() + 1000);
 
-        this.npcs.forEach((key, value) -> {
-            if(value.position.isInRange(from, to)) {
-                CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
+        connection.account.hangar.ship.nearNPCs.forEach((key, value) -> {
+            CreateShip p = value.getCreateShipCommand();
 
-                p.id = key;
-                p.shipID = value.gfx;
-                p.expansion = 0;
-                p.clanTag = "";
-                p.name = value.name;
-                p.x = value.position.getX();
-                p.y = value.position.getY();
-                p.factionID = 0;
-                p.clanID = 0;
-                p.rankID = 0;
-                p.warningIcon = false;
-                p.clanDiplomacy = 0;
-                p.ggRings = 0;
-                p.isNPC = true;
-                p.isCloaked = true;
-
-                connection.send(p.toString());
-            }
+            connection.send(p.toString());
         });
     }
 
@@ -243,59 +229,24 @@ public class Map
      */
     public void sendAccounts(Connection connection)
     {
-        this.accounts.forEach((key, value) -> {
-            Account a = value.account;
-
-            CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
-
-            p.id            = a.id;
-            p.shipID        = a.hangar.ship.ship.id;
-            p.expansion     = a.hangar.getExpansions();
-            p.clanTag       = a.clan.tag;
-            p.name          = a.name;
-            p.x             = (int)a.hangar.ship.position.getX();
-            p.y             = (int)a.hangar.ship.position.getY();
-            p.factionID     = a.factionsID;
-            p.clanID        = a.clansID;
-            p.rankID        = a.ranksID;
-            p.warningIcon   = false;
-            p.clanDiplomacy = 0;
-            p.ggRings       = 0;
-            p.isNPC         = false;
-            p.isCloaked     = a.hangar.ship.isCloaked;
+        connection.account.hangar.ship.nearAccounts.forEach((key, value) -> {
+            CreateShip p = value.getCreateShipCommand();
 
             // Set warning icon on minimap based on account's factionsID
-            if(a.factionsID != this.factionsID) {
+            if(p.factionID != this.factionsID) {
                 p.warningIcon = this.isStarter;
             }
 
             connection.send(p.toString());
 
-            // Now send hero's accounts to the other user
-            a = connection.account;
-
-            p.id            = a.id;
-            p.shipID        = a.hangar.ship.ship.id;
-            p.expansion     = a.hangar.getExpansions();
-            p.clanTag       = a.clan.tag;
-            p.name          = a.name;
-            p.x             = (int)a.hangar.ship.position.getX();
-            p.y             = (int)a.hangar.ship.position.getY();
-            p.factionID     = a.factionsID;
-            p.clanID        = a.clansID;
-            p.rankID        = a.ranksID;
-            p.warningIcon   = false;
-            p.clanDiplomacy = 0;
-            p.ggRings       = 0;
-            p.isNPC         = false;
-            p.isCloaked     = a.hangar.ship.isCloaked;
+            p = connection.account.getCreateShipCommand();
 
             // Set warning icon on minimap based on account's factionsID
-            if(a.factionsID != this.factionsID) {
+            if(p.factionID != this.factionsID) {
                 p.warningIcon = this.isStarter;
             }
 
-            value.send(p.toString());
+            value.connection.send(p.toString());
         });
     }
 

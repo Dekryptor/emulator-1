@@ -64,40 +64,8 @@ public class LoginRequest extends com.manulaiko.blackeye.net.game.packets.Packet
      */
     public void sendLoginData(Connection connection) throws NotFound
     {
-        ShipInitialization p = (ShipInitialization) ServerManager.game.packetFactory.getCommandByName("ShipInitialization");
-
-        p.id         = connection.account.id;
-        p.name       = connection.account.name;
-        p.shipID     = connection.account.hangar.ship.id;
-        p.speed      = connection.account.hangar.getSpeed();
-        p.shield     = connection.account.hangar.getShield();
-        p.maxShield  = connection.account.hangar.getMaxShield();
-        p.health     = connection.account.hangar.getHealth();
-        p.maxHealth  = connection.account.hangar.getMaxHealth();
-        p.cargo      = connection.account.hangar.getCargo();
-        p.maxCargo   = connection.account.hangar.getMaxCargo();
-        p.x          = (int)connection.account.hangar.ship.position.getX();
-        p.y          = (int)connection.account.hangar.ship.position.getY();
-        p.mapID      = connection.account.hangar.ship.mapID;
-        p.factionID  = connection.account.factionsID;
-        p.clanID     = connection.account.clan.id;
-        p.batteries  = connection.account.hangar.getBatteriesAmount();
-        p.rockets    = connection.account.hangar.getRocketsAmount();
-        p.oState     = connection.account.hangar.getExpansions();
-        p.isPremium  = connection.account.isPremium;
-        p.experience = connection.account.experience;
-        p.honor      = connection.account.honor;
-        p.levelID    = connection.account.level.id;
-        p.credits    = connection.account.credits;
-        p.uridium    = connection.account.uridium;
-        p.jackpot    = connection.account.jackpot;
-        p.rankID     = connection.account.ranksID;
-        p.clanTag    = connection.account.clan.tag;
-        p.ggRings    = 4;
-        p.useSysFont = 1; //No idea
-
         connection.send("0|A|SET|1|1|1|1|1|1|1|1|1|1|1|0|0|1|1|1|1|1|1|0|0|0|0|0|1");
-        connection.send(p.toString());
+        connection.send(connection.account.getShipInitializationCommand().toString());
         connection.send("0|m|1");
         connection.send("0|A|ADM|CLI|1");
 

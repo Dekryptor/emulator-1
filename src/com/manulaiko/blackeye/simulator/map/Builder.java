@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.launcher.GameManager;
-import com.manulaiko.blackeye.simulator.collectable.Collectable;
+import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.station.Station;
 import com.manulaiko.blackeye.simulator.portal.Portal;
