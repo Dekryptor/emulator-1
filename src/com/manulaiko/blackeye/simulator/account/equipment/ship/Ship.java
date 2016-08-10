@@ -1,8 +1,8 @@
 package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
-import java.awt.Point;
-
 import com.manulaiko.blackeye.simulator.map.Map;
+
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * Ship class

@@ -1,11 +1,6 @@
 package com.manulaiko.blackeye.simulator.station;
 
-import java.awt.Point;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.manulaiko.tabitha.Console;
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * Station class

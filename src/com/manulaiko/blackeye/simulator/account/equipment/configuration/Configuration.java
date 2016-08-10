@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 
+import com.manulaiko.tabitha.Console;
+
 /**
  * Configuration class
  *
@@ -182,15 +184,18 @@ public class Configuration
         double absorption = 0.00;
         int    shields    = 0;
 
-        /* TODO add shield absorption
         for(Item generator : this.generators) {
             if(generator.item.category.equalsIgnoreCase("generator_shield")) {
 
             }
-            absorption += shield.absorption;
-            shields    += 1;
-        }*/
-
+            try {
+                absorption += generator.item.extras.getDouble("absorption");
+                shields += 1;
+            } catch(Exception e) {
+                Console.println("Couldn't calculate shield absroption!");
+                Console.println(e.getMessage());
+            }
+        }
 
         return (absorption / shields);
     }

@@ -1,8 +1,6 @@
 package com.manulaiko.blackeye.simulator.map;
 
-import java.awt.Point;
 import java.sql.ResultSet;
-import java.util.Map.Entry;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.json.JSONArray;
@@ -16,6 +14,7 @@ import com.manulaiko.blackeye.simulator.station.Station;
 import com.manulaiko.blackeye.simulator.portal.Portal;
 
 import com.manulaiko.tabitha.Console;
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * Map builder class

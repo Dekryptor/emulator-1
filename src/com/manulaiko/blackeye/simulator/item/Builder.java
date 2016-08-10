@@ -37,7 +37,8 @@ public class Builder
                     rs.getString("category"),
                     rs.getInt("price"),
                     rs.getBoolean("is_elite"),
-                    rs.getInt("value")
+                    rs.getInt("value"),
+                    rs.getString("extras")
             );
         } catch(Exception e) {
             Console.println("Couldn't build item!");
@@ -62,7 +63,8 @@ public class Builder
                     item.category,
                     item.price,
                     item.isElite,
-                    item.value
+                    item.value,
+                    item.extrasJSON
             );
         } catch(Exception e) {
             Console.println("Couldn't clone item!");

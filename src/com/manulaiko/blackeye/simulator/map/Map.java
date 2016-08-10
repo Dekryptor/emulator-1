@@ -1,9 +1,7 @@
 package com.manulaiko.blackeye.simulator.map;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import org.json.JSONArray;
 
@@ -18,7 +16,9 @@ import com.manulaiko.blackeye.simulator.collectable.Collectable;
 import com.manulaiko.blackeye.simulator.station.Station;
 import com.manulaiko.blackeye.simulator.account.Account;
 
+
 import com.manulaiko.tabitha.Console;
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * Map class
@@ -140,7 +140,7 @@ public class Map
             id = 0;
         }
 
-        this.npcs.put(id--, npc);
+        this.npcs.put(--id, npc);
     }
 
     /**
@@ -208,26 +208,31 @@ public class Map
      */
     public void sendNPCs(Connection connection)
     {
+        Point from = connection.account.hangar.ship.position;
+        Point to   = new Point(from.getX() + 1000, from.getY() + 1000);
+
         this.npcs.forEach((key, value) -> {
-            CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
+            if(value.position.isInRange(from, to)) {
+                CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
 
-            p.id            = key;
-            p.shipID        = value.gfx;
-            p.expansion     = 0;
-            p.clanTag       = "";
-            p.name          = value.name;
-            p.x             = (int)value.position.getX();
-            p.y             = (int)value.position.getY();
-            p.factionID     = 0;
-            p.clanID        = 0;
-            p.rankID        = 0;
-            p.warningIcon   = false;
-            p.clanDiplomacy = 0;
-            p.ggRings       = 0;
-            p.isNPC         = true;
-            p.isCloaked     = true;
+                p.id = key;
+                p.shipID = value.gfx;
+                p.expansion = 0;
+                p.clanTag = "";
+                p.name = value.name;
+                p.x = value.position.getX();
+                p.y = value.position.getY();
+                p.factionID = 0;
+                p.clanID = 0;
+                p.rankID = 0;
+                p.warningIcon = false;
+                p.clanDiplomacy = 0;
+                p.ggRings = 0;
+                p.isNPC = true;
+                p.isCloaked = true;
 
-            connection.send(p.toString());
+                connection.send(p.toString());
+            }
         });
     }
 
@@ -453,6 +458,29 @@ public class Map
     {
         this.accounts.forEach((key, value) -> {
             if(value.id != id) {
+                value.send(packet);
+            }
+        });
+    }
+
+    /**
+     * Broadcasts a packet to nearest connections.
+     *
+     * Sends a packet to all accounts in the map that are between `from` and `to`.
+     *
+     * Example:
+     * Broadcast a packet to all positions between 0/0 and 1000/1000.
+     *
+     *     map.broadcastPacketInRange("packet", new Point(0, 0), new Point(1000, 1000));
+     *
+     * @param packet Packet to send
+     * @param from   Starting position
+     * @param to     How far the packet should be sent away from `from`
+     */
+    public void broadcastPacketInRange(String packet, Point from, Point to)
+    {
+        this.accounts.forEach((key, value) -> {
+            if(value.account.hangar.ship.position.isInRange(from, to)) {
                 value.send(packet);
             }
         });

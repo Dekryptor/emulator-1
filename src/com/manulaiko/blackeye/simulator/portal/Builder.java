@@ -1,11 +1,11 @@
 package com.manulaiko.blackeye.simulator.portal;
 
-import java.awt.Point;
 import java.sql.ResultSet;
 
 import org.json.JSONArray;
 
 import com.manulaiko.tabitha.Console;
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * Portal builder class

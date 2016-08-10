@@ -1,17 +1,11 @@
 package com.manulaiko.blackeye.simulator.npc;
 
-import java.awt.Point;
 import java.sql.ResultSet;
-import java.util.Map.Entry;
-import java.util.concurrent.ThreadLocalRandom;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.manulaiko.blackeye.launcher.Main;
-import com.manulaiko.blackeye.launcher.GameManager;
-
 import com.manulaiko.tabitha.Console;
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * NPC builder class

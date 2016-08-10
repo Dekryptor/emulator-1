@@ -1,12 +1,12 @@
 package com.manulaiko.blackeye.simulator.collectable;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.manulaiko.tabitha.Console;
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * Collectable class

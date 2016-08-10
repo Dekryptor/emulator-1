@@ -1,6 +1,5 @@
 package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
-import java.awt.Point;
 import java.sql.ResultSet;
 
 import org.json.JSONArray;
@@ -8,6 +7,7 @@ import org.json.JSONArray;
 import com.manulaiko.blackeye.launcher.GameManager;
 
 import com.manulaiko.tabitha.Console;
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * Ship builder class

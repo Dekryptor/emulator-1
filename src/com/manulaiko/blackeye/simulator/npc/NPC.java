@@ -1,12 +1,12 @@
 package com.manulaiko.blackeye.simulator.npc;
 
-import java.awt.Point;
 import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.manulaiko.tabitha.Console;
+import com.manulaiko.tabitha.utils.Point;
 
 /**
  * NPC class
