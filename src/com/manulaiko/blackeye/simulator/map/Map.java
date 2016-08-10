@@ -502,7 +502,10 @@ public class Map
                 if(!(account.hangar.ship.nearNPCs.containsKey(key))) {
                     account.hangar.ship.nearNPCs.put(key, value);
 
-                    account.connection.send(value.getCreateShipCommand().toString());
+                    CreateShip p = value.getCreateShipCommand();
+                    p.id = key;
+
+                    account.connection.send(p.toString());
                 }
             } else if(account.hangar.ship.nearNPCs.containsKey(key)) {
                 account.hangar.ship.nearNPCs.remove(key);
