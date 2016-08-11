@@ -22,26 +22,45 @@ public class Movement extends com.manulaiko.blackeye.net.game.packets.Packet
      */
     public void handle(Connection connection)
     {
-        int speed = connection.account.hangar.getSpeed();
+        Point newPosition = new Point(this._packet.readInt(), this._packet.readInt());
+        Point oldPosition = new Point(this._packet.readInt(), this._packet.readInt());
 
-        com.manulaiko.tabitha.utils.Point oldPosition = new com.manulaiko.tabitha.utils.Point(this._packet.readInt(), this._packet.readInt());
-        com.manulaiko.tabitha.utils.Point newPosition = new com.manulaiko.tabitha.utils.Point(this._packet.readInt(), this._packet.readInt());
+        long time    = this.getDuration(oldPosition, newPosition, connection);
+        long endTime = System.currentTimeMillis() + time;
 
-        com.manulaiko.tabitha.utils.Point direction = new com.manulaiko.tabitha.utils.Point(
+        Move p = (Move) ServerManager.game.packetFactory.getCommandByName("Move");
+        p.id   = connection.account.id;
+        p.newX = newPosition.getX();
+        p.newY = newPosition.getY();
+        p.time = time;
+
+        connection.account.hangar.ship.map.broadcastPacket(p.toString(), connection.account.id);
+
+        connection.account.hangar.ship.newPosition = newPosition;
+        connection.account.hangar.ship.isMoving    = true;
+        connection.account.hangar.ship.time        = time;
+        connection.account.hangar.ship.endTime     = endTime;
+    }
+
+    /**
+     * Calculates and returns flight duration
+     *
+     * @param oldPosition Old position
+     * @param newPosition New position
+     * @param connection  Connection that's flying
+     *
+     * @return Duration of the flight in milli seconds
+     */
+    public long getDuration(Point oldPosition, Point newPosition, Connection connection)
+    {
+        Point direction = new Point(
                 oldPosition.getX() - newPosition.getX(),
                 oldPosition.getY() - newPosition.getY()
         );
 
         double distance = oldPosition.distanceTo(direction);
-        double time     = (distance / (speed * 0.84412)) * 1000;
+        long   time     = (long)(distance * 1000.0D) / connection.account.hangar.getSpeed();
 
-        Move p = (Move) ServerManager.game.packetFactory.getCommandByName("Move");
-        p.id   = connection.account.id;
-        p.newX = (int)newPosition.getX();
-        p.newY = (int)newPosition.getY();
-        p.time = time;
-
-        connection.account.hangar.ship.map.broadcastPacket(p.toString(), connection.account.id);
-        connection.account.hangar.ship.position = new Point((int)newPosition.getX(), (int)newPosition.getY());
+        return time;
     }
 }

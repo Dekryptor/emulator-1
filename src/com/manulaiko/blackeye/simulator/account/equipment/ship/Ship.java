@@ -97,6 +97,21 @@ public class Ship
     public boolean canEquip = false;
 
     /**
+     * Destination position
+     */
+    public Point newPosition;
+
+    /**
+     * Flight time
+     */
+    public long time;
+
+    /**
+     * Flight end time
+     */
+    public long endTime;
+
+    /**
      * Near accounts
      */
     public HashMap<Integer, Account> nearAccounts = new HashMap<>();
@@ -176,6 +191,22 @@ public class Ship
             return;
         }
 
-        // TODO Update ship movement
+        long timeLeft = this.endTime - System.currentTimeMillis();
+
+        if(timeLeft > 0) {
+            Point distance = new Point(
+                    this.position.getX() - this.newPosition.getX(),
+                    this.position.getY() - this.newPosition.getY()
+            );
+
+            this.position = new Point(
+                    (int)((distance.getX() / time) * timeLeft),
+                    (int)((distance.getY() / time) * timeLeft)
+            );
+        } else {
+            com.manulaiko.tabitha.Console.println("Ship arrived destination!");
+            this.position = this.newPosition;
+            this.isMoving = false;
+        }
     }
 }

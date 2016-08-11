@@ -532,15 +532,15 @@ public class Map
 
         for(Portal p : this.portals.values()) {
             if(p.position.isInRange(position, distance)) {
-                isInDMZ  = true;
-                canEquip = true;
+                isInDMZ = true;
             }
         }
 
         if(!isInDMZ) {
             for(Station s : this.stations) {
                 if(s.position.isInRange(position, distance)) {
-                    isInDMZ = true;
+                    isInDMZ  = true;
+                    canEquip = true;
 
                     break;
                 }
