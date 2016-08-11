@@ -1,5 +1,7 @@
 package com.manulaiko.tabitha.utils;
 
+import com.manulaiko.tabitha.Console;
+
 /**
  * Point class helper
  *
@@ -139,10 +141,10 @@ public class Point
      */
     public double distanceTo(Point point)
     {
-        double dx = this.getX() - point.getX();
-        double dy = this.getX() - point.getX();
+        double x = this.getX() - point.getX();
+        double y = this.getX() - point.getX();
 
-        return java.lang.Math.sqrt((dx * dx) + (dy * dy));
+        return Math.hypotenuse(x, y);
     }
 
     /**
@@ -155,8 +157,11 @@ public class Point
      */
     public boolean isInRange(Point from, Point to)
     {
+        double x = this.getX() - from.getX();
+        double y = this.getY() - from.getY();
+
+        double position = Math.hypotenuse(x, y);
         double distance = from.distanceTo(to);
-        double position = (this.getX() - from.getX()) + (this.getY() - from.getY());
 
         return (position <= distance);
     }
@@ -166,7 +171,8 @@ public class Point
      *
      * @return The vector as a String
      */
-    @Override public String toString()
+    @Override
+    public String toString()
     {
         return this.getX() + "," + this.getY();
     }
@@ -185,8 +191,8 @@ public class Point
             Point v2d = (Point)obj;
 
             return (
-                    v2d.getX() == this.getX() &&
-                    v2d.getY() == this.getY()
+                v2d.getX() == this.getX() &&
+                v2d.getY() == this.getY()
             );
         }
 
