@@ -1,5 +1,7 @@
 package com.manulaiko.blackeye.launcher;
 
+import java.util.concurrent.ConcurrentLinkedDeque;
+
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -16,9 +18,14 @@ public class GameManager extends Thread
      */
     public static final double OPTIMAL_TIME = 1000000000 / 60;
 
-    ///////////////////////////
-    // Start Collection Maps //
-    ///////////////////////////
+    /**
+     * Packets to process
+     */
+    public static ConcurrentLinkedDeque<Runnable> queuedPackets = new ConcurrentLinkedDeque<>();
+
+    //////////////////////////
+    // Start Game Factories //
+    //////////////////////////
     /**
      * Accounts table
      */
@@ -63,9 +70,9 @@ public class GameManager extends Thread
      * Items table
      */
     public static com.manulaiko.blackeye.simulator.item.Factory items = new com.manulaiko.blackeye.simulator.item.Factory();
-    /////////////////////////
-    // End Collection Maps //
-    /////////////////////////
+    ////////////////////////
+    // End Game Factories //
+    ////////////////////////
 
     /**
      * Loads database data.
@@ -183,6 +190,14 @@ public class GameManager extends Thread
      */
     public void update()
     {
+        while(true) {
+            Runnable packet = GameManager.queuedPackets.poll();
+            if(packet == null) {
+                break;
+            }
+            packet.run();
+        }
+
         GameManager.maps.getAllMaps().forEach((key, value) -> {
             value.update();
         });

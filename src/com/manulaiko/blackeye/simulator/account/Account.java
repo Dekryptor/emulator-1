@@ -184,7 +184,7 @@ public class Account
 
         p.id         = this.id;
         p.name       = this.name;
-        p.shipID     = this.hangar.ship.id;
+        p.shipID     = 1;//this.hangar.ship.id;
         p.speed      = this.hangar.getSpeed();
         p.shield     = this.hangar.getShield();
         p.maxShield  = this.hangar.getMaxShield();

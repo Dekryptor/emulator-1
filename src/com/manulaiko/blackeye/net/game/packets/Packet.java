@@ -8,12 +8,17 @@ import com.manulaiko.blackeye.net.game.utils.PacketParser;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public abstract class Packet
+public abstract class Packet implements Runnable
 {
     /**
      * Packet parser object
      */
     protected PacketParser _packet;
+
+    /**
+     * Connection that received the packet
+     */
+    protected Connection _connection;
 
     /**
      * Sets the packet parser
@@ -23,6 +28,17 @@ public abstract class Packet
     public void setPacket(PacketParser packet)
     {
         this._packet = packet;
+    }
+
+    /**eric ||
+                    ar
+     * Sets the connection object
+     *
+     * @param connection Connection object
+     */
+    public void setConnection(Connection connection)
+    {
+        this._connection = connection;
     }
 
     /**
@@ -40,5 +56,13 @@ public abstract class Packet
     public String getName()
     {
         return this.getClass().getSimpleName();
+    }
+
+    /**
+     * Runs the packet
+     */
+    public void run()
+    {
+        this.handle(this._connection);
     }
 }

@@ -23,7 +23,9 @@ public class Movement extends com.manulaiko.blackeye.net.game.packets.Packet
     public void handle(Connection connection)
     {
         Point newPosition = new Point(this._packet.readInt(), this._packet.readInt());
-        Point oldPosition = new Point(this._packet.readInt(), this._packet.readInt());
+        Point oldPosition = connection.account.hangar.ship.position; //new Point(this._packet.readInt(), this._packet.readInt());
+
+        com.manulaiko.tabitha.Console.println("Old position: "+ oldPosition, " New position: "+ newPosition);
 
         long time    = this.getDuration(oldPosition, newPosition, connection);
         long endTime = System.currentTimeMillis() + time;
@@ -40,6 +42,8 @@ public class Movement extends com.manulaiko.blackeye.net.game.packets.Packet
         connection.account.hangar.ship.isMoving    = true;
         connection.account.hangar.ship.time        = time;
         connection.account.hangar.ship.endTime     = endTime;
+
+        com.manulaiko.tabitha.Console.println("Moving time: "+ time, " End time: "+ endTime);
     }
 
     /**

@@ -8,11 +8,11 @@ import java.net.Socket;
 import com.manulaiko.blackeye.simulator.account.Account;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.launcher.GameManager;
 
 import com.manulaiko.blackeye.net.game.packets.Packet;
 import com.manulaiko.blackeye.net.game.utils.PacketParser;
 
-import com.manulaiko.tabitha.exceptions.NotFound;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -177,7 +177,8 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
         Packet p = ServerManager.game.packetFactory.get(packet);
 
         if(p != null) {
-            p.handle(this);
+            p.setConnection(this);
+            GameManager.queuedPackets.offer(p);
         }
     }
 

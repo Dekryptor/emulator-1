@@ -199,14 +199,22 @@ public class Ship
                     this.position.getY() - this.newPosition.getY()
             );
 
-            this.position = new Point(
-                    (int)((distance.getX() / time) * timeLeft),
-                    (int)((distance.getY() / time) * timeLeft)
+            Point distanceLeft = new Point(
+                    (int)((distance.getX() / this.endTime) * timeLeft),
+                    (int)((distance.getY() / this.endTime) * timeLeft)
             );
+
+            this.position = new Point(
+                    this.newPosition.getX() - distanceLeft.getX(),
+                    this.newPosition.getY() - distanceLeft.getY()
+            );
+            com.manulaiko.tabitha.Console.println("Distance: "+ distance, " Distance left: "+ distanceLeft, " Position: "+ this.position, " End time: "+ this.endTime, " Time left: "+ timeLeft);
         } else {
             com.manulaiko.tabitha.Console.println("Ship arrived destination!");
             this.position = this.newPosition;
             this.isMoving = false;
+            this.time = 0;
+            this.endTime = 0;
         }
     }
 }

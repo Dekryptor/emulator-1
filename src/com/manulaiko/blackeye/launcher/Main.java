@@ -94,6 +94,7 @@ public class Main
         cp.addCommand(new com.manulaiko.blackeye.launcher.commands.ReinitializeGameManagerCommand());
         cp.addCommand(new com.manulaiko.blackeye.launcher.commands.ExitCommand());
         cp.addCommand(new com.manulaiko.blackeye.launcher.commands.SaveCommand());
+        cp.addCommand(new com.manulaiko.blackeye.launcher.commands.SendCommand());
 
         cp.start();
     }
