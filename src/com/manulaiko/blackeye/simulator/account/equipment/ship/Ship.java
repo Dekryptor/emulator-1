@@ -2,6 +2,8 @@ package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
 import java.util.HashMap;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.packets.commands.Move;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.map.Map;
@@ -208,7 +210,7 @@ public class Ship
                     this.newPosition.getX() - distanceLeft.getX(),
                     this.newPosition.getY() - distanceLeft.getY()
             );
-            com.manulaiko.tabitha.Console.println("Distance: "+ distance, " Distance left: "+ distanceLeft, " Position: "+ this.position, " End time: "+ this.endTime, " Time left: "+ timeLeft);
+            //com.manulaiko.tabitha.Console.println("Distance: "+ distance, " Distance left: "+ distanceLeft, " Position: "+ this.position, " End time: "+ this.endTime, " Time left: "+ timeLeft);
         } else {
             com.manulaiko.tabitha.Console.println("Ship arrived destination!");
             this.position = this.newPosition;

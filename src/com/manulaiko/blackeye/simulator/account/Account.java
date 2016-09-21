@@ -4,6 +4,7 @@ import com.manulaiko.blackeye.launcher.ServerManager;
 
 import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packets.commands.CreateShip;
+import com.manulaiko.blackeye.net.game.packets.commands.Move;
 import com.manulaiko.blackeye.net.game.packets.commands.ShipInitialization;
 
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
@@ -108,6 +109,11 @@ public class Account
     public Connection connection = null;
 
     /**
+     * Next movement ping.
+     */
+    private long _nextMovementPing = 0;
+
+    /**
      * Constructor
      *
      * @param id         Account ID
@@ -184,7 +190,7 @@ public class Account
 
         p.id         = this.id;
         p.name       = this.name;
-        p.shipID     = 1;//this.hangar.ship.id;
+        p.shipID     = this.hangar.ship.id;
         p.speed      = this.hangar.getSpeed();
         p.shield     = this.hangar.getShield();
         p.maxShield  = this.hangar.getMaxShield();
@@ -248,6 +254,21 @@ public class Account
      */
     public void update()
     {
+        if(this.hangar.ship.isMoving) {
+            if(System.currentTimeMillis() >= this._nextMovementPing) {
+                this._nextMovementPing = System.currentTimeMillis() + 1000;
+
+                Move packet = (Move)ServerManager.game.packetFactory.getCommandByName("Move");
+
+                packet.id   = this.id;
+                packet.newX = this.hangar.ship.position.getX();
+                packet.newY = this.hangar.ship.position.getY();
+                packet.time = 1000;
+
+                this.hangar.ship.map.broadcastPacket(packet.toString(), this.id);
+            }
+        }
+
         this.hangar.ship.update();
 
         // TODO Update attack
