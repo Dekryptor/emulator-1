@@ -47,7 +47,7 @@ public class LoginRequest extends com.manulaiko.blackeye.net.game.packets.Packet
                 }
             } else {
                 connection.send(
-                        ServerManager.game.packetFactory.getByName("InvalidSession")
+                        ServerManager.game.packetFactory.getCommandByName("InvalidSession")
                                                         .toString()
                 );
             }
