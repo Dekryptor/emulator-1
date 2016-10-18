@@ -2,6 +2,8 @@ BlackEye Emulator
 =================
 The best DarkOrbit private server.
 
+Current version: 0.0.0
+
 Emulator Structure
 ------------------
 
