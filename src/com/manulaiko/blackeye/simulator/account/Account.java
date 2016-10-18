@@ -190,7 +190,7 @@ public class Account
 
         p.id         = this.id;
         p.name       = this.name;
-        p.shipID     = this.hangar.ship.id;
+        p.shipID     = this.hangar.ship.ship.id;
         p.speed      = this.hangar.getSpeed();
         p.shield     = this.hangar.getShield();
         p.maxShield  = this.hangar.getMaxShield();
@@ -254,7 +254,7 @@ public class Account
      */
     public void update()
     {
-        if(this.hangar.ship.isMoving) {
+        /*if(this.hangar.ship.isMoving) {
             if(System.currentTimeMillis() >= this._nextMovementPing) {
                 this._nextMovementPing = System.currentTimeMillis() + 1000;
 
@@ -267,7 +267,7 @@ public class Account
 
                 this.hangar.ship.map.broadcastPacket(packet.toString(), this.id);
             }
-        }
+        }*/
 
         this.hangar.ship.update();
 

@@ -24,7 +24,7 @@ public class Ping extends com.manulaiko.blackeye.net.game.packets.Packet
 
         connection.pings += 1;
         if(connection.pings >= Connection.MAX_PING_AMOUNT) {
-            connection.finish();
+            //connection.finish();
         }
     }
 }
