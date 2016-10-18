@@ -7,7 +7,8 @@ Current version: 0.0.0
 Emulator Structure
 ------------------
 
-The source files are under *src/* and are under the package *com.manulaiko.blackeye*. The main class is *com.manulaiko.blackeye.launcher.Main* and sets everything for starting the servers.
+The source files are under *src/* and are under the package *com.manulaiko.blackeye*.
+The main class is *com.manulaiko.blackeye.launcher.Main* and sets everything for starting the servers.
 
 Libraries Used
 --------------
@@ -19,5 +20,7 @@ The *.jar* files are located in *lib*.
 
 Emulator Build
 --------------
-The file `bin/emulator.jar` contains the latest working build, use it if you want to test it instead of compiling the sources.
-The file `bin/emulator_unstable.jar` contains the latest compilable build. Of course, it's full of bugs whenever I'm adding new features.
+The file `bin/emulator.jar` contains the latest working build, use it if you want to test it instead of compiling
+the sources.
+The file `bin/emulator_unstable.jar` contains the latest compilable build.
+Of course, it's full of bugs whenever I'm adding new features.
