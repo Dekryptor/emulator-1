@@ -7,7 +7,7 @@ Current version: 0.0.0
 Emulator Structure
 ------------------
 
-The source files are under *src/* and are under the package *com.manulaiko.balckeye*. The main class is *com.manulaiko.blackeye.launcher.Main* and sets everything for starting the servers.
+The source files are under *src/* and are under the package *com.manulaiko.blackeye*. The main class is *com.manulaiko.blackeye.launcher.Main* and sets everything for starting the servers.
 
 Libraries Used
 --------------
