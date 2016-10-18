@@ -19,4 +19,5 @@ The *.jar* files are located in *lib*.
 
 Emulator Build
 --------------
-The file `emulator.jar` contains the latest working build, use it if you want to test it instead of compiling the sources.
+The file `bin/emulator.jar` contains the latest working build, use it if you want to test it instead of compiling the sources.
+The file `bin/emulator_unstable.jar` contains the latest compilable build. Of course, it's full of bugs whenever I'm adding new features.
