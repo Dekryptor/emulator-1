@@ -106,7 +106,6 @@ public class Main
         try {
             Console.println("Stage 3: Initializing GameManager...");
 
-            // TODO make GameManager class
             if(!GameManager.initialize()) {
                 Console.println("Some data couldn't be loaded, check that database was properly imported.");
                 Console.println("BlackEye will continue executing, however it may (and proably will) fail. Good luck ;)");
