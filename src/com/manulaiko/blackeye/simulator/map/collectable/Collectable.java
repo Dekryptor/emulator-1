@@ -1,4 +1,4 @@
-package com.manulaiko.blackeye.simulator.collectable;
+package com.manulaiko.blackeye.simulator.map.collectable;
 
 import java.util.ArrayList;
 

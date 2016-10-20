@@ -11,7 +11,7 @@ For example, if the servers are running, close the servers and then exit.
 
 Thursday, October 20 2016
 -------------------------
-com.manulaiko.blackeye.simulator.collectable.Builder:67
+com.manulaiko.blackeye.simulator.map.collectable.Builder:67
 ```java
             ((Collectable)this._object).addReward(reward);
 ```
