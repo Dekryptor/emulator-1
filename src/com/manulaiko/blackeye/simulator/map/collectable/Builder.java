@@ -27,8 +27,6 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
 
     /**
      * Builds and returns a collectable.
-     *
-     * @return Collectable object.
      */
     public void build()
     {
