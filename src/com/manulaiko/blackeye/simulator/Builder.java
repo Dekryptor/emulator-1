@@ -37,8 +37,20 @@ public abstract class Builder
 
     /**
      * Builds the object.
+     */
+    public abstract void build();
+
+    /**
+     * Returns the object.
      *
      * @return The object.
      */
-    public abstract Object build();
+    public Object get()
+    {
+        if(this._object == null) {
+            this.build();
+        }
+
+        return this._object;
+    }
 }
