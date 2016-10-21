@@ -28,7 +28,7 @@ public class Main
      * Emulator version.
      *
      * Used for printing welcome message (and add more cool and useless
-     * commits while creating new releases with gitflow).
+     * commits while creating new releases with git-flow).
      *
      * @var Emulator version.
      */
@@ -108,7 +108,7 @@ public class Main
 
             if(!GameManager.initialize()) {
                 Console.println("Some data couldn't be loaded, check that database was properly imported.");
-                Console.println("BlackEye will continue executing, however it may (and proably will) fail. Good luck ;)");
+                Console.println("BlackEye will continue executing, however it may (and probably will) fail. Good luck ;)");
             }
         } catch(Exception e) {
             Main.exit(e.getMessage());
@@ -116,7 +116,7 @@ public class Main
 
         // 4th stage: CLI
         CommandPrompt cp = new CommandPrompt();
-        // TODO add commands, obviusly
+        // TODO add commands, obviously
         cp.start();
     }
 
