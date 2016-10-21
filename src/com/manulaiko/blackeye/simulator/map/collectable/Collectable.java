@@ -27,49 +27,49 @@ public class Collectable
     /////////////////////////
 
     /**
-     * Collectable ID
+     * Collectable ID.
      */
     public int id = 1;
 
     /**
-     * Graphic
+     * Graphic.
      */
     public int gfx = 1;
 
     /**
-     * Class
+     * Class.
      */
     public int classID = 1;
 
     /**
-     * Name
+     * Name.
      */
     public String name = "box0";
 
     /**
-     * Rewards JSON
+     * Rewards JSON.
      */
     public JSONArray rewardsJSON;
 
     /**
-     * Position
+     * Position.
      */
     public Point position = new Point(0, 0);
 
     /**
-     * Available rewards
+     * Available rewards.
      */
     public ArrayList<Reward> rewards = new ArrayList<>();
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param id       Collectable ID
-     * @param gfx      Graphic
-     * @param classID  Class
-     * @param name     Name
-     * @param rewards  Rewards JSON
-     * @param position Position
+     * @param id       Collectable ID.
+     * @param gfx      Graphic.
+     * @param classID  Class.
+     * @param name     Name.
+     * @param rewards  Rewards JSON.
+     * @param position Position.
      */
     public Collectable(int id, int gfx, int classID, String name, JSONArray rewards, Point position)
     {
@@ -82,7 +82,7 @@ public class Collectable
     }
 
     /**
-     * Adds a reward to the array
+     * Adds a reward to the array.
      */
     public void addReward(JSONObject reward)
     {
@@ -106,26 +106,26 @@ public class Collectable
     public class Reward
     {
         /**
-         * Item id
+         * Item id.
          */
         public int itemsID;
 
         /**
-         * Amount
+         * Amount.
          */
         public int amount;
 
         /**
-         * Probability
+         * Probability.
          */
         public double probability;
 
         /**
          * Constructor
          *
-         * @param itemsID     Item to award
-         * @param amount      Amount of items_id to award
-         * @param probability Chances of this reward being awarded
+         * @param itemsID     Item to award.
+         * @param amount      Amount of `items_id` to award.
+         * @param probability Chances of this reward being awarded.
          */
         public Reward(int itemsID, int amount, double probability)
         {

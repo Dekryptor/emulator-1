@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import com.manulaiko.tabitha.Console;
 
 /**
- * Collectable builder.
+ * Level builder.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
