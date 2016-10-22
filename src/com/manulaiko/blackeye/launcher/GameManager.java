@@ -97,13 +97,91 @@ public class GameManager extends Thread
      *
      * @throws Exception If essential data couldn't be loaded.
      */
-    public static boolean initialize()
+    public static boolean initialize() throws Exception
     {
-        boolean ret = true;
+        Console.println("Initializing GameManager...");
+        GameManager.loadNecessaryData();
 
-        // TODO Factories and flow
+        try {
+            GameManager.loadAdditionalData();
+        } catch(Exception e) {
+            Console.println("Additional data couldn't be loaded!");
+            Console.println("GameManager initialized!");
 
-        return ret;
+            return false;
+        }
+
+        Console.println("GameManager initialized!");
+
+        return true;
+    }
+
+    /**
+     * Initializes factories with necessary data.
+     *
+     * @throws Exception If any of the factories couldn't be loaded.
+     */
+    public static void loadNecessaryData() throws Exception
+    {
+        Console.println("Loading necessary data...");
+        Console.println(Console.LINE_EQ);
+
+        Console.println("Loading levels...");
+        GameManager.levels.initialize();
+        Console.println(GameManager.levels.getAll().size() +" levels loaded!");
+        Console.println(Console.LINE_MINUS);
+
+        Console.println("Loading items...");
+        GameManager.items.initialize();
+        Console.println(GameManager.items.getAll().size() +" items loaded!");
+        Console.println(Console.LINE_MINUS);
+
+        Console.println("Loading ships...");
+        GameManager.ships.initialize();
+        Console.println(GameManager.ships.getAll().size() +" ships loaded!");
+        Console.println(Console.LINE_MINUS);
+
+        Console.println("Loading maps...");
+        GameManager.maps.initialize();
+        Console.println(GameManager.maps.getAll().size() +" maps loaded!");
+        Console.println(Console.LINE_MINUS);
+    }
+
+    /**
+     * Initializes factories with additional data.
+     *
+     * @throws Exception If any of the factories couldn't be loaded.
+     */
+    public static void loadAdditionalData() throws Exception
+    {
+        Console.println("Loading additional data...");
+        Console.println(Console.LINE_EQ);
+
+        String[] additional = Main.configuration.getString("core.load_additional_data")
+                                                .split(" ");
+        for(String data : additional) {
+            if(data.equalsIgnoreCase("accounts")) {
+                Console.println("Loading accounts...");
+                GameManager.accounts.initialize();
+                Console.println(GameManager.accounts.getAll().size() +" accounts loaded!");
+                Console.println(Console.LINE_MINUS);
+            } else if(data.equalsIgnoreCase("clans")) {
+                Console.println("Loading clans...");
+                GameManager.clans.initialize();
+                Console.println(GameManager.clans.getAll().size() +" clans loaded!");
+                Console.println(Console.LINE_MINUS);
+            } else if(data.equalsIgnoreCase("npcs")) {
+                Console.println("Loading NPCs...");
+                GameManager.npcs.initialize();
+                Console.println(GameManager.npcs.getAll().size() +" NPCs loaded!");
+                Console.println(Console.LINE_MINUS);
+            } else if(data.equalsIgnoreCase("collectables")) {
+                Console.println("Loading collectables...");
+                GameManager.collectables.initialize();
+                Console.println(GameManager.collectables.getAll().size() +" collectables loaded!");
+                Console.println(Console.LINE_MINUS);
+            }
+        }
     }
 
     /**
