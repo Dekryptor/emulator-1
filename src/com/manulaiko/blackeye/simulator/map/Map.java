@@ -8,6 +8,7 @@ import com.manulaiko.blackeye.simulator.map.station.Station;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 
+import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
 /**
@@ -15,7 +16,7 @@ import com.manulaiko.tabitha.utils.Point;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Map
+public class Map implements Cloneable
 {
     /**
      * Map ID.
@@ -141,5 +142,37 @@ public class Map
     public void addStation(Station station)
     {
         this.stations.add(station);
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Map clone()
+    {
+        try {
+            Map m = (Map)super.clone();
+
+            this.npcs.forEach((i, n)->{
+                m.addNPC(n.clone());
+            });
+            this.stations.forEach((s)->{
+                m.addStation(s.clone());
+            });
+            this.portals.forEach((i, p)->{
+                m.addPortal(p.clone());
+            });
+            this.collectables.forEach((i, c)->{
+                m.addCollectable(c.clone());
+            });
+
+            return m;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone map!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

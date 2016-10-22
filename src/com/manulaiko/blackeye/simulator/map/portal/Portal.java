@@ -1,5 +1,6 @@
 package com.manulaiko.blackeye.simulator.map.portal;
 
+import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
 /**
@@ -9,7 +10,7 @@ import com.manulaiko.tabitha.utils.Point;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Portal
+public class Portal implements Cloneable
 {
     /**
      * Portal id.
@@ -89,5 +90,27 @@ public class Portal
         this.isWorking      = isWorking;
         this.factionScrap   = factionScrap;
         this.gfx            = gfx;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Portal clone()
+    {
+        try {
+            Portal p = (Portal) super.clone();
+
+            p.position       = new Point(this.position.getX(), this.position.getY());
+            p.targetPosition = new Point(this.targetPosition.getX(), this.targetPosition.getY());
+
+            return p;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone portal!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

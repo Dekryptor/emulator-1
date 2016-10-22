@@ -2,6 +2,7 @@ package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
 import com.manulaiko.blackeye.simulator.map.Map;
 
+import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
 /**
@@ -118,5 +119,28 @@ public class Ship
     public void setMap(Map map)
     {
         this.map = map;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Ship clone()
+    {
+        try {
+            Ship s = (Ship)super.clone();
+
+            s.setMap(this.map.clone());
+            s.setShip(this.ship.clone());
+            s.setPosition(new Point(this.position.getX(), this.position.getY()));
+
+            return s;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone ship!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

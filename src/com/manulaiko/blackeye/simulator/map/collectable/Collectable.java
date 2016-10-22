@@ -47,11 +47,6 @@ public class Collectable
     public String name = "box0";
 
     /**
-     * Rewards JSON.
-     */
-    public JSONArray rewardsJSON;
-
-    /**
      * Position.
      */
     public Point position = new Point(0, 0);
@@ -68,17 +63,15 @@ public class Collectable
      * @param gfx      Graphic.
      * @param classID  Class.
      * @param name     Name.
-     * @param rewards  Rewards JSON.
      * @param position Position.
      */
-    public Collectable(int id, int gfx, int classID, String name, JSONArray rewards, Point position)
+    public Collectable(int id, int gfx, int classID, String name, Point position)
     {
-        this.id          = id;
-        this.gfx         = gfx;
-        this.classID     = classID;
-        this.name        = name;
-        this.rewardsJSON = rewards;
-        this.position    = position;
+        this.id       = id;
+        this.gfx      = gfx;
+        this.classID  = classID;
+        this.name     = name;
+        this.position = position;
     }
 
     /**
@@ -99,11 +92,34 @@ public class Collectable
     }
 
     /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Collectable clone()
+    {
+        try {
+            Collectable c = (Collectable)super.clone();
+
+            c.position = new Point(this.position.getX(), this.position.getY());
+            this.rewards.forEach((r)->{
+                c.rewards.add(r.clone());
+            });
+
+            return c;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone station!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
+    }
+    /**
      * Reward class.
      *
      * @author Manulaiko <manulaiko@gmail.com>
      */
-    public class Reward
+    public class Reward implements Cloneable
     {
         /**
          * Item id.
@@ -132,6 +148,25 @@ public class Collectable
             this.itemsID     = itemsID;
             this.amount      = amount;
             this.probability = probability;
+        }
+
+        /**
+         * Clones the object.
+         *
+         * @return Cloned object.
+         */
+        public Reward clone()
+        {
+            try {
+                Reward r = (Reward)super.clone();
+
+                return r;
+            } catch(CloneNotSupportedException e) {
+                Console.println("Couldn't clone reward!");
+                Console.println(e.getMessage());
+
+                return null;
+            }
         }
     }
 }

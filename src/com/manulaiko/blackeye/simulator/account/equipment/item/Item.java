@@ -1,13 +1,14 @@
 package com.manulaiko.blackeye.simulator.account.equipment.item;
 
 import com.manulaiko.blackeye.simulator.level.Level;
+import com.manulaiko.tabitha.Console;
 
 /**
  * Item class
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Item
+public class Item implements Cloneable
 {
     /**
      * Item ID.
@@ -80,5 +81,27 @@ public class Item
     public void setLevel(Level level)
     {
         this.level = level;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Item clone()
+    {
+        try {
+            Item i = (Item)super.clone();
+
+            i.setLevel(this.level.clone());
+            i.setItem(this.item.clone());
+
+            return i;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone item!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

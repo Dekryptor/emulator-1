@@ -1,5 +1,6 @@
 package com.manulaiko.blackeye.simulator.item;
 
+import com.manulaiko.tabitha.Console;
 import org.json.JSONObject;
 
 /**
@@ -7,7 +8,7 @@ import org.json.JSONObject;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Item
+public class Item implements Cloneable
 {
     /**
      * Item ID
@@ -78,5 +79,26 @@ public class Item
         this.isElite  = isElite;
         this.value    = value;
         this.extras   = extras;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Item clone()
+    {
+        try {
+            Item i = (Item)super.clone();
+
+            i.extras = new JSONObject(this.extras.toString());
+
+            return i;
+        } catch(Exception e) {
+            Console.println("Couldn't clone item!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

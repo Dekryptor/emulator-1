@@ -2,13 +2,14 @@ package com.manulaiko.blackeye.simulator.account;
 
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
+import com.manulaiko.tabitha.Console;
 
 /**
  * Account class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Account
+public class Account implements Cloneable
 {
     /**
      * Account ID.
@@ -144,5 +145,27 @@ public class Account
     public void setLevel(Level level)
     {
         this.level = level;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Account clone()
+    {
+        try {
+            Account a = (Account)super.clone();
+
+            a.setClan(this.clan.clone());
+            a.setLevel(this.level.clone());
+
+            return a;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone account!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

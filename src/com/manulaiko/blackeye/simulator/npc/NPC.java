@@ -2,6 +2,7 @@ package com.manulaiko.blackeye.simulator.npc;
 
 import java.util.HashMap;
 
+import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
 /**
@@ -9,7 +10,7 @@ import com.manulaiko.tabitha.utils.Point;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class NPC
+public class NPC implements Cloneable
 {
     /**
      * NPC ID.
@@ -118,6 +119,41 @@ public class NPC
     public void setReward(int experience, int honor, int credits, int uridium, HashMap resources)
     {
         this.reward = new Reward(experience, honor, credits, uridium, resources);
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public NPC clone()
+    {
+        try {
+            NPC n                               = (NPC)super.clone();
+            HashMap<Integer, Integer> resources = new HashMap<>();
+
+            // idk if this actually works since the tuple is made of
+            // Integer objects instead of int primitive types...
+            // TODO Check it's properly cloned
+            this.reward.resources.forEach((i, r)->{
+                resources.put(i, r);
+            });
+
+            n.setReward(
+                    n.reward.experience,
+                    n.reward.honor,
+                    n.reward.credits,
+                    n.reward.uridium,
+                    resources
+            );
+
+            return n;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone npc!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
     
     /**

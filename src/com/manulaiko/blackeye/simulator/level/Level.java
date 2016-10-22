@@ -1,11 +1,13 @@
 package com.manulaiko.blackeye.simulator.level;
 
+import com.manulaiko.tabitha.Console;
+
 /**
  * Level class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Level
+public class Level implements Cloneable
 {
     /**
      * Level ID.
@@ -55,5 +57,24 @@ public class Level
         this.drone   = drone;
         this.shield  = shield;
         this.damage  = damage;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Level clone()
+    {
+        try {
+            Level l = (Level)super.clone();
+
+            return l;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone level!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

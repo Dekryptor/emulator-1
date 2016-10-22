@@ -1,11 +1,13 @@
 package com.manulaiko.blackeye.simulator.ship;
 
+import com.manulaiko.tabitha.Console;
+
 /**
  * Ship class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Ship
+public class Ship implements Cloneable
 {
     /**
      * Ship id.
@@ -99,6 +101,27 @@ public class Ship
     public void setReward(int experience, int honor)
     {
         this.reward = new Reward(experience, honor);
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Ship clone()
+    {
+        try {
+            Ship s = (Ship)super.clone();
+
+            s.setReward(this.reward.experience, this.reward.honor);
+
+            return s;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone ship!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.manulaiko.blackeye.simulator.map.station;
 
+import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
 /**
@@ -9,7 +10,7 @@ import com.manulaiko.tabitha.utils.Point;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Station
+public class Station implements Cloneable
 {
     /**
      * Position on map.
@@ -45,5 +46,25 @@ public class Station
         this.factionsID = factionsID;
         this.type       = type;
         this.name       = name;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Station clone()
+    {
+        try {
+            Station s  = (Station) super.clone();
+            s.position = new Point(this.position.getX(), this.position.getY());
+
+            return s;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone station!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

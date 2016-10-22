@@ -11,7 +11,7 @@ import com.manulaiko.tabitha.Console;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Configuration
+public class Configuration implements Cloneable
 {
     /**
      * Configuration ID.
@@ -169,7 +169,7 @@ public class Configuration
                 absorption += generator.item.extras.getDouble("absorption");
                 shields += 1;
             } catch(Exception e) {
-                Console.println("Couldn't calculate shield absroption!");
+                Console.println("Couldn't calculate shield absorption!");
                 Console.println(e.getMessage());
             }
         }
@@ -245,5 +245,38 @@ public class Configuration
     public void addExtra(Item extra)
     {
         this.extras.add(extra);
+    }
+
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Configuration clone()
+    {
+        try {
+            Configuration c = (Configuration)super.clone();
+
+            this.hellstorms.forEach((h)->{
+                c.addHellstorm(h.clone());
+            });
+            this.lasers.forEach((l)->{
+                c.addLaser(l.clone());
+            });
+            this.generators.forEach((g)->{
+                c.addGenerator(g.clone());
+            });
+            this.extras.forEach((e)->{
+                c.addExtra(e.clone());
+            });
+
+            return c;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone configuration!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

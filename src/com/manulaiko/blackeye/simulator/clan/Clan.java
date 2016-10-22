@@ -1,11 +1,13 @@
 package com.manulaiko.blackeye.simulator.clan;
 
+import com.manulaiko.tabitha.Console;
+
 /**
  * Clan class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Clan
+public class Clan implements Cloneable
 {
     /**
      * Clan ID.
@@ -41,5 +43,24 @@ public class Clan
         this.tag        = tag;
         this.name       = name;
         this.factionsID = factionsID;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Clan clone()
+    {
+        try {
+            Clan c = (Clan)super.clone();
+
+            return c;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone clan!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }

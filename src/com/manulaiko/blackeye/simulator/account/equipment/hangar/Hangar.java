@@ -4,13 +4,14 @@ import java.util.HashMap;
 
 import com.manulaiko.blackeye.simulator.account.equipment.ship.Ship;
 import com.manulaiko.blackeye.simulator.account.equipment.configuration.Configuration;
+import com.manulaiko.tabitha.Console;
 
 /**
  * Hangar class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Hangar
+public class Hangar implements Cloneable
 {
     /**
      * Hangar ID.
@@ -216,5 +217,38 @@ public class Hangar
     public int getExpansions()
     {
         return this.activeConfiguration.expansions;
+    }
+
+    /**
+     * Clones the object.
+     *
+     * @return Cloned object.
+     */
+    public Hangar clone()
+    {
+        try {
+            Hangar h = (Hangar)super.clone();
+
+            HashMap<Integer, Integer> resources = new HashMap<>();
+            this.resources.forEach((i, a)->{
+                resources.put(i, a);
+            });
+            h.setResources(resources);
+
+            HashMap<Integer, Configuration> configurations = new HashMap<>();
+            this.configurations.forEach((i, c)->{
+                configurations.put(i, c.clone());
+            });
+            h.setConfigurations(configurations);
+
+            h.setShip(this.ship.clone());
+
+            return h;
+        } catch(CloneNotSupportedException e) {
+            Console.println("Couldn't clone hangar");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }
