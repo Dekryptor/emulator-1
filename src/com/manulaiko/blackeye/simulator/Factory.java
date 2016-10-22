@@ -25,7 +25,7 @@ public abstract class Factory
      *
      * @var Instanced objects.
      */
-    private HashMap<Integer, Object> _instances = new HashMap<>();
+    protected HashMap<Integer, Object> _instances = new HashMap<>();
 
     /**
      * Factory's table.
@@ -34,7 +34,7 @@ public abstract class Factory
      *
      * @var Table name.
      */
-    private String _table = "";
+    protected String _table = "";
 
     /**
      * Constructor.
