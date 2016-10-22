@@ -3,7 +3,7 @@ package com.manulaiko.blackeye.simulator.map;
 import java.sql.ResultSet;
 
 /**
- * Factory for the `collectables` table.
+ * Factory for the `maps` table.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
@@ -14,15 +14,15 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      */
     public Factory()
     {
-        super("collectables", false);
+        super("maps", false);
     }
 
     /**
-     * Builds and returns a collectable.
+     * Builds and returns a map.
      *
      * @param rs Query result.
      *
-     * @return Collectable object.
+     * @return Map object.
      */
     public Object build(ResultSet rs)
     {

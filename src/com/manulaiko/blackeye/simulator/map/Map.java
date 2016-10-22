@@ -3,6 +3,7 @@ package com.manulaiko.blackeye.simulator.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.map.station.Station;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
@@ -76,7 +77,7 @@ public class Map
      * @param name       Map name.
      * @param limits     Map limits.
      */
-    public Map(int id, int factionsID, boolean isPVP, boolean isStarter, String name, Point limit)
+    public Map(int id, int factionsID, boolean isPVP, boolean isStarter, String name, Point limits)
     {
         this.id         = id;
         this.factionsID = factionsID;

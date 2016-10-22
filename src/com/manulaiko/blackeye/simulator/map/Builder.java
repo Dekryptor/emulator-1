@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
+import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.map.station.Station;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.tabitha.Console;
@@ -164,7 +165,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     }
 
     /**
-     * Sets map's portals
+     * Sets map's portals.
      */
     private void _setPortals()
     {
