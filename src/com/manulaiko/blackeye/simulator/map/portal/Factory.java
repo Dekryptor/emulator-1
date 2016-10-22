@@ -1,8 +1,13 @@
 package com.manulaiko.blackeye.simulator.map.portal;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
+import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.simulator.map.Builder;
+import com.manulaiko.tabitha.Console;
 
 /**
  * Factory for the `maps_portals` table.
@@ -31,5 +36,58 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
         Builder b = new Builder(rs);
 
         return b.get();
+    }
+
+    /**
+     * Returns all portals of given map ID.
+     *
+     * @param id Map ID.
+     *
+     * @return Portals in map ID.
+     */
+    public HashMap<Integer, Portal> getByMapID(int id)
+    {
+        HashMap<Integer, Portal> portals = new HashMap<>();
+
+        this.getAll().forEach((i, p)->{
+            if(((Portal)p).mapsID == id) {
+                portals.put(((Portal)p).id, (Portal)p);
+            }
+        });
+
+        if(portals.size() == 0) {
+            return this.loadByMapID(id);
+        }
+
+        return portals;
+    }
+
+    /**
+     * Builds and returns all portals of given map ID.
+     *
+     * @param id Map ID.
+     *
+     * @return Database objects.
+     */
+    public HashMap<Integer, Portal> loadByMapID(int id)
+    {
+        HashMap<Integer, Portal> portals = new HashMap<>();
+
+        try {
+            PreparedStatement ps = Main.database.prepare("SELECT * FROM `maps_portals` WHERE `maps_id`=?");
+            ps.setInt(0, id);
+
+            ResultSet result = ps.executeQuery();
+
+            int i = 0;
+            while(result.next()) {
+                portals.put(i++, (Portal)this.build(result));
+            }
+        } catch(SQLException e) {
+            Console.println("Couldn't load all portals from map " + id);
+            Console.println(e.getMessage());
+        }
+
+        return portals;
     }
 }
