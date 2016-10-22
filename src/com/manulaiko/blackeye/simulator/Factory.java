@@ -47,8 +47,16 @@ public abstract class Factory
         this._table = table;
 
         if(!lazyload) {
-            this._instances = this.loadAll();
+            this.initialize();
         }
+    }
+
+    /**
+     * Initializes the factory (loads all objects).
+     */
+    public void initialize()
+    {
+        this._instances = this.loadAll();
     }
 
     /**
@@ -138,6 +146,8 @@ public abstract class Factory
             Console.println("Couldn't load all objects from `" + this._table + "`");
             Console.println(e.getMessage());
         }
+
+        this._instances = objects;
 
         return objects;
     }
