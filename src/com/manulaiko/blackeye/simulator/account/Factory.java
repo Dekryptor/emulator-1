@@ -10,6 +10,16 @@ import java.sql.ResultSet;
 public class Factory extends com.manulaiko.blackeye.simulator.Factory
 {
     /**
+     * Hangar's factory.
+     */
+    public com.manulaiko.blackeye.simulator.account.equipment.hangar.Factory hangars = new com.manulaiko.blackeye.simulator.account.equipment.hangar.Factory();
+
+    /**
+     * Item's factory.
+     */
+    public com.manulaiko.blackeye.simulator.account.equipment.item.Factory items = new com.manulaiko.blackeye.simulator.account.equipment.item.Factory();
+
+    /**
      * Constructor.
      */
     public Factory()
