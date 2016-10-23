@@ -50,7 +50,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
             this._setGenerators(generators);
             this._setExtras(extras);
         } catch(Exception e) {
-            Console.println("Couldn't build item!");
+            Console.println("Couldn't build configuration!");
             Console.println(e.getMessage());
         }
     }
@@ -66,7 +66,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     private void _setHellstorms(JSONArray hellstorms) throws JSONException, NotFound
     {
         for(int i = 0; i < hellstorms.length(); i++) {
-            Item item = (Item)GameManager.items.getByID(hellstorms.getInt(i));
+            Item item = (Item)GameManager.accounts.items.getByID(hellstorms.getInt(i));
 
             ((Configuration)this._object).addHellstorm(item);
         }
@@ -83,7 +83,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     private void _setLasers(JSONArray lasers) throws JSONException, NotFound
     {
         for(int i = 0; i < lasers.length(); i++) {
-            Item item = (Item)GameManager.items.getByID(lasers.getInt(i));
+            Item item = (Item)GameManager.accounts.items.getByID(lasers.getInt(i));
 
             ((Configuration)this._object).addLaser(item);
         }
@@ -100,7 +100,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     private void _setGenerators(JSONArray generators) throws JSONException, NotFound
     {
         for(int i = 0; i < generators.length(); i++) {
-            Item item = (Item)GameManager.items.getByID(generators.getInt(i));
+            Item item = (Item)GameManager.accounts.items.getByID(generators.getInt(i));
 
             ((Configuration)this._object).addGenerator(item);
         }
@@ -117,7 +117,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     private void _setExtras(JSONArray extras) throws JSONException, NotFound
     {
         for(int i = 0; i < extras.length(); i++) {
-            Item item = (Item)GameManager.items.getByID(extras.getInt(i));
+            Item item = (Item)GameManager.accounts.items.getByID(extras.getInt(i));
 
             ((Configuration)this._object).addExtra(item);
         }
