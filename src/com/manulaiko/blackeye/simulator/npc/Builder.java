@@ -54,7 +54,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     }
 
     /**
-     * Sets npc's rewards.
+     * Sets NPC's rewards.
      *
      * @param reward Reward to add.
      *

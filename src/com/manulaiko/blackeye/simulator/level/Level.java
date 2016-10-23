@@ -11,31 +11,53 @@ public class Level implements Cloneable
 {
     /**
      * Level ID.
+     *
+     * @var ID.
      */
     public int id = 1;
 
     /**
      * Account experience.
+     *
+     * Experience needed for accounts to reach this level.
+     *
+     * @var Accounts experience.
      */
     public long account = 0;
 
     /**
      * Pet experience.
+     *
+     * Experience needed for pet to reach this level.
+     *
+     * @var Pet experience.
      */
     public int pet = -1;
 
     /**
      * Drone experience.
+     *
+     * Experience needed for drones to reach this level.
+     *
+     * @var Drone experience.
      */
     public short drone = -1;
 
     /**
      * Shield bonus.
+     *
+     * Shield bonus for item upgrades.
+     *
+     * @var Shield bonus.
      */
     public double shield = 0.00;
 
     /**
      * Damage bonus.
+     *
+     * Damage bonus for item upgrades.
+     *
+     * @var Damage bonus.
      */
     public double damage = 0.00;
 

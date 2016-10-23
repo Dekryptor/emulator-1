@@ -22,7 +22,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @param rs Query result.
      *
-     * @return Collectable object.
+     * @return Ship object.
      */
     public Object build(ResultSet rs)
     {

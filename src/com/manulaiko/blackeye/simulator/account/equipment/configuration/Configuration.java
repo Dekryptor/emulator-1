@@ -15,66 +15,96 @@ public class Configuration implements Cloneable
 {
     /**
      * Configuration ID.
+     *
+     * @var Configuration ID.
      */
     public int id;
 
     /**
-     * `accounts_equipment_ships_id`.
+     * Configuration ship id.
+     *
+     * @var `accounts_equipment_ships_id`.
      */
     public int shipID;
 
     /**
      * Configuration.
+     *
+     * The number of the configuration (1 or 2, or maybe 3).
+     *
+     * @var Configuration number.
      */
     public int configuration;
 
     /**
      * Speed.
+     *
+     * @var Speed points.
      */
     public int speed;
 
     /**
      * Laser damage.
+     *
+     * @var Damage points.
      */
     public int damage;
 
     /**
      * Elite lasers.
+     *
+     * It will be used to send the right laser graphic.
+     *
+     * @var Amount of elite lasers.
      */
     public int eliteLasers;
 
     /**
      * Shield.
+     *
+     * @var Shield points.
      */
     public int shield;
 
     /**
      * Shield absorption.
+     *
+     * @var Shield absorption rate.
      */
     public double shieldAbsorption;
 
     /**
      * Expansions.
+     *
+     * @var Configuration expansions graphic.
      */
     public int expansions;
 
     /**
      * Lasers.
+     *
+     * @var Configuration lasers.
      */
     public ArrayList<Item> lasers = new ArrayList<>();
 
     /**
      * Hellstorms.
+     *
+     * @var Configuration hellstorms.
      */
     public ArrayList<Item> hellstorms = new ArrayList<>();
 
     /**
      * Generators.
+     *
+     * @var Configuration generators.
      */
     public ArrayList<Item> generators = new ArrayList<>();
 
     /**
      * Extras.
+     *
+     * @var Configuration extras.
      */
     public ArrayList<Item> extras = new ArrayList<>();
 

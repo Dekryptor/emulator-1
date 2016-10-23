@@ -15,31 +15,43 @@ public class Hangar implements Cloneable
 {
     /**
      * Hangar ID.
+     *
+     * @var Hangar ID.
      */
     public int id;
 
     /**
      * Account ID.
+     *
+     * @var Hangar owner.
      */
     public int accountID;
 
     /**
      * Ship object.
+     *
+     * @var Ship.
      */
     public Ship ship;
 
     /**
      * Available configurations.
+     *
+     * @var Available configurations.
      */
     public HashMap<Integer, Configuration> configurations = new HashMap<>();
 
     /**
      * Active configuration object.
+     *
+     * @var Active configuration.
      */
     public Configuration activeConfiguration;
 
     /**
-     * Resources
+     * Resources.
+     *
+     * @var Hangar resources.
      */
     public HashMap<Integer, Integer> resources;
 

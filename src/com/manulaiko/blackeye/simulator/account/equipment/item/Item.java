@@ -12,36 +12,50 @@ public class Item implements Cloneable
 {
     /**
      * Item ID.
+     *
+     * @var Item ID.
      */
     public int id;
 
     /**
      * Account's ID.
+     *
+     * @var Owner's ID.
      */
     public int accountID;
 
     /**
      * Item's ID.
+     *
+     * @var ID of `items` table.
      */
     public int itemID;
 
     /**
      * Item object.
+     *
+     * @var Actual item.
      */
     public com.manulaiko.blackeye.simulator.item.Item item;
 
     /**
      * Item level.
+     *
+     * @var Level ID.
      */
     public int levelID;
 
     /**
      * Level object.
+     *
+     * @var Item level.
      */
     public Level level;
 
     /**
      * Item amount.
+     *
+     * @var Amount of items.
      */
     public int amount;
 

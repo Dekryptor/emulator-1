@@ -14,21 +14,29 @@ public class Station implements Cloneable
 {
     /**
      * Position on map.
+     *
+     * @var Position.
      */
     public Point position = new Point(0, 0);
 
     /**
      * Station owner.
+     *
+     * @var Owner.
      */
     public int factionsID = -1;
 
     /**
      * Faction type.
+     *
+     * @var Type.
      */
     public int type = 1;
 
     /**
      * Faction name.
+     *
+     * @var Name.
      */
     public String name = "redStation";
 

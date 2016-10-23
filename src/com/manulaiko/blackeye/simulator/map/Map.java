@@ -20,51 +20,73 @@ public class Map implements Cloneable
 {
     /**
      * Map ID.
+     *
+     * @var ID.
      */
     public int id = 0;
 
     /**
      * Map name.
+     *
+     * @var Name.
      */
     public String name = "";
 
     /**
      * Map size.
+     *
+     * @var Map size.
      */
     public Point limits = new Point(0, 0);
 
     /**
      * Map portals.
+     *
+     * @var Portals on map.
      */
     public HashMap<Integer, Portal> portals = new HashMap<>();
 
     /**
      * NPCS.
+     *
+     * @var NPCS on map.
      */
     public HashMap<Integer, NPC> npcs = new HashMap<>();
 
     /**
      * Collectables.
+     *
+     * @var Collectables on map.
      */
     public HashMap<Integer, Collectable> collectables = new HashMap<>();
 
     /**
      * Stations.
+     *
+     * @var Stations on map.
      */
     public ArrayList<Station> stations = new ArrayList<>();
 
     /**
      * Whether map is pvp or not.
+     *
+     * @var PVP status.
      */
     public boolean isPVP = false;
 
     /**
      * Whether map is starter map.
+     *
+     * Used to show where are the enemies in the minimap.
+     *
+     * @var Starter status.
      */
     public boolean isStarter = false;
 
     /**
-     * Map's owner
+     * Map's owner.
+     *
+     * @var Owner's ID.
      */
     public int factionsID = -1;
 

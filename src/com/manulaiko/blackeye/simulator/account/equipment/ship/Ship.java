@@ -14,56 +14,83 @@ public class Ship
 {
     /**
      * Ship ID.
+     *
+     * @var Ship ID.
      */
     public int id;
 
     /**
      * Ship object.
+     *
+     * @var Actual ship.
      */
     public com.manulaiko.blackeye.simulator.ship.Ship ship;
 
     /**
      * ships_id.
+     *
+     * @var ID of `ships` table.
      */
     public int shipID;
 
     /**
      * Graphic ID.
+     *
+     * Using this instead of `shipID` allows us to have a different
+     * graphic for the same ship (aka WIZ-X).
+     *
+     * @var Graphic ID.
      */
     public int gfx;
 
     /**
      * Map object.
+     *
+     * Map where the ship is located.
+     *
+     * @var Ship's map.
      */
     public Map map;
 
     /**
      * Map ID.
+     *
+     * @var Map ID.
      */
     public int mapID;
 
     /**
      * Position on map.
+     *
+     * @var Ship position.
      */
     public Point position;
 
     /**
      * Health points.
+     *
+     * @var Health points.
      */
     public int health;
 
     /**
      * Nanohull points.
+     *
+     * @var Nanohull points.
      */
     public int nanohull;
 
     /**
      * Shield points.
+     *
+     * @var Shield points.
      */
     public int shield;
 
     /**
      * Ship's active configuration.
+     *
+     * @var Active configuration.
      */
     public int activeConfiguration;
 
@@ -92,9 +119,9 @@ public class Ship
     }
 
     /**
-     * Sets position object
+     * Sets position object.
      *
-     * @param position Point position
+     * @param position Point position.
      */
     public void setPosition(Point position)
     {
@@ -102,9 +129,9 @@ public class Ship
     }
 
     /**
-     * Sets ship object
+     * Sets ship object.
      *
-     * @param ship Ship object
+     * @param ship Ship object.
      */
     public void setShip(com.manulaiko.blackeye.simulator.ship.Ship ship)
     {
@@ -112,9 +139,9 @@ public class Ship
     }
 
     /**
-     * Sets map object
+     * Sets map object.
      *
-     * @param map Map object
+     * @param map Map object.
      */
     public void setMap(Map map)
     {

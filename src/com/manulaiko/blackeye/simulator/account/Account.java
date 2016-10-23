@@ -73,21 +73,29 @@ public class Account implements Cloneable
 
     /**
      * Levels id.
+     *
+     * @var Level ID
      */
-    public int levelsID;
+    public int levelID;
 
     /**
      * Whether the account is premium or not.
+     *
+     * @var Premium status.
      */
     public boolean isPremium;
 
     /**
      * Rank ID.
+     *
+     * @var Rank ID.
      */
-    public int ranksID;
+    public int rankID;
 
     /**
      * Rank points.
+     *
+     * @var Rank points.
      */
     public int rankPoints;
 
@@ -103,13 +111,14 @@ public class Account implements Cloneable
      * @param jackpot    Jackpot.
      * @param experience Experience points.
      * @param honor      Honor points.
+     * @param levelID    Level ID.
      * @param isPremium  Whether is premium or not.
-     * @param ranksID    Rank ID.
+     * @param rankID     Rank ID.
      * @param rankPoints Rank points.
      */
     public Account(
             int id, String sessionID, String name, int factionsID, int clansID, int uridium, long credits,
-            double jackpot, long experience, int honor, int levelsID, boolean isPremium, int ranksID, int rankPoints
+            double jackpot, long experience, int honor, int levelID, boolean isPremium, int rankID, int rankPoints
     ) {
         this.id         = id;
         this.sessionID  = sessionID;
@@ -121,16 +130,16 @@ public class Account implements Cloneable
         this.jackpot    = jackpot;
         this.experience = experience;
         this.honor      = honor;
-        this.levelsID   = levelsID;
+        this.levelID    = levelID;
         this.isPremium  = isPremium;
-        this.ranksID    = ranksID;
+        this.rankID     = rankID;
         this.rankPoints = rankPoints;
     }
 
     /**
-     * Sets clan object
+     * Sets clan object.
      *
-     * @param clan Clan object
+     * @param clan Clan object.
      */
     public void setClan(Clan clan)
     {
@@ -138,9 +147,9 @@ public class Account implements Cloneable
     }
 
     /**
-     * Sets level object
+     * Sets level object.
      *
-     * @param level Level object
+     * @param level Level object.
      */
     public void setLevel(Level level)
     {

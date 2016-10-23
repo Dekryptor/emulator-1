@@ -18,11 +18,11 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
     }
 
     /**
-     * Builds and returns an account.
+     * Builds and returns a ship.
      *
      * @param rs Query result.
      *
-     * @return Account object.
+     * @return Ship object.
      */
     public Object build(ResultSet rs)
     {

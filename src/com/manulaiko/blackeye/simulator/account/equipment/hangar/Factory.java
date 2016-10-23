@@ -28,11 +28,11 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
     }
 
     /**
-     * Builds and returns an item.
+     * Builds and returns an hangar.
      *
      * @param rs Query result.
      *
-     * @return Item object.
+     * @return Hangar object.
      */
     public Object build(ResultSet rs)
     {

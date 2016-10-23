@@ -28,31 +28,43 @@ public class Collectable
 
     /**
      * Collectable ID.
+     *
+     * @var ID.
      */
     public int id = 1;
 
     /**
      * Graphic.
+     *
+     * @var Graphic ID.
      */
     public int gfx = 1;
 
     /**
      * Class.
+     *
+     * @var Class of collectable.
      */
     public int classID = 1;
 
     /**
      * Name.
+     *
+     * @var Name.
      */
     public String name = "box0";
 
     /**
      * Position.
+     *
+     * @var Position on map.
      */
     public Point position = new Point(0, 0);
 
     /**
      * Available rewards.
+     *
+     * @var Rewards of this collectable.
      */
     public ArrayList<Reward> rewards = new ArrayList<>();
 
@@ -76,6 +88,8 @@ public class Collectable
 
     /**
      * Adds a reward to the array.
+     *
+     * @param reward Reward to add.
      */
     public void addReward(JSONObject reward)
     {
@@ -108,7 +122,7 @@ public class Collectable
 
             return c;
         } catch(CloneNotSupportedException e) {
-            Console.println("Couldn't clone station!");
+            Console.println("Couldn't clone collectable!");
             Console.println(e.getMessage());
 
             return null;
@@ -123,16 +137,22 @@ public class Collectable
     {
         /**
          * Item id.
+         *
+         * @var Item to reward.
          */
         public int itemsID;
 
         /**
          * Amount.
+         *
+         * @var Amount of items to add.
          */
         public int amount;
 
         /**
          * Probability.
+         *
+         * @var Probability of receiving this reward.
          */
         public double probability;
 

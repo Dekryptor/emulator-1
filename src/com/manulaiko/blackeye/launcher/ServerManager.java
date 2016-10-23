@@ -17,21 +17,37 @@ public class ServerManager
 {
     /**
      * Game server.
+     *
+     * Runs on port 8080 and handles in-game connections.
+     *
+     * @var Game server.
      */
     public static com.manulaiko.blackeye.net.game.Server game = new com.manulaiko.blackeye.net.game.Server();
 
     /**
      * Policy server.
+     *
+     * Runs on port 843 and handles flash policy file requests.
+     *
+     * @var Policy server.
      */
     public static com.manulaiko.blackeye.net.policy.Server policy = new com.manulaiko.blackeye.net.policy.Server();
 
     /**
      * Chat server.
+     *
+     * Runs on port 9338 and handles chat connections.
+     *
+     * @var Chat server.
      */
     public static com.manulaiko.blackeye.net.chat.Server chat = new com.manulaiko.blackeye.net.chat.Server();
 
     /**
      * SocksWork server.
+     *
+     * Runs on port 4301 and handles SocksWork connections.
+     *
+     * @var SocksWork server.
      */
     public static com.manulaiko.blackeye.net.sockswork.Server sockswork = new com.manulaiko.blackeye.net.sockswork.Server();
 

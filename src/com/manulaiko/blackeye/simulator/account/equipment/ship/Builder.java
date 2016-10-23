@@ -11,7 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Account builder.
+ * Ship builder.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
@@ -28,7 +28,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     }
 
     /**
-     * Builds an account.
+     * Builds a ship..
      */
     public void build()
     {

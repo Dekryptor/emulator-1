@@ -14,51 +14,71 @@ public class Portal implements Cloneable
 {
     /**
      * Portal id.
+     *
+     * @var ID.
      */
     public int id = 0;
 
     /**
      * Portal map.
+     *
+     * @var Map ID.
      */
     public int mapsID = 0;
 
     /**
      * Required level to use this portal.
+     *
+     * @var Level ID.
      */
     public int level = 1;
 
     /**
      * Position of the portal.
+     *
+     * @var Position.
      */
     public Point position = new Point(0, 0);
 
     /**
      * Position to spawn user when this portal is used.
+     *
+     * @var Target position.
      */
     public Point targetPosition = new Point(0, 0);
 
     /**
      * Map on which user should be spawned when this portal is used.
+     *
+     * @var Target map.
      */
     public int targetMapsID = 1;
 
     /**
-     * Whether portal is visible on min-imap or not.
+     * Whether portal is visible on mini-map or not.
+     *
+     * @var Visibility status.
      */
     public boolean isVisible = true;
 
     /**
      * Whether portal is working or not.
+     *
+     * @var Working status.
      */
     public boolean isWorking = true;
 
     /**
      * Faction scrap.
+     *
+     * @var Faction graphic.
      */
     public int factionScrap = 0;
 
     /**
      * Portal design.
+     *
+     * @var Graphic.
      */
     public int gfx = 1;
 

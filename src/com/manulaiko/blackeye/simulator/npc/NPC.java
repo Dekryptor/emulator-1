@@ -14,66 +14,92 @@ public class NPC implements Cloneable
 {
     /**
      * NPC ID.
+     *
+     * @var ID.
      */
     public int id = 0;
 
     /**
      * NPC name.
+     *
+     * @var Name.
      */
     public String name = "";
 
     /**
      * NPC position.
+     *
+     * @var Position.
      */
     public Point position = new Point(0, 0);
 
     /**
      * Graphic.
+     *
+     * @var Graphic ID.
      */
     public int gfx;
 
     /**
      * Health points.
+     *
+     * @var Health points.
      */
     public int health;
 
     /**
      * Max health points.
+     *
+     * @var Max health points.
      */
     public int maxHealth;
 
     /**
      * Shield points.
+     *
+     * @var Shield points.
      */
     public int shield;
 
     /**
      * Max shield points.
+     *
+     * @var Max shield points.
      */
     public int maxShield;
 
     /**
      * Shield absorption.
+     *
+     * @var Shield absorption rate.
      */
     public double shieldAbs;
 
     /**
      * Damage points.
+     *
+     * @var Damage points.
      */
     public int damage;
 
     /**
      * Speed.
+     *
+     * @var Speed points.
      */
     public int speed;
 
     /**
-     * AI type
+     * AI type.
+     *
+     * @var AI type.
      */
     public int aiType;
 
     /**
      * Rewards.
+     *
+     * @var Killing reward.
      */
     public Reward reward;
 
@@ -165,21 +191,29 @@ public class NPC implements Cloneable
     {
         /**
          * Experience points.
+         *
+         * @var Experience.
          */
         public int experience;
 
         /**
          * Honor points.
+         *
+         * @var Honor.
          */
         public int honor;
 
         /**
          * Credits.
+         *
+         * @var Credits.
          */
         public int credits;
 
         /**
          * Uridium.
+         *
+         * @var Uridium.
          */
         public int uridium;
 
@@ -188,12 +222,13 @@ public class NPC implements Cloneable
          * 
          * Key: Resource ID.
          * Value: Amount of resources.
+         *
+         * @var Resources.
          */
         public HashMap<Integer, Integer> resources = new HashMap<>();
 
         /**
-         * Constructor
-         *
+         * Constructor.
          *
          * @param experience Experience points.
          * @param honor      Honor points.

@@ -12,7 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Configuration builder.
+ * Hangar builder.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
@@ -29,7 +29,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     }
 
     /**
-     * Builds an account.
+     * Builds an hangar.
      */
     public void build()
     {

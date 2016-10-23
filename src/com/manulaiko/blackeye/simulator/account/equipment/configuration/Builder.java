@@ -29,7 +29,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     }
 
     /**
-     * Builds an account.
+     * Builds a configuration.
      */
     public void build()
     {

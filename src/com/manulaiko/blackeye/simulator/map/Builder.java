@@ -77,7 +77,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     }
 
     /**
-     * Sets map's stations
+     * Sets map's stations.
      *
      * @param stations Stations JSON.
      *
@@ -103,7 +103,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     }
 
     /**
-     * Sets map's NPCs
+     * Sets map's NPCs.
      *
      * @param npcs NPCs JSON.
      *
@@ -130,7 +130,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     }
 
     /**
-     * Sets map's collectables
+     * Sets map's collectables.
      *
      * @param collectables Collectables JSON.
      *

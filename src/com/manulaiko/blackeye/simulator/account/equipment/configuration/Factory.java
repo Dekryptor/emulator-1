@@ -24,11 +24,11 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
     }
 
     /**
-     * Builds and returns an item.
+     * Builds and returns a configuration.
      *
      * @param rs Query result.
      *
-     * @return Item object.
+     * @return Configuration object.
      */
     public Object build(ResultSet rs)
     {

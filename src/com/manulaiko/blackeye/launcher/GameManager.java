@@ -28,47 +28,65 @@ public class GameManager extends Thread
     // Start Game Factories //
     //////////////////////////
     /**
-     * Accounts table
+     * Accounts table.
+     *
+     * @var Factory for `accounts` table.
      */
     public static com.manulaiko.blackeye.simulator.account.Factory accounts = new com.manulaiko.blackeye.simulator.account.Factory();
 
     /**
-     * Levels table
+     * Levels table.
+     *
+     * @var Factory for `levels` table.
      */
     public static com.manulaiko.blackeye.simulator.level.Factory levels = new com.manulaiko.blackeye.simulator.level.Factory();
 
     /**
-     * Clans table
+     * Clans table.
+     *
+     * @var Factory for `clans` table.
      */
     public static com.manulaiko.blackeye.simulator.clan.Factory clans = new com.manulaiko.blackeye.simulator.clan.Factory();
 
     /**
-     * Maps table
+     * Maps table.
+     *
+     * @var Factory for `maps` table.
      */
     public static com.manulaiko.blackeye.simulator.map.Factory maps = new com.manulaiko.blackeye.simulator.map.Factory();
 
     /**
-     * NPCs table
+     * NPCs table.
+     *
+     * @var Factory for `npcs` table.
      */
     public static com.manulaiko.blackeye.simulator.npc.Factory npcs = new com.manulaiko.blackeye.simulator.npc.Factory();
 
     /**
-     * Portals table
+     * Portals table.
+     *
+     * @var Factory for `maps_portals` table.
      */
     public static com.manulaiko.blackeye.simulator.map.portal.Factory portals = new com.manulaiko.blackeye.simulator.map.portal.Factory();
 
     /**
-     * Collectables table
+     * Collectables table.
+     *
+     * @var Factory for `collectables` table.
      */
     public static com.manulaiko.blackeye.simulator.map.collectable.Factory collectables = new com.manulaiko.blackeye.simulator.map.collectable.Factory();
 
     /**
-     * Ships table
+     * Ships table.
+     *
+     * @var Factory for `ships` table.
      */
     public static com.manulaiko.blackeye.simulator.ship.Factory ships = new com.manulaiko.blackeye.simulator.ship.Factory();
 
     /**
-     * Items table
+     * Items table.
+     *
+     * @var Factory for `items` table.
      */
     public static com.manulaiko.blackeye.simulator.item.Factory items = new com.manulaiko.blackeye.simulator.item.Factory();
     ////////////////////////
@@ -185,7 +203,7 @@ public class GameManager extends Thread
     }
 
     /**
-     * Updates database's tables
+     * Updates database's tables.
      */
     public static void save()
     {

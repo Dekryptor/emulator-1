@@ -11,32 +11,44 @@ import org.json.JSONObject;
 public class Item implements Cloneable
 {
     /**
-     * Item ID
+     * Item ID.
+     *
+     * @var ID.
      */
     public int id;
 
     /**
-     * Loot ID
+     * Loot ID.
+     *
+     * @var Loot ID.
      */
     public String lootID;
 
     /**
-     * Item name
+     * Item name.
+     *
+     * @var Name.
      */
     public String name;
 
     /**
-     * Category
+     * Category.
+     *
+     * @var Category.
      */
     public String category;
 
     /**
-     * Price
+     * Price.
+     *
+     * @var Item price.
      */
     public int price;
 
     /**
-     * Whether item is elite or not
+     * Whether item is elite or not.
+     *
+     * @var Elite status.
      */
     public boolean isElite;
 
@@ -46,14 +58,17 @@ public class Item implements Cloneable
      * Lasers = damage
      * Speed generators = speed
      * ...
+     *
+     * @var Item value.
      */
     public int value;
 
     /**
-     * Extra values of the item
+     * Extra values of the item.
      *
-     * Shield generators = shield absorption
+     * Shield generators = shield absorption.
      *
+     * @var Extra properties.
      */
     public JSONObject extras;
 
