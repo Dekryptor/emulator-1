@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
-import com.manulaiko.blackeye.net.game.utils.PacketParser;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -71,16 +70,6 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
     /**
      * Sends a packet to the client.
      *
-     * @param p Packet to send.
-     */
-    public void send(PacketParser p)
-    {
-        this.send(p.toString());
-    }
-
-    /**
-     * Sends a packet to the client.
-     *
      * @param str String to send.
      */
     public void send(String str)
@@ -113,8 +102,7 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
                     packet += packetChar[0];
                 } else if(!packet.isEmpty()) {
                     packet = new String(packet.getBytes(), "UTF8");
-                    PacketParser p = new PacketParser(packet);
-                    this.handle(p);
+                    this.handle(packet);
 
                     this.lastReceivedPacket = packet;
                     packet = "";
@@ -135,7 +123,7 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
      *
      * @param packet Packet to handle.
      */
-    public void handle(PacketParser packet)
+    public void handle(String packet)
     {
         Console.println("Packet received: "+ packet);
 

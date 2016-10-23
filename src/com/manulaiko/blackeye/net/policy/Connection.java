@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
-import com.manulaiko.blackeye.net.game.utils.PacketParser;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -66,16 +65,6 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
             Console.println("Couldn't set in/out streams!");
             Console.println(e.getMessage());
         }
-    }
-
-    /**
-     * Sends a packet to the client.
-     *
-     * @param p Packet to send.
-     */
-    public void send(PacketParser p)
-    {
-        this.send(p.toString());
     }
 
     /**

@@ -19,7 +19,7 @@ public class Server extends com.manulaiko.tabitha.net.Server
      */
     public Server()
     {
-        super(Main.configuration.getShort("core.chat_port"));
+        super(Main.configuration.getShort("core.policy_port"));
     }
 
     /**
