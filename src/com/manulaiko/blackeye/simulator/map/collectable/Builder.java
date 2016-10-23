@@ -38,7 +38,6 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
                     this._result.getInt("gfx"),
                     this._result.getInt("class"),
                     this._result.getString("name"),
-                    rewards,
                     new Point(0, 0)
             );
 
