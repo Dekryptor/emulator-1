@@ -1,5 +1,9 @@
 package com.manulaiko.blackeye.launcher;
 
+import com.manulaiko.blackeye.launcher.command.RestartCommand;
+import com.manulaiko.blackeye.launcher.command.StartCommand;
+import com.manulaiko.blackeye.launcher.command.StatusCommand;
+import com.manulaiko.blackeye.launcher.command.StopCommand;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.Configuration;
 import com.manulaiko.tabitha.configuration.IConfiguration;
@@ -116,7 +120,10 @@ public class Main
 
         // 4th stage: CLI
         CommandPrompt cp = new CommandPrompt();
-        // TODO add commands, obviously
+        cp.addCommand(new RestartCommand());
+        cp.addCommand(new StartCommand());
+        cp.addCommand(new StatusCommand());
+        cp.addCommand(new StopCommand());
         cp.start();
     }
 
