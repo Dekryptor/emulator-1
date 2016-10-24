@@ -75,7 +75,7 @@ public class StartCommand implements com.manulaiko.tabitha.utils.ICommand
      */
     public void execute(String[] args)
     {
-        if(args.length != 1) {
+        if(args.length > 1) {
             for(int i = 1; i < args.length; i++) {
                 ServerManager.start(args[i]);
             }

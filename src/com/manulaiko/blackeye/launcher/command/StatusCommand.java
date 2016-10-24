@@ -1,6 +1,7 @@
 package com.manulaiko.blackeye.launcher.command;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.tabitha.Console;
 
 /**
  * Status command.
@@ -74,7 +75,7 @@ public class StatusCommand  implements com.manulaiko.tabitha.utils.ICommand
      */
     public void execute(String[] args)
     {
-        if(args.length != 0) {
+        if(args.length > 1) {
             for(int i = 0; i < args.length; i++) {
                 ServerManager.showStatus(args[i]);
             }

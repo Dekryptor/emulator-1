@@ -77,7 +77,7 @@ public class RestartCommand implements com.manulaiko.tabitha.utils.ICommand
      */
     public void execute(String[] args)
     {
-        if(args.length != 1) {
+        if(args.length > 1) {
             try {
                 int timeout = Integer.parseInt(args[1]);
 
