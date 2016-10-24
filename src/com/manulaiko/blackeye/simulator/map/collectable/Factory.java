@@ -14,7 +14,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      */
     public Factory()
     {
-        super("collectables", false);
+        super("collectables");
     }
 
     /**
@@ -24,7 +24,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Collectable object.
      */
-    public Object build(ResultSet rs)
+    public Object build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 

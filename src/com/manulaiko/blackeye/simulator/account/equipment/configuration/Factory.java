@@ -20,7 +20,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      */
     public Factory()
     {
-        super("accounts_equipment_configurations", false);
+        super("accounts_equipment_configurations");
     }
 
     /**
@@ -30,7 +30,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Configuration object.
      */
-    public Object build(ResultSet rs)
+    public Object build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 
@@ -43,8 +43,10 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      * @param id Ship ID.
      *
      * @return Ship's configurations.
+     *
+     * @throws Exception In case build failed.
      */
-    public HashMap<Integer, Configuration> getByShipID(int id)
+    public HashMap<Integer, Configuration> getByShipID(int id) throws Exception
     {
         HashMap<Integer, Configuration> configurations = new HashMap<>();
 
@@ -68,8 +70,10 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      * @param id Ship ID.
      *
      * @return Database objects.
+     *
+     * @throws Exception In case build failed.
      */
-    public HashMap<Integer, Configuration> loadByShipID(int id)
+    public HashMap<Integer, Configuration> loadByShipID(int id) throws Exception
     {
         HashMap<Integer, Configuration> configurations = new HashMap<>();
 

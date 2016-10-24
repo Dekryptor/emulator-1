@@ -32,23 +32,18 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds an item.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            this._object = new Item(
-                    this._result.getInt("id"),
-                    this._result.getInt("accounts_id"),
-                    this._result.getInt("items_id"),
-                    this._result.getInt("levels_id"),
-                    this._result.getInt("amount")
-            );
+        this._object = new Item(
+                this._result.getInt("id"),
+                this._result.getInt("accounts_id"),
+                this._result.getInt("items_id"),
+                this._result.getInt("levels_id"),
+                this._result.getInt("amount")
+        );
 
-            this._setLevel(this._result.getInt("levels_id"));
-            this._setItem(this._result.getInt("items_id"));
-        } catch(Exception e) {
-            Console.println("Couldn't build item!");
-            Console.println(e.getMessage());
-        }
+        this._setLevel(this._result.getInt("levels_id"));
+        this._setItem(this._result.getInt("items_id"));
     }
 
     /**
@@ -56,9 +51,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param id Level ID.
      *
-     * @throws NotFound If level ID does not exist.
+     * @throws Exception If level ID does not exist or build failed.
      */
-    private void _setLevel(int id) throws NotFound
+    private void _setLevel(int id) throws Exception
     {
         Level l = (Level)GameManager.levels.getByID(id);
 
@@ -70,9 +65,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param id Item ID.
      *
-     * @throws NotFound If item ID does not exist.
+     * @throws Exception If item ID does not exist or build failed.
      */
-    private void _setItem(int id) throws NotFound
+    private void _setItem(int id) throws Exception
     {
         com.manulaiko.blackeye.simulator.item.Item i = (com.manulaiko.blackeye.simulator.item.Item)GameManager.items.getByID(id);
 

@@ -124,6 +124,10 @@ public class GameManager extends Thread
             GameManager.loadAdditionalData();
         } catch(Exception e) {
             Console.println("Additional data couldn't be loaded!");
+            if(Main.configuration.getBoolean("core.debug")) {
+                Console.println("Exception message: "+ e.getMessage());
+            }
+
             Console.println("GameManager initialized!");
 
             return false;

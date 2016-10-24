@@ -16,7 +16,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      */
     public Factory()
     {
-        super("clans", false);
+        super("clans");
     }
 
     /**
@@ -26,7 +26,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Clan object.
      */
-    public Object build(ResultSet rs)
+    public Object build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 

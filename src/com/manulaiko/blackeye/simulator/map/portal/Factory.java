@@ -21,7 +21,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      */
     public Factory()
     {
-        super("maps_portals", false);
+        super("maps_portals");
     }
 
     /**
@@ -31,7 +31,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Portal object.
      */
-    public Object build(ResultSet rs)
+    public Object build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 
@@ -44,8 +44,10 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      * @param id Map ID.
      *
      * @return Portals in map ID.
+     *
+     * @throws Exception In case build failed.
      */
-    public HashMap<Integer, Portal> getByMapID(int id)
+    public HashMap<Integer, Portal> getByMapID(int id) throws Exception
     {
         HashMap<Integer, Portal> portals = new HashMap<>();
 
@@ -68,8 +70,10 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      * @param id Map ID.
      *
      * @return Database objects.
+     *
+     * @throws Exception In case build failed.
      */
-    public HashMap<Integer, Portal> loadByMapID(int id)
+    public HashMap<Integer, Portal> loadByMapID(int id) throws Exception
     {
         HashMap<Integer, Portal> portals = new HashMap<>();
 

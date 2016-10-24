@@ -29,28 +29,23 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds a NPC.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            JSONObject rewards = new JSONObject(this._result.getString("rewards"));
+        JSONObject rewards = new JSONObject(this._result.getString("rewards"));
 
-            this._object = new NPC(
-                    this._result.getInt("id"),
-                    this._result.getInt("gfx"),
-                    this._result.getString("name"),
-                    this._result.getInt("health"),
-                    this._result.getInt("shield"),
-                    this._result.getDouble("shield_absorption"),
-                    this._result.getInt("damage"),
-                    this._result.getInt("speed"),
-                    this._result.getInt("ai_type")
-            );
+        this._object = new NPC(
+                this._result.getInt("id"),
+                this._result.getInt("gfx"),
+                this._result.getString("name"),
+                this._result.getInt("health"),
+                this._result.getInt("shield"),
+                this._result.getDouble("shield_absorption"),
+                this._result.getInt("damage"),
+                this._result.getInt("speed"),
+                this._result.getInt("ai_type")
+        );
 
-            this._setReward(rewards);
-        } catch(Exception e) {
-            Console.println("Couldn't build npc!");
-            Console.println(e.getMessage());
-        }
+        this._setReward(rewards);
     }
 
     /**

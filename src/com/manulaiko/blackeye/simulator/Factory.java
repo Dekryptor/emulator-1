@@ -47,14 +47,31 @@ public abstract class Factory
         this._table = table;
 
         if(!lazyload) {
-            this.initialize();
+            try {
+                this.initialize();
+            } catch(Exception e) {
+                Console.println("Couldn't initialize factory!");
+                Console.println(e.getMessage());
+            }
         }
     }
 
     /**
-     * Initializes the factory (loads all objects).
+     * Shorter constructor 'cause lazy typing.
+     *
+     * @param table Table name.
      */
-    public void initialize()
+    public Factory(String table)
+    {
+        this(table, true);
+    }
+
+    /**
+     * Initializes the factory (loads all objects).
+     *
+     * @throws Exception If query or build failed.
+     */
+    public void initialize() throws Exception
     {
         this._instances = this.loadAll();
     }
@@ -68,9 +85,9 @@ public abstract class Factory
      *
      * @return Object with ID.
      *
-     * @throws NotFound If given ID does not exist.
+     * @throws Exception If given ID does not exist or build failed.
      */
-    public Object getByID(int id) throws NotFound
+    public Object getByID(int id) throws Exception
     {
         if(this._instances.containsKey(id)) {
             return this._instances.get(id);
@@ -102,14 +119,14 @@ public abstract class Factory
      *
      * @return Object with ID.
      *
-     * @throws NotFound If given ID does not exist.
+     * @throws Exception If given ID does not exist or build failed.
      */
-    public Object loadByID(int id) throws NotFound
+    public Object loadByID(int id) throws Exception
     {
         try {
             PreparedStatement ps = Main.database.prepare("SELECT * FROM `?` WHERE `id`=?");
-            ps.setString(1, this._table);
-            ps.setInt(2, id);
+            ps.setString(0, this._table);
+            ps.setInt(1, id);
 
             ResultSet result = ps.executeQuery();
 
@@ -127,14 +144,16 @@ public abstract class Factory
      * Builds and returns all objects from database.
      *
      * @return Database objects.
+     *
+     * @throws Exception In case build or query failed.
      */
-    public HashMap loadAll()
+    public HashMap loadAll() throws Exception
     {
         HashMap<Integer, Object> objects = new HashMap<>();
 
         try {
-            PreparedStatement ps = Main.database.prepare("SELECT * FROM `?`");
-            ps.setString(1, this._table);
+            // Let's assume the guy implementing the class is a nice guy and doesn't mess with SQLi
+            PreparedStatement ps = Main.database.prepare("SELECT * FROM `"+ this._table +"`");
 
             ResultSet result = ps.executeQuery();
 
@@ -145,6 +164,9 @@ public abstract class Factory
         } catch(SQLException e) {
             Console.println("Couldn't load all objects from `" + this._table + "`");
             Console.println(e.getMessage());
+
+            // Debug shit.
+            throw e;
         }
 
         this._instances = objects;
@@ -158,6 +180,8 @@ public abstract class Factory
      * Instances the builder object and returns the object.
      *
      * @param result Query's result.
+     *
+     * @throws Exception In case build failed.
      */
-    public abstract Object build(ResultSet result);
+    public abstract Object build(ResultSet result) throws Exception;
 }

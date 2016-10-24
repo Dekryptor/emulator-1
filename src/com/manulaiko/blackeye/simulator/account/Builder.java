@@ -28,35 +28,30 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds an account.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            this._object = new Account(
-                    this._result.getInt("id"),
-                    this._result.getString("session_id"),
-                    this._result.getString("name"),
-                    this._result.getInt("factions_id"),
-                    this._result.getInt("clans_id"),
-                    this._result.getInt("uridium"),
-                    this._result.getLong("credits"),
-                    this._result.getDouble("jackpot"),
-                    this._result.getLong("experience"),
-                    this._result.getInt("honor"),
-                    this._result.getInt("levels_id"),
-                    this._result.getBoolean("is_premium"),
-                    this._result.getInt("ranks_id"),
-                    this._result.getInt("rank_points")
-            );
+        this._object = new Account(
+                this._result.getInt("id"),
+                this._result.getString("session_id"),
+                this._result.getString("name"),
+                this._result.getInt("factions_id"),
+                this._result.getInt("clans_id"),
+                this._result.getInt("uridium"),
+                this._result.getLong("credits"),
+                this._result.getDouble("jackpot"),
+                this._result.getLong("experience"),
+                this._result.getInt("honor"),
+                this._result.getInt("levels_id"),
+                this._result.getBoolean("is_premium"),
+                this._result.getInt("ranks_id"),
+                this._result.getInt("rank_points")
+        );
 
-            if(this._result.getInt("clans_id") != 0) {
-                this._setClan(this._result.getInt("clans_id"));
-            }
-
-            this._setLevel(this._result.getInt("levels_id"));
-        } catch(Exception e) {
-            Console.println("Couldn't build npc!");
-            Console.println(e.getMessage());
+        if(this._result.getInt("clans_id") != 0) {
+            this._setClan(this._result.getInt("clans_id"));
         }
+
+        this._setLevel(this._result.getInt("levels_id"));
     }
 
     /**
@@ -64,9 +59,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param id Clan ID.
      *
-     * @throws NotFound If clan ID does not exist.
+     * @throws Exception If clan ID does not exist or level failed.
      */
-    private void _setClan(int id) throws NotFound
+    private void _setClan(int id) throws Exception
     {
         Clan c = (Clan)GameManager.clans.getByID(id);
 
@@ -78,9 +73,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param id Level ID.
      *
-     * @throws NotFound If level ID does not exist.
+     * @throws Exception If level ID does not exist or build failed.
      */
-    private void _setLevel(int id) throws NotFound
+    private void _setLevel(int id) throws Exception
     {
         Level l = (Level)GameManager.levels.getByID(id);
 

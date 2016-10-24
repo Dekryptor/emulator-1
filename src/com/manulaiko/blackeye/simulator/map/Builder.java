@@ -36,43 +36,38 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds a map.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            JSONArray stations     = new JSONArray(this._result.getString("stations"));
-            JSONArray npcs         = new JSONArray(this._result.getString("npcs"));
-            JSONArray collectables = new JSONArray(this._result.getString("collectables"));
+        JSONArray stations     = new JSONArray(this._result.getString("stations"));
+        JSONArray npcs         = new JSONArray(this._result.getString("npcs"));
+        JSONArray collectables = new JSONArray(this._result.getString("collectables"));
 
-            JSONArray l  = new JSONArray(this._result.getString("limits"));
-            Point limits = new Point(l.getInt(0), l.getInt(1));
+        JSONArray l  = new JSONArray(this._result.getString("limits"));
+        Point limits = new Point(l.getInt(0), l.getInt(1));
 
-            this._object = new Map(
-                    this._result.getInt("id"),
-                    this._result.getInt("factions_id"),
-                    this._result.getBoolean("is_pvp"),
-                    this._result.getBoolean("is_starter"),
-                    this._result.getString("name"),
-                    limits
-            );
+        this._object = new Map(
+                this._result.getInt("id"),
+                this._result.getInt("factions_id"),
+                this._result.getBoolean("is_pvp"),
+                this._result.getBoolean("is_starter"),
+                this._result.getString("name"),
+                limits
+        );
 
-            if(Main.configuration.getBoolean("map.enable_stations")) {
-                this._setStations(stations);
-            }
+        if(Main.configuration.getBoolean("map.enable_stations")) {
+            this._setStations(stations);
+        }
 
-            if(Main.configuration.getBoolean("map.enable_npcs")) {
-                this._setNPCS(npcs);
-            }
+        if(Main.configuration.getBoolean("map.enable_npcs")) {
+            this._setNPCS(npcs);
+        }
 
-            if(Main.configuration.getBoolean("map.enable_collectables")) {
-                this._setCollectables(collectables);
-            }
+        if(Main.configuration.getBoolean("map.enable_collectables")) {
+            this._setCollectables(collectables);
+        }
 
-            if(Main.configuration.getBoolean("map.enable_portals")) {
-                this._setPortals();
-            }
-        } catch(Exception e) {
-            Console.println("Couldn't build collectable!");
-            Console.println(e.getMessage());
+        if(Main.configuration.getBoolean("map.enable_portals")) {
+            this._setPortals();
         }
     }
 
@@ -107,10 +102,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param npcs NPCs JSON.
      *
-     * @throws JSONException If the json couldn't be parsed.
-     * @throws NotFound      If any of the NPCs does not exist.
+     * @throws Exception If anything failed (JSON parsed, npc not found, npc building).
      */
-    private void _setNPCS(JSONArray npcs) throws JSONException, NotFound
+    private void _setNPCS(JSONArray npcs) throws Exception
     {
         for(int i = 0; i < npcs.length(); i++) {
             JSONObject npc = npcs.getJSONObject(i);
@@ -134,10 +128,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param collectables Collectables JSON.
      *
-     * @throws JSONException If the json couldn't be parsed.
-     * @throws NotFound      If any of the collectables does not exist.
+     * @throws Exception If anything failed (JSON parsed, collectable not found, collectable building).
      */
-    private void _setCollectables(JSONArray collectables) throws JSONException, NotFound
+    private void _setCollectables(JSONArray collectables) throws Exception
     {
         for(int i = 0; i < collectables.length(); i++) {
             JSONObject collectable = collectables.getJSONObject(i);
@@ -166,8 +159,10 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
 
     /**
      * Sets map's portals.
+     *
+     * @throws Exception In case build failed.
      */
-    private void _setPortals()
+    private void _setPortals() throws Exception
     {
         int id = ((Map)this._object).id;
 

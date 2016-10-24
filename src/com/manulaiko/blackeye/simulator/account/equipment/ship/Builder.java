@@ -30,29 +30,24 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds a ship..
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            JSONArray position = new JSONArray(this._result.getString("position"));
+        JSONArray position = new JSONArray(this._result.getString("position"));
 
-            this._object = new Ship(
-                    this._result.getInt("id"),
-                    this._result.getInt("gfx"),
-                    this._result.getInt("maps_id"),
-                    this._result.getInt("ships_id"),
-                    this._result.getInt("health"),
-                    this._result.getInt("nanohull"),
-                    this._result.getInt("shield"),
-                    this._result.getInt("active_configuration")
-            );
+        this._object = new Ship(
+                this._result.getInt("id"),
+                this._result.getInt("gfx"),
+                this._result.getInt("maps_id"),
+                this._result.getInt("ships_id"),
+                this._result.getInt("health"),
+                this._result.getInt("nanohull"),
+                this._result.getInt("shield"),
+                this._result.getInt("active_configuration")
+        );
 
-            this._setMap(this._result.getInt("maps_id"));
-            this._setShip(this._result.getInt("ships_id"));
-            this._setPosition(position);
-        } catch(Exception e) {
-            Console.println("Couldn't build npc!");
-            Console.println(e.getMessage());
-        }
+        this._setMap(this._result.getInt("maps_id"));
+        this._setShip(this._result.getInt("ships_id"));
+        this._setPosition(position);
     }
 
     /**
@@ -60,9 +55,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param id Map ID.
      *
-     * @throws NotFound If map ID does not exist.
+     * @throws Exception If map ID does not exist or build failed.
      */
-    private void _setMap(int id) throws NotFound
+    private void _setMap(int id) throws Exception
     {
         Map m = (Map)GameManager.maps.getByID(id);
 
@@ -74,9 +69,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param id Ship ID.
      *
-     * @throws NotFound If ship ID does not exist.
+     * @throws Exception If ship ID does not exist or build failed.
      */
-    private void _setShip(int id) throws NotFound
+    private void _setShip(int id) throws Exception
     {
         com.manulaiko.blackeye.simulator.ship.Ship s = (com.manulaiko.blackeye.simulator.ship.Ship)GameManager.ships.getByID(id);
 

@@ -28,24 +28,19 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds and returns a collectable.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            JSONArray rewards = new JSONArray(this._result.getString("rewards"));
+        JSONArray rewards = new JSONArray(this._result.getString("rewards"));
 
-            this._object = new Collectable(
-                    this._result.getInt("id"),
-                    this._result.getInt("gfx"),
-                    this._result.getInt("class"),
-                    this._result.getString("name"),
-                    new Point(0, 0)
-            );
+        this._object = new Collectable(
+                this._result.getInt("id"),
+                this._result.getInt("gfx"),
+                this._result.getInt("class"),
+                this._result.getString("name"),
+                new Point(0, 0)
+        );
 
-            this._setRewards(rewards);
-        } catch(Exception e) {
-            Console.println("Couldn't build collectable!");
-            Console.println(e.getMessage());
-        }
+        this._setRewards(rewards);
     }
 
     /**

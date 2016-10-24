@@ -37,15 +37,19 @@ public abstract class Builder
 
     /**
      * Builds the object.
+     *
+     * @throws Exception In case the build failed.
      */
-    public abstract void build();
+    public abstract void build() throws Exception;
 
     /**
      * Returns the object.
      *
      * @return The object.
+     *
+     * @throws Exception In case `build` method failed.
      */
-    public Object get()
+    public Object get() throws Exception
     {
         if(this._object == null) {
             this.build();

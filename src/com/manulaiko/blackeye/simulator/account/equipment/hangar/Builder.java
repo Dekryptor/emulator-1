@@ -31,23 +31,18 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds an hangar.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            JSONArray resources = new JSONArray(this._result.getString("resources"));
+        JSONArray resources = new JSONArray(this._result.getString("resources"));
 
-            this._object = new Hangar(
-                    this._result.getInt("id"),
-                    this._result.getInt("accounts__id")
-            );
+        this._object = new Hangar(
+                this._result.getInt("id"),
+                this._result.getInt("accounts__id")
+        );
 
-            this._setResources(resources);
-            this._setShip(this._result.getInt("accounts_equipment_ships_id"));
-            this._setConfigurations(this._result.getInt("accounts_equipment_ships_id"));
-        } catch(Exception e) {
-            Console.println("Couldn't build hangar!");
-            Console.println(e.getMessage());
-        }
+        this._setResources(resources);
+        this._setShip(this._result.getInt("accounts_equipment_ships_id"));
+        this._setConfigurations(this._result.getInt("accounts_equipment_ships_id"));
     }
 
     /**
@@ -72,9 +67,9 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      *
      * @param id Ship ID.
      *
-     * @throws NotFound If ship does not exist.
+     * @throws Exception If ship does not exist or build failed.
      */
-    private void _setShip(int id) throws NotFound
+    private void _setShip(int id) throws Exception
     {
         Ship s = (Ship)GameManager.accounts.hangars.ships.getByID(id);
 
@@ -85,8 +80,10 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      * Sets hangar's configurations.
      *
      * @param id Ship ID.
+     *
+     * @throws Exception In case build failed.
      */
-    private void _setConfigurations(int id)
+    private void _setConfigurations(int id) throws Exception
     {
         HashMap<Integer, Configuration> configurations = GameManager.accounts.hangars.configurations.getByShipID(id);
 

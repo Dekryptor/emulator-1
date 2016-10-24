@@ -25,24 +25,19 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds and returns an item.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            JSONObject extras = new JSONObject(this._result.getString("extras"));
+        JSONObject extras = new JSONObject(this._result.getString("extras"));
 
-            this._object = new Item(
-                    this._result.getInt("id"),
-                    this._result.getString("loot_id"),
-                    this._result.getString("name"),
-                    this._result.getString("category"),
-                    this._result.getInt("price"),
-                    this._result.getBoolean("is_elite"),
-                    this._result.getInt("value"),
-                    extras
-            );
-        } catch(Exception e) {
-            Console.println("Couldn't build item!");
-            Console.println(e.getMessage());
-        }
+        this._object = new Item(
+                this._result.getInt("id"),
+                this._result.getString("loot_id"),
+                this._result.getString("name"),
+                this._result.getString("category"),
+                this._result.getInt("price"),
+                this._result.getBoolean("is_elite"),
+                this._result.getInt("value"),
+                extras
+        );
     }
 }

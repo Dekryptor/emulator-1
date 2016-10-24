@@ -36,30 +36,25 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds a portal.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            JSONArray p  = new JSONArray(this._result.getString("position"));
-            JSONArray tp = new JSONArray(this._result.getString("target_position"));
+        JSONArray p  = new JSONArray(this._result.getString("position"));
+        JSONArray tp = new JSONArray(this._result.getString("target_position"));
 
-            Point position       = new Point(p.getInt(0), p.getInt(1));
-            Point targetPosition = new Point(tp.getInt(0), tp.getInt(1));
+        Point position       = new Point(p.getInt(0), p.getInt(1));
+        Point targetPosition = new Point(tp.getInt(0), tp.getInt(1));
 
-            this._object = new Portal(
-                    this._result.getInt("id"),
-                    this._result.getInt("maps_id"),
-                    this._result.getInt("levels_id"),
-                    position,
-                    targetPosition,
-                    this._result.getInt("target_maps_id"),
-                    this._result.getBoolean("is_visible"),
-                    this._result.getBoolean("is_working"),
-                    this._result.getInt("faction_scrap"),
-                    this._result.getInt("gfx")
-            );
-        } catch(Exception e) {
-            Console.println("Couldn't build portal!");
-            Console.println(e.getMessage());
-        }
+        this._object = new Portal(
+                this._result.getInt("id"),
+                this._result.getInt("maps_id"),
+                this._result.getInt("levels_id"),
+                position,
+                targetPosition,
+                this._result.getInt("target_maps_id"),
+                this._result.getBoolean("is_visible"),
+                this._result.getBoolean("is_working"),
+                this._result.getInt("faction_scrap"),
+                this._result.getInt("gfx")
+        );
     }
 }

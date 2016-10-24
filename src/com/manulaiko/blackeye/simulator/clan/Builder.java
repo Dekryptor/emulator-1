@@ -26,18 +26,13 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     /**
      * Builds a clan.
      */
-    public void build()
+    public void build() throws Exception
     {
-        try {
-            this._object = new Clan(
-                    this._result.getInt("id"),
-                    this._result.getString("tag"),
-                    this._result.getString("name"),
-                    this._result.getInt("factions_id")
-            );
-        } catch(Exception e) {
-            Console.println("Couldn't build clan!");
-            Console.println(e.getMessage());
-        }
+        this._object = new Clan(
+                this._result.getInt("id"),
+                this._result.getString("tag"),
+                this._result.getString("name"),
+                this._result.getInt("factions_id")
+        );
     }
 }
