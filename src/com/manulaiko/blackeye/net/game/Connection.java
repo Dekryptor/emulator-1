@@ -129,54 +129,26 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
     }
 
     /**
-     * Sets in/out streams and starts reading packets.
+     * Reads from input stream.
      */
     public void run()
     {
         try {
             String packet = "";
-            char[] packetChar = new char[1];
-
-            //While the socket input stream (call it packet) char isn't -1 process the packet
-            while(this._in.read(packetChar, 0, 1) != -1) {
-                if(!this._isRunning) {
-                    return;
-                }
-                //If the char isn't null, new line or return char
-                if(packetChar[0] != '\u0000' && packetChar[0] != '\n' && packetChar[0] != '\r') {
-                    //packet increase it's value with the char
-                    //Example:
-                    // packet = RD, packetChar[0] = Y;
-                    // now packet = RDY;
-                    packet += packetChar[0];
-                } else if (!packet.isEmpty()) {
-                    //If the packet isn't "" we have the complete packet
-
-                    //Concat the packet with UTF8
-                    packet = new String(packet.getBytes(), "UTF8");
-                    //Assemble the packet
-                    //Declaration
-                    if(packet.equals("<policy-file-request/>")) {
-                        //Send the policy
-                        this.send(this._policyFile);
-                        Console.println("Policy file sent!");
-                    } else {
-                        PacketParser p = new PacketParser(packet);
-
-                        this.handle(p);
-                    }
-                    //Set the packet again to ""
-                    this.lastReceivedPacket = packet;
-                    packet = "";
-                }
+            while(
+                (packet = this._in.readLine()) != null &&
+                this._isRunning
+            ) {
+                this.lastReceivedPacket = packet;
+                this.handle(new PacketParser(packet));
             }
         } catch(Exception e) {
             if(!this._isRunning) {
                 return;
             }
+
             Console.println("Couldn't read packet!");
             Console.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
