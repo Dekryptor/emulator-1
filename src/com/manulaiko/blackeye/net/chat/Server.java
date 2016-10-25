@@ -1,9 +1,9 @@
 package com.manulaiko.blackeye.net.chat;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import com.manulaiko.blackeye.launcher.Main;
-import com.manulaiko.blackeye.net.game.packets.Factory;
 
 import com.manulaiko.tabitha.Console;
 
@@ -27,8 +27,6 @@ public class Server extends com.manulaiko.tabitha.net.Server
     public Server()
     {
         super(Main.configuration.getShort("core.chat_port"));
-
-        this.packetFactory = new Factory();
     }
 
     /**
@@ -44,6 +42,15 @@ public class Server extends com.manulaiko.tabitha.net.Server
         } catch(Exception e) {
             //Empty
         }
+    }
+
+    /**
+     * Initializes packet factory and starts listening.
+     */
+    public void start() throws IOException
+    {
+        this.packetFactory = new Factory();
+        super.start();
     }
 
     /**

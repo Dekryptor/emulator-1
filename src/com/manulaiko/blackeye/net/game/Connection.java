@@ -9,8 +9,8 @@ import com.manulaiko.blackeye.simulator.account.Account;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 
-import com.manulaiko.blackeye.net.game.packets.Packet;
-import com.manulaiko.blackeye.net.game.utils.PacketParser;
+import com.manulaiko.blackeye.net.utils.Packet;
+import com.manulaiko.blackeye.net.utils.PacketParser;
 
 import com.manulaiko.tabitha.Console;
 

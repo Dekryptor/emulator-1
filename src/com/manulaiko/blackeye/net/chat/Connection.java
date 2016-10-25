@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
-import com.manulaiko.blackeye.net.game.utils.PacketParser;
+import com.manulaiko.blackeye.net.utils.PacketParser;
 
 import com.manulaiko.tabitha.Console;
 

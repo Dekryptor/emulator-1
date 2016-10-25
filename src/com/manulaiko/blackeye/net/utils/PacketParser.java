@@ -1,4 +1,4 @@
-package com.manulaiko.blackeye.net.game.utils;
+package com.manulaiko.blackeye.net.utils;
 
 import java.util.ArrayList;
 

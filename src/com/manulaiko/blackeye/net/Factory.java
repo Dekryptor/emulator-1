@@ -1,11 +1,11 @@
-package com.manulaiko.blackeye.net.game.packets;
+package com.manulaiko.blackeye.net;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import com.manulaiko.blackeye.net.game.utils.PacketParser;
-
-import com.manulaiko.tabitha.exceptions.NotFound;
+import com.manulaiko.blackeye.net.utils.Command;
+import com.manulaiko.blackeye.net.utils.Packet;
+import com.manulaiko.blackeye.net.utils.PacketParser;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.reflection.Instantiation;
 
@@ -20,50 +20,41 @@ public class Factory
 {
     /**
      * Available packet handlers.
+     *
+     * @var Packet handlers.
      */
-    private HashMap<String, String> _packets = new HashMap<>();
+    protected HashMap<String, String> _packets = new HashMap<>();
 
     /**
      * Available packet commands.
+     *
+     * @var Packet commands.
      */
-    private HashMap<String, String> _commands = new HashMap<>();
+    protected HashMap<String, String> _commands = new HashMap<>();
+
+    /**
+     * Package where handlers are located.
+     *
+     * @var Handler package.
+     */
+    private String _handlerPackage = "com.manulaiko.blackeye.net.game.packets.handlers";
+
+    /**
+     * Package where handlers are located.
+     *
+     * @var Handler package.
+     */
+    private String _commandPackage = "com.manulaiko.blackeye.net.game.packets.commands";
 
     /**
      * Constructor.
      *
-     * Sets available packets and their handlers.
+     * @param handlerPackage Handler package.
      */
-    public Factory()
+    public Factory(String handlerPackage, String commandPackage)
     {
-        Console.println("Loading game packet handlers and commands...");
-
-        ///////////////////////////
-        // Start Packet Handlers //
-        ///////////////////////////
-        this._packets.put("LOGIN", "LoginRequest");
-        this._packets.put("0", "EchoPacket");
-        this._packets.put("PNG", "Ping");
-        this._packets.put("1", "Movement");
-        /////////////////////////
-        // End Packet Handlers //
-        /////////////////////////
-
-        ///////////////////////////
-        // Start Packet Commands //
-        ///////////////////////////
-        this._commands.put("I", "ShipInitialization");
-        this._commands.put("C", "CreateShip");
-        this._commands.put("p", "CreatePortal");
-        this._commands.put("c", "CreateCollectable");
-        this._commands.put("s", "CreateStation");
-        this._commands.put("R", "RemoveShip");
-        this._commands.put("K", "DestroyShip");
-        this._commands.put("1", "Move");
-        /////////////////////////
-        // End Packet Commands //
-        /////////////////////////
-
-        Console.println(this._packets.size() + " packet handlers and commands loaded!");
+        this._handlerPackage = handlerPackage;
+        this._commandPackage = commandPackage;
     }
 
     /**
@@ -133,7 +124,7 @@ public class Factory
      */
     private Packet _instanceHandler(String name)
     {
-        Packet p = (Packet) Instantiation.instance("com.manulaiko.blackeye.net.game.packets.handlers."+ name);
+        Packet p = (Packet) Instantiation.instance(this._handlerPackage +"."+ name);
 
         return p;
     }
@@ -183,7 +174,7 @@ public class Factory
      */
     private Command _instanceCommand(String name)
     {
-        Command c = (Command) Instantiation.instance("com.manulaiko.blackeye.net.game.packets.commands."+ name);
+        Command c = (Command) Instantiation.instance(this._commandPackage +"."+ name);
 
         return c;
     }

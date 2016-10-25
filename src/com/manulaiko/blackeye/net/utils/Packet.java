@@ -1,7 +1,7 @@
-package com.manulaiko.blackeye.net.game.packets;
+package com.manulaiko.blackeye.net.utils;
 
 import com.manulaiko.blackeye.net.game.Connection;
-import com.manulaiko.blackeye.net.game.utils.PacketParser;
+import com.manulaiko.blackeye.net.utils.PacketParser;
 
 /**
  * Packet class.
