@@ -1,9 +1,6 @@
 package com.manulaiko.blackeye.launcher;
 
-import com.manulaiko.blackeye.launcher.command.RestartCommand;
-import com.manulaiko.blackeye.launcher.command.StartCommand;
-import com.manulaiko.blackeye.launcher.command.StatusCommand;
-import com.manulaiko.blackeye.launcher.command.StopCommand;
+import com.manulaiko.blackeye.launcher.command.*;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.Configuration;
 import com.manulaiko.tabitha.configuration.IConfiguration;
@@ -124,6 +121,10 @@ public class Main
         cp.addCommand(new StartCommand());
         cp.addCommand(new StatusCommand());
         cp.addCommand(new StopCommand());
+        cp.addCommand(new ExitCommand());
+        cp.addCommand(new ReconectToDatabaseCommand());
+        cp.addCommand(new ReinitializeGameManagerCommand());
+        cp.addCommand(new ReloadConfigurationCommand());
         cp.start();
     }
 
