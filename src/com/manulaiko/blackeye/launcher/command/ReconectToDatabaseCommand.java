@@ -79,6 +79,8 @@ public class ReconectToDatabaseCommand implements com.manulaiko.tabitha.utils.IC
             return;
         }
 
+        Console.println("Reconnected to database!");
+
         if(args.length > 1) {
             ReinitializeGameManagerCommand c = new ReinitializeGameManagerCommand();
             c.execute(args);

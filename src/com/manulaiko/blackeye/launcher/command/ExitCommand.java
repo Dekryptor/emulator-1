@@ -1,6 +1,7 @@
 package com.manulaiko.blackeye.launcher.command;
 
 import com.manulaiko.blackeye.launcher.GameManager;
+import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.tabitha.Console;
 
@@ -70,6 +71,6 @@ public class ExitCommand implements com.manulaiko.tabitha.utils.ICommand
         ServerManager.stop("all");
         Console.println("Updating database...");
         GameManager.save();
-        System.exit(0);
+        Main.exit("BlackEye has successfully stopped");
     }
 }
