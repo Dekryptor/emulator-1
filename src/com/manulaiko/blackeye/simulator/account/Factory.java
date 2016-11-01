@@ -1,6 +1,12 @@
 package com.manulaiko.blackeye.simulator.account;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
+
+import com.manulaiko.blackeye.launcher.Main;
+import com.manulaiko.tabitha.exceptions.NotFound;
 
 /**
  * Factory for the `accounts` table.
@@ -39,5 +45,57 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
         Builder b = new Builder(rs);
 
         return b.get();
+    }
+
+    /**
+     * Returns an account by given `session_id`.
+     *
+     * @param sessionID `session_id` field from database.
+     *
+     * @return Account object.
+     *
+     * @throws NotFound If no session ID is found on database.
+     */
+    public Account getBySessionID(String sessionID) throws NotFound
+    {
+        for(Map.Entry<Integer, Object> account : this._instances.entrySet()) {
+            Account a = (Account)account.getValue();
+
+            if(a.sessionID.equalsIgnoreCase(sessionID)) {
+                return a;
+            }
+        }
+
+        Account a = this.loadBySessionID(sessionID);
+        this._instances.put(a.id, a);
+
+        return a;
+    }
+
+    /**
+     * Builds and returns an account by given `session_id`.
+     *
+     * @param sessionID `session_id` field from database.
+     *
+     * @return Account object.
+     *
+     * @throws NotFound If no session ID is found on database.
+     */
+    public Account loadBySessionID(String sessionID) throws NotFound
+    {
+        try {
+            PreparedStatement ps = Main.database.prepare("SELECT * FROM `accounts` WHERE `session_id`=?");
+            ps.setString(0, sessionID);
+
+            ResultSet result = ps.executeQuery();
+
+            if(!result.next()) {
+                throw new NotFound("account", "session_id: "+ sessionID);
+            }
+
+            return (Account)this.build(result);
+        } catch(Exception e) {
+            throw new NotFound("account", "session_id: "+ sessionID);
+        }
     }
 }
