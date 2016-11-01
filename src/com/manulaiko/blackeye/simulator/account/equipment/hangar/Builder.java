@@ -37,12 +37,13 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
 
         this._object = new Hangar(
                 this._result.getInt("id"),
-                this._result.getInt("accounts__id")
+                this._result.getInt("accounts_id")
         );
 
         this._setResources(resources);
         this._setShip(this._result.getInt("accounts_equipment_ships_id"));
         this._setConfigurations(this._result.getInt("accounts_equipment_ships_id"));
+        this._setActiveConfiguration(this._result.getInt("active_configuration"));
     }
 
     /**
@@ -88,5 +89,15 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
         HashMap<Integer, Configuration> configurations = GameManager.accounts.hangars.configurations.getByShipID(id);
 
         ((Hangar)this._object).setConfigurations(configurations);
+    }
+
+    /**
+     * Sets hangar's active configurations.
+     *
+     * @param id Configuration ID.
+     */
+    private void _setActiveConfiguration(int id)
+    {
+        ((Hangar)this._object).changeConfiguration(id);
     }
 }

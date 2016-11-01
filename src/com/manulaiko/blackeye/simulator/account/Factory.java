@@ -34,6 +34,19 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
     }
 
     /**
+     * Initializes the factory (loads all objects).
+     *
+     * @throws Exception If query or build failed.
+     */
+    public void initialize() throws Exception
+    {
+        this.hangars.initialize();
+        this.items.initialize();
+
+        super.initialize();
+    }
+
+    /**
      * Builds and returns an account.
      *
      * @param rs Query result.

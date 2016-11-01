@@ -3,6 +3,7 @@ package com.manulaiko.blackeye.simulator.account;
 import java.sql.ResultSet;
 
 import com.manulaiko.blackeye.launcher.GameManager;
+import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
 import com.manulaiko.tabitha.Console;
@@ -52,6 +53,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
         }
 
         this._setLevel(this._result.getInt("levels_id"));
+        this._setHangar(this._result.getInt("accounts_equipment_hangars_id"));
     }
 
     /**
@@ -80,5 +82,19 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
         Level l = (Level)GameManager.levels.getByID(id);
 
         ((Account)this._object).setLevel(l);
+    }
+
+    /**
+     * Sets account's hangar.
+     *
+     * @param id Hangar ID.
+     *
+     * @throws Exception If hangar ID does not exist or build failed.
+     */
+    private void _setHangar(int id) throws Exception
+    {
+        Hangar h = (Hangar)GameManager.accounts.hangars.getByID(id);
+
+        ((Account)this._object).setHangar(h);
     }
 }

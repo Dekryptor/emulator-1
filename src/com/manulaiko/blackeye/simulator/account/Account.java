@@ -1,5 +1,6 @@
 package com.manulaiko.blackeye.simulator.account;
 
+import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
 import com.manulaiko.tabitha.Console;
@@ -100,6 +101,11 @@ public class Account implements Cloneable
     public int rankPoints;
 
     /**
+     * Hangar object.
+     */
+    public Hangar hangar;
+
+    /**
      * Constructor.
      *
      * @param id         Account ID.
@@ -154,6 +160,16 @@ public class Account implements Cloneable
     public void setLevel(Level level)
     {
         this.level = level;
+    }
+
+    /**
+     * Sets hangar object.
+     *
+     * @param hangar Hangar object.
+     */
+    public void setHangar(Hangar hangar)
+    {
+        this.hangar = hangar;
     }
 
     /**

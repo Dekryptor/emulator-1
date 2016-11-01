@@ -157,7 +157,7 @@ public abstract class Factory
 
             ResultSet result = ps.executeQuery();
 
-            int i = 0;
+            int i = 1;
             while(result.next()) {
                 objects.put(i++, this.build(result));
             }

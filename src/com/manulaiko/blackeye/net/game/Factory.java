@@ -18,7 +18,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
      */
     public Factory()
     {
-        super("com.manulaiko.blackeye.net.game.packet.handler", "com.manulaiko.net.game.packet.command");
+        super("com.manulaiko.blackeye.net.game.packet.handler", "com.manulaiko.blackeye.net.game.packet.command");
 
         Console.println("Loading game packet handlers and commands...");
 
