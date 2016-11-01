@@ -23,6 +23,16 @@ public class Server extends com.manulaiko.tabitha.net.Server
     }
 
     /**
+     * Constructor.
+     *
+     * @param port Listening port.
+     */
+    public Server(short port)
+    {
+        super(port);
+    }
+
+    /**
      * Waits for connections and handles them.
      */
     public void onRunning()
