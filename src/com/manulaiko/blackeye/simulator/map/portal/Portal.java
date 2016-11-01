@@ -1,5 +1,7 @@
 package com.manulaiko.blackeye.simulator.map.portal;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.packet.command.CreatePortal;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
@@ -132,5 +134,24 @@ public class Portal implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Builds and returns the CreatePortal command.
+     *
+     * @return CreatePortal command.
+     */
+    public CreatePortal getCreatePortalCommand()
+    {
+        CreatePortal p = (CreatePortal) ServerManager.game.packetFactory.getCommandByName("CreatePortal");
+
+        p.id           = this.id;
+        p.gfx          = this.gfx;
+        p.x            = this.position.getX();
+        p.y            = this.position.getY();
+        p.isVisible    = this.isVisible;
+        p.factionScrap = this.factionScrap;
+
+        return p;
     }
 }
