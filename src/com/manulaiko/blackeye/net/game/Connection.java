@@ -100,7 +100,7 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
      *
      * @param p Packet to send.
      */
-    public void send(PacketParser p)
+    public void send(Object p)
     {
         this.send(p.toString());
     }
@@ -138,6 +138,7 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
 
             Console.println("Couldn't read packet!");
             Console.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

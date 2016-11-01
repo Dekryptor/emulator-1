@@ -1,9 +1,9 @@
 package com.manulaiko.blackeye.net.game.packet.command;
 
 /**
- * ShipInitialization command
+ * ShipInitialization command.
  *
- * Builds the Ship initialization command
+ * Builds the Ship initialization command.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
@@ -27,7 +27,9 @@ public class ShipInitialization extends com.manulaiko.blackeye.net.utils.Command
     ////////////////
 
     /**
-     * Returns the packet as a string
+     * Returns the packet as a string.
+     *
+     * @return Packet as string.
      */
     public String toString()
     {
