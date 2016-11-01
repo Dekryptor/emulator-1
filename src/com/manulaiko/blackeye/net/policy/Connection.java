@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -32,18 +31,15 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
     private PrintWriter _out;
 
     /**
-     * Last received packet.
+     * Policy file.
      *
-     * @var Last packet.
+     * @var Policy file response.
      */
-    public String lastReceivedPacket = "";
-
-    /**
-     * Whether the account is running or not.
-     *
-     * @var Connection status.
-     */
-    private boolean _isRunning = true;
+    private String _policyFile = "<?xml version=\"1.0\"?>\n" +
+                                 "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\n" +
+                                 "<cross-domain-policy>\n" +
+                                 "<allow-access-from domain=\"*\" to-ports=\"*\" />\n" +
+                                 "</cross-domain-policy>";
 
     /**
      * Constructor.
@@ -57,13 +53,12 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
         try {
             this._thread = new Thread(this);
 
-            this._in  = new BufferedReader(new InputStreamReader(this._socket.getInputStream()));
+            this._in = new BufferedReader(new InputStreamReader(this._socket.getInputStream()));
             this._out = new PrintWriter(this._socket.getOutputStream());
 
             this._thread.start();
         } catch(Exception e) {
-            Console.println("Couldn't set in/out streams!");
-            Console.println(e.getMessage());
+            //empty
         }
     }
 
@@ -76,55 +71,26 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
     {
         this._out.print(str + (char)0x00);
         this._out.flush();
-        Console.println("Packet sent: "+ str);
+        Console.println("Policy file sent!");
     }
 
     /**
-     * Reads from input stream.
+     * Starts reading and sends the response.
      */
     public void run()
     {
         try {
             String packet = "";
-            while(
-                (packet = this._in.readLine()) != null &&
-                this._isRunning
-            ) {
-                this.lastReceivedPacket = packet;
-                this.handle(packet);
-            }
-        } catch(Exception e) {
-            if(!this._isRunning) {
-                return;
+
+            int c;
+            while(0 < (c = this._in.read())) {
+                packet += (char) c;
             }
 
-            Console.println("Couldn't read packet!");
+            this.send(this._policyFile);
+        } catch(Exception e) {
+            Console.println("Couldn't send packet!");
             Console.println(e.getMessage());
         }
-    }
-
-    /**
-     * Handles the packet.
-     *
-     * @param packet Packet to handle.
-     */
-    public void handle(String packet)
-    {
-        this.send("<?xml version=\"1.0\"?>\n" +
-                          "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\n" +
-                          "<cross-domain-policy>\n" +
-                          "<allow-access-from domain=\"*\" to-ports=\"*\" />\n" +
-                          "</cross-domain-policy>");
-    }
-
-    /**
-     * Closes the connection to the client.
-     */
-    public void finish()
-    {
-        this._isRunning = false;
-        this._thread.stop();
-
-        ServerManager.policy.finishConnection(this.id);
     }
 }

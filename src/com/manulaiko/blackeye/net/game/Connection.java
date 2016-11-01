@@ -46,17 +46,6 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
     private PrintWriter _out;
 
     /**
-     * Policy file.
-     *
-     * @var Policy response.
-     */
-    private String _policyFile = "<?xml version=\"1.0\"?>\n" +
-            "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\n" +
-            "<cross-domain-policy>\n" +
-            "<allow-access-from domain=\"*\" to-ports=\"*\" />\n" +
-            "</cross-domain-policy>";
-
-    /**
      * Connection's Account.
      *
      * @var Account.
@@ -134,7 +123,7 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
     public void run()
     {
         try {
-            String packet = "";
+            String packet;
             while(
                 (packet = this._in.readLine()) != null &&
                 this._isRunning
