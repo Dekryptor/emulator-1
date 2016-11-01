@@ -2,6 +2,9 @@ package com.manulaiko.blackeye.simulator.map.collectable;
 
 import java.util.ArrayList;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.packet.command.CreateCollectable;
+import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -128,6 +131,24 @@ public class Collectable
             return null;
         }
     }
+
+    /**
+     * Builds and returns the CreateCollectable command.
+     *
+     * @return CreateCollectable command.
+     */
+    public CreateCollectable getCreateCollectableCommand()
+    {
+        CreateCollectable p = (CreateCollectable) ServerManager.game.packetFactory.getCommandByName("CreateShip");
+
+        p.id  = this.id;
+        p.gfx = this.gfx;
+        p.x   = (int)this.position.getX();
+        p.y   = (int)this.position.getY();
+
+        return p;
+    }
+
     /**
      * Reward class.
      *
