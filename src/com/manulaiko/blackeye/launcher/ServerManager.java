@@ -64,12 +64,6 @@ public class ServerManager
             ServerManager.game.showStatus();
         }
 
-        if(server.contains("policy") || server.contains("all")) {
-            Console.println("Policy server");
-            Console.println(Console.LINE_EQ);
-            ServerManager.policy.showStatus();
-        }
-
         if(server.contains("chat") || server.contains("all")) {
             Console.println("Chat server");
             Console.println(Console.LINE_EQ);
@@ -80,6 +74,12 @@ public class ServerManager
             Console.println("SocksWork server");
             Console.println(Console.LINE_EQ);
             ServerManager.sockswork.showStatus();
+        }
+
+        if(server.contains("policy") || server.contains("all")) {
+            Console.println("Policy server");
+            Console.println(Console.LINE_EQ);
+            ServerManager.policy.showStatus();
         }
     }
 
@@ -97,12 +97,6 @@ public class ServerManager
                 Console.println("Game server started!");
             }
 
-            if(server.contains("policy") || server.contains("all")) {
-                Console.println("Starting policy server...");
-                ServerManager.policy.start();
-                Console.println("Policy server started!");
-            }
-
             if(server.contains("chat") || server.contains("all")) {
                 Console.println("Starting chat server...");
                 ServerManager.chat.start();
@@ -113,6 +107,12 @@ public class ServerManager
                 Console.println("Starting SocksWork server...");
                 ServerManager.sockswork.start();
                 Console.println("SocksWork server started!");
+            }
+
+            if(server.contains("policy") || server.contains("all")) {
+                Console.println("Starting policy server...");
+                ServerManager.policy.start();
+                Console.println("Policy server started!");
             }
         } catch(IOException e) {
             Console.println("Couldn't start "+ server +" server!");
@@ -144,12 +144,6 @@ public class ServerManager
             Console.println("Game server stopped!");
         }
 
-        if(server.equalsIgnoreCase("policy") || server.equalsIgnoreCase("all")) {
-            Console.println("Stopping policy server...");
-            ServerManager.policy.stop(timeout);
-            Console.println("Policy server started!");
-        }
-
         if(server.equalsIgnoreCase("chat") || server.equalsIgnoreCase("all")) {
             Console.println("Stopping chat server...");
             ServerManager.chat.stop(timeout);
@@ -160,6 +154,12 @@ public class ServerManager
             Console.println("Stopping SocksWork server...");
             ServerManager.sockswork.stop(timeout);
             Console.println("SocksWork server stopped!");
+        }
+
+        if(server.equalsIgnoreCase("policy") || server.equalsIgnoreCase("all")) {
+            Console.println("Stopping policy server...");
+            ServerManager.policy.stop(timeout);
+            Console.println("Policy server started!");
         }
     }
 }
