@@ -1,6 +1,8 @@
 package com.manulaiko.blackeye.simulator.account;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.Connection;
+import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
 import com.manulaiko.blackeye.net.game.packet.command.ShipInitialization;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.clan.Clan;
@@ -104,8 +106,17 @@ public class Account implements Cloneable
 
     /**
      * Hangar object.
+     *
+     * @var Hangar.
      */
     public Hangar hangar;
+
+    /**
+     * Connection object.
+     *
+     * @var Connection.
+     */
+    public Connection connection;
 
     /**
      * Constructor.
@@ -234,6 +245,34 @@ public class Account implements Cloneable
         p.clanTag    = (this.clan == null) ? "" : this.clan.tag;
         p.ggRings    = 4;
         p.useSysFont = 1; //No idea
+
+        return p;
+    }
+
+    /**
+     * Builds and returns the CreateShip command.
+     *
+     * @return CreateShip command.
+     */
+    public CreateShip getCreateShipCommand()
+    {
+        CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
+
+        p.id            = this.id;
+        p.shipID        = this.hangar.ship.ship.id;
+        p.expansion     = this.hangar.getExpansions();
+        p.clanTag       = this.clan.tag;
+        p.name          = this.name;
+        p.x             = this.hangar.ship.position.getX();
+        p.y             = this.hangar.ship.position.getY();
+        p.factionID     = this.factionsID;
+        p.clanID        = this.clansID;
+        p.rankID        = this.rankID;
+        p.warningIcon   = false;
+        p.clanDiplomacy = 0;
+        p.ggRings       = 0;
+        p.isNPC         = false;
+        p.isCloaked     = false;
 
         return p;
     }

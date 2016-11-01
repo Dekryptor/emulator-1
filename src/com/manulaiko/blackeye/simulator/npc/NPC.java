@@ -2,6 +2,8 @@ package com.manulaiko.blackeye.simulator.npc;
 
 import java.util.HashMap;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
@@ -148,6 +150,34 @@ public class NPC implements Cloneable
     }
 
     /**
+     * Builds and returns the CreateShip command.
+     *
+     * @return CreateShip command.
+     */
+    public CreateShip getCreateShipCommand()
+    {
+        CreateShip p = (CreateShip) ServerManager.game.packetFactory.getCommandByName("CreateShip");
+
+        p.id            = this.id;
+        p.shipID        = this.gfx;
+        p.expansion     = 0;
+        p.clanTag       = "";
+        p.name          = this.name;
+        p.x             = this.position.getX();
+        p.y             = this.position.getY();
+        p.factionID     = 0;
+        p.clanID        = 0;
+        p.rankID        = 0;
+        p.warningIcon   = false;
+        p.clanDiplomacy = 0;
+        p.ggRings       = 0;
+        p.isNPC         = true;
+        p.isCloaked     = false;
+
+        return p;
+    }
+
+    /**
      * Clones the object.
      *
      * @return Cloned object.
@@ -181,7 +211,7 @@ public class NPC implements Cloneable
             return null;
         }
     }
-    
+
     /**
      * Reward class.
      * 
