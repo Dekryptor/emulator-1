@@ -1,7 +1,12 @@
 package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
+import java.util.HashMap;
+
+import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.map.Map;
 
+import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
+import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
@@ -93,6 +98,21 @@ public class Ship
      * @var Active configuration.
      */
     public int activeConfiguration;
+
+    /**
+     * Near accounts
+     */
+    public HashMap<Integer, Account> nearAccounts = new HashMap<>();
+
+    /**
+     * Near NPCs
+     */
+    public HashMap<Integer, NPC> nearNPCs = new HashMap<>();
+
+    /**
+     * Near collectables
+     */
+    public HashMap<Integer, Collectable> nearCollectables = new HashMap<>();
 
     /**
      * Constructor.
