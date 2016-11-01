@@ -1,5 +1,7 @@
 package com.manulaiko.blackeye.simulator.account;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.packet.command.ShipInitialization;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
@@ -192,5 +194,47 @@ public class Account implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Builds and returns the ShipInitialization packet
+     *
+     * @return Ship initialization packet
+     */
+    public ShipInitialization getShipInitializationCommand()
+    {
+        ShipInitialization p = (ShipInitialization) ServerManager.game.packetFactory.getCommandByName("ShipInitialization");
+
+        p.id         = this.id;
+        p.name       = this.name;
+        p.shipID     = this.hangar.ship.ship.id;
+        p.speed      = this.hangar.getSpeed();
+        p.shield     = this.hangar.getShield();
+        p.maxShield  = this.hangar.getMaxShield();
+        p.health     = this.hangar.getHealth();
+        p.maxHealth  = this.hangar.getMaxHealth();
+        p.cargo      = this.hangar.getCargo();
+        p.maxCargo   = this.hangar.getMaxCargo();
+        p.x          = this.hangar.ship.position.getX();
+        p.y          = this.hangar.ship.position.getY();
+        p.mapID      = this.hangar.ship.mapID;
+        p.factionID  = this.factionsID;
+        p.clanID     = (this.clan == null) ? 0 : this.clan.id;
+        p.batteries  = this.hangar.getBatteriesAmount();
+        p.rockets    = this.hangar.getRocketsAmount();
+        p.oState     = this.hangar.getExpansions();
+        p.isPremium  = this.isPremium;
+        p.experience = this.experience;
+        p.honor      = this.honor;
+        p.levelID    = this.level.id;
+        p.credits    = this.credits;
+        p.uridium    = this.uridium;
+        p.jackpot    = this.jackpot;
+        p.rankID     = this.rankID;
+        p.clanTag    = (this.clan == null) ? "" : this.clan.tag;
+        p.ggRings    = 4;
+        p.useSysFont = 1; //No idea
+
+        return p;
     }
 }
