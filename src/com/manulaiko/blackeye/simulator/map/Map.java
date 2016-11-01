@@ -3,6 +3,10 @@ package com.manulaiko.blackeye.simulator.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.Connection;
+import com.manulaiko.blackeye.net.game.packet.command.*;
+import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.map.station.Station;
 import com.manulaiko.blackeye.simulator.npc.NPC;
@@ -66,6 +70,13 @@ public class Map implements Cloneable
      * @var Stations on map.
      */
     public ArrayList<Station> stations = new ArrayList<>();
+
+    /**
+     * Accounts.
+     *
+     * @var Accounts on map.
+     */
+    public HashMap<Integer, Account> accounts = new HashMap<>();
 
     /**
      * Whether map is pvp or not.
@@ -196,5 +207,176 @@ public class Map implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Adds an account to the map.
+     *
+     * @param account Account to add.
+     */
+    public void addAccount(Account account)
+    {
+        if(this.accounts.containsKey(account.id)) {
+            this.removeAccount(account);
+        }
+
+        this.sendNPCs(account.connection);
+        this.sendPortals(account.connection);
+        this.sendStations(account.connection);
+        this.sendCollectables(account.connection);
+        this.sendAccounts(account.connection);
+
+        this.accounts.put(account.id, account);
+    }
+
+    /**
+     * Removes an account from the map.
+     *
+     * @param account      Account to remove.
+     * @param isDestroyed `true` to send destroy packet, `false` to send remove packet.
+     */
+    public void removeAccount(Account account, boolean isDestroyed)
+    {
+        if(!this.accounts.containsKey(account.id)) {
+            return;
+        }
+
+        this.accounts.remove(account.id);
+
+        if(isDestroyed) {
+            DestroyShip p = (DestroyShip) ServerManager.game.packetFactory.getCommandByName("DestroyShip");
+            p.id = id;
+            this.broadcastPacket(p.toString(), id);
+        } else {
+            RemoveShip p = (RemoveShip) ServerManager.game.packetFactory.getCommandByName("RemoveShip");
+            p.id = id;
+            this.broadcastPacket(p.toString(), id);
+        }
+    }
+
+    /**
+     * Alias of `removeAccount(account, false)`.
+     *
+     * @param account Account to remove.
+     */
+    public void removeAccount(Account account)
+    {
+        this.removeAccount(account, false);
+    }
+
+    /**
+     * Sends map's NPCs.
+     *
+     * @param connection Connection to send packets.
+     */
+    public void sendNPCs(Connection connection)
+    {
+        //Point from = connection.account.hangar.ship.position;
+        //Point to   = new Point(from.getX() + 1000, from.getY() + 1000);
+
+        connection.account.hangar.ship.nearNPCs.forEach((key, value) -> {
+            CreateShip p = value.getCreateShipCommand();
+
+            connection.send(p);
+        });
+    }
+
+    /**
+     * Sends map's Accounts.
+     *
+     * @param connection Connection to send packets.
+     */
+    public void sendAccounts(Connection connection)
+    {
+        connection.account.hangar.ship.nearAccounts.forEach((key, value) -> {
+            CreateShip p = value.getCreateShipCommand();
+
+            // Set warning icon on minimap based on account's factionsID
+            if(p.factionID != this.factionsID) {
+                p.warningIcon = this.isStarter;
+            }
+
+            connection.send(p);
+
+            p = connection.account.getCreateShipCommand();
+
+            // Set warning icon on minimap based on account's factionsID
+            if(p.factionID != this.factionsID) {
+                p.warningIcon = this.isStarter;
+            }
+
+            value.connection.send(p);
+        });
+    }
+
+    /**
+     * Sends map's portals.
+     *
+     * @param connection Connection to send packets.
+     */
+    public void sendPortals(Connection connection)
+    {
+        this.portals.forEach((key, value) -> {
+            CreatePortal packet = value.getCreatePortalCommand();
+
+            connection.send(packet);
+        });
+    }
+
+    /**
+     * Sends map's stations
+     *
+     * @param connection Connection to send packets
+     */
+    public void sendStations(Connection connection)
+    {
+        this.stations.forEach((value) -> {
+            CreateStation p = value.getCreateStationCommand();
+
+            connection.send(p);
+        });
+    }
+
+    /**
+     * Sends map's collectables.
+     *
+     * @param connection Connection to send packets.
+     */
+    public void sendCollectables(Connection connection)
+    {
+        this.collectables.forEach((key, value) -> {
+            CreateCollectable p = value.getCreateCollectableCommand();
+
+            connection.send(p);
+        });
+    }
+
+    /**
+     * Broadcasts a packet.
+     *
+     * Sends a packet to all accounts in the map.
+     *
+     * @param packet Packet to send.
+     */
+    public void broadcastPacket(String packet)
+    {
+        this.broadcastPacket(packet, -1); // All accounts identifiers are positive integers
+    }
+
+    /**
+     * Broadcasts a packet.
+     *
+     * Sends a packet to all accounts in the map except from the specified.
+     *
+     * @param packet Packet to send.
+     * @param id     Account id that won't receive the packet.
+     */
+    public void broadcastPacket(String packet, int id)
+    {
+        this.accounts.forEach((key, value) -> {
+            if(value.id != id) {
+                value.connection.send(packet);
+            }
+        });
     }
 }
