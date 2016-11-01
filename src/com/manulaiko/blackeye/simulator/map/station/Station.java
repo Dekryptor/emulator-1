@@ -1,5 +1,7 @@
 package com.manulaiko.blackeye.simulator.map.station;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.packet.command.CreateStation;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 
@@ -74,5 +76,25 @@ public class Station implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Builds and returns the CreateStation command.
+     *
+     * @return CreateStation command.
+     */
+    public CreateStation getCreateStationCommand()
+    {
+        CreateStation p = (CreateStation) ServerManager.game.packetFactory.getCommandByName("CreateStation");
+
+        p.id      = 0;
+        p.name    = this.name;
+        p.type    = this.type;
+        p.faction = this.factionsID;
+        p.isDMZ   = true;
+        p.x       = this.position.getX();
+        p.y       = this.position.getY();
+
+        return p;
     }
 }
