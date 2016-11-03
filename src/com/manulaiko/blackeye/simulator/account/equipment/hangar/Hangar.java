@@ -2,6 +2,8 @@ package com.manulaiko.blackeye.simulator.account.equipment.hangar;
 
 import java.util.HashMap;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.packet.command.ResourcesInitialization;
 import com.manulaiko.blackeye.simulator.account.equipment.ship.Ship;
 import com.manulaiko.blackeye.simulator.account.equipment.configuration.Configuration;
 import com.manulaiko.tabitha.Console;
@@ -187,8 +189,19 @@ public class Hangar implements Cloneable
      */
     public int getCargo()
     {
-        //TODO
-        return 0;
+        int cargo = 0;
+
+        cargo += this.resources.getOrDefault(0, 0);
+        cargo += this.resources.getOrDefault(1, 0);
+        cargo += this.resources.getOrDefault(2, 0);
+        cargo += this.resources.getOrDefault(3, 0);
+        cargo += this.resources.getOrDefault(4, 0);
+        cargo += this.resources.getOrDefault(5, 0);
+        cargo += this.resources.getOrDefault(6, 0);
+        cargo += this.resources.getOrDefault(7, 0);
+        cargo += this.resources.getOrDefault(8, 0);
+
+        return cargo;
     }
 
     /**
@@ -262,5 +275,27 @@ public class Hangar implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Builds and returns ResourcesInitialization command.
+     *
+     * @return ResourcesInitialization command.
+     */
+    public ResourcesInitialization getResourcesInitializationCommand()
+    {
+        ResourcesInitialization p = (ResourcesInitialization) ServerManager.game.packetFactory.getCommandByName("ResourcesInitialization");
+
+        p.prometium = this.resources.getOrDefault(0, 0);
+        p.endurium  = this.resources.getOrDefault(1, 0);
+        p.terbium   = this.resources.getOrDefault(2, 0);
+        p.xenomit   = this.resources.getOrDefault(3, 0);
+        p.prometid  = this.resources.getOrDefault(4, 0);
+        p.duranium  = this.resources.getOrDefault(5, 0);
+        p.promerium = this.resources.getOrDefault(6, 0);
+        p.seprom    = this.resources.getOrDefault(7, 0);
+        p.palladium = this.resources.getOrDefault(8, 0);
+
+        return p;
     }
 }

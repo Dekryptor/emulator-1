@@ -44,6 +44,7 @@ public class LoginRequest extends Packet
         connection.send("0|m|"+ account.hangar.ship.mapID);
         connection.send(account.getBatteriesInitializationCommand());
         connection.send(account.getRocketsInitializationCommand());
+        connection.send(account.hangar.getResourcesInitializationCommand());
 
         // Additional info
         connection.send(account.hangar.activeConfiguration.getChangeConfigurationCommand());
