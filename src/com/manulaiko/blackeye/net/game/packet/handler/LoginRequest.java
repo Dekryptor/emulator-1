@@ -41,7 +41,6 @@ public class LoginRequest extends Packet
 
         // Send ship initialization
         connection.send(account.getShipInitializationCommand());
-        connection.send("0|m|"+ account.hangar.ship.mapID);
         connection.send(account.getBatteriesInitializationCommand());
         connection.send(account.getRocketsInitializationCommand());
         connection.send(account.hangar.getResourcesInitializationCommand());
