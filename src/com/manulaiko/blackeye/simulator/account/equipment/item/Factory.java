@@ -88,18 +88,17 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
 
         try {
             PreparedStatement ps = Main.database.prepare("SELECT * FROM `accounts_equipment_items` WHERE `accounts_id`=?");
-            ps.setInt(0, id);
+            ps.setInt(1, id);
 
             ResultSet result = ps.executeQuery();
 
-            int i = 0;
             while(result.next()) {
                 Item item = (Item)this.build(result);
 
                 items.put(item.id, item);
             }
         } catch(SQLException e) {
-            Console.println("Couldn't load items from account " + id);
+            Console.println("Couldn't load settings from account " + id);
             Console.println(e.getMessage());
         }
 

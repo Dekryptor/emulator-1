@@ -377,12 +377,12 @@ public class Account implements Cloneable
     {
         BatteriesInitialization p = (BatteriesInitialization) ServerManager.game.packetFactory.getCommandByName("BatteriesInitialization");
 
-        p.lcb10  = this.getItemByLootID("lcb_10").amount;
-        p.mcb25  = this.getItemByLootID("mcb_25").amount;
-        p.mcb50  = this.getItemByLootID("mcb_50").amount;
-        p.ucb100 = this.getItemByLootID("ucb_100").amount;
-        p.sab50  = this.getItemByLootID("sab_50").amount;
-        p.rsb75  = this.getItemByLootID("rsb_75").amount;
+        p.lcb10  = 0; //this.getItemByLootID("lcb_10").amount;
+        p.mcb25  = 0; //this.getItemByLootID("mcb_25").amount;
+        p.mcb50  = 0; //this.getItemByLootID("mcb_50").amount;
+        p.ucb100 = 0; //this.getItemByLootID("ucb_100").amount;
+        p.sab50  = 0; //this.getItemByLootID("sab_50").amount;
+        p.rsb75  = 0; //this.getItemByLootID("rsb_75").amount;
 
         return p;
     }
