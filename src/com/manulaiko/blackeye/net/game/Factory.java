@@ -28,7 +28,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._packets.put("LOGIN", "LoginRequest");
         this._packets.put("0", "EchoPacket");
         this._packets.put("PNG", "Ping");
-        this._packets.put("1", "Movement");
+        //this._packets.put("1", "Movement");
         /////////////////////////
         // End Packet Handlers //
         /////////////////////////
@@ -44,6 +44,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._commands.put("R", "RemoveShip");
         this._commands.put("K", "DestroyShip");
         this._commands.put("1", "Move");
+        this._commands.put("SET", "SETCommand");
         /////////////////////////
         // End Packet Commands //
         /////////////////////////

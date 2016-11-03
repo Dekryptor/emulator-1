@@ -5,6 +5,7 @@ import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
 import com.manulaiko.blackeye.net.game.packet.command.ShipInitialization;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
+import com.manulaiko.blackeye.simulator.account.settings.Settings;
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
 import com.manulaiko.tabitha.Console;
@@ -112,6 +113,13 @@ public class Account implements Cloneable
     public Hangar hangar;
 
     /**
+     * Settings object.
+     *
+     * @var Settings.
+     */
+    public Settings settings;
+
+    /**
      * Connection object.
      *
      * @var Connection.
@@ -186,6 +194,16 @@ public class Account implements Cloneable
     }
 
     /**
+     * Sets settings object.
+     *
+     * @param settings Settings object.
+     */
+    public void setSettings(Settings settings)
+    {
+        this.settings = settings;
+    }
+
+    /**
      * Clones the object.
      *
      * @return Cloned object.
@@ -197,6 +215,8 @@ public class Account implements Cloneable
 
             a.setClan(this.clan.clone());
             a.setLevel(this.level.clone());
+            a.setHangar(this.hangar.clone());
+            a.setSettings(this.settings.clone());
 
             return a;
         } catch(CloneNotSupportedException e) {

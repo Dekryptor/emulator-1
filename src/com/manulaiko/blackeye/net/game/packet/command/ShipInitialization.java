@@ -33,37 +33,37 @@ public class ShipInitialization extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
-        this._packet.add("I");
-        this._packet.add(this.id);
-        this._packet.add(this.name);
-        this._packet.add(this.shipID);
-        this._packet.add(this.speed);
-        this._packet.add(this.shield);
-        this._packet.add(this.maxShield);
-        this._packet.add(this.health);
-        this._packet.add(this.maxHealth);
-        this._packet.add(this.cargo);
-        this._packet.add(this.maxCargo);
-        this._packet.add(this.x);
-        this._packet.add(this.y);
-        this._packet.add(this.mapID);
-        this._packet.add(this.factionID);
-        this._packet.add(this.clanID);
-        this._packet.add(this.batteries);
-        this._packet.add(this.rockets);
-        this._packet.add(this.oState); //No fucking idea
-        this._packet.add(this.isPremium);
-        this._packet.add(this.experience);
-        this._packet.add(this.honor);
-        this._packet.add(this.levelID);
-        this._packet.add(this.credits);
-        this._packet.add(this.uridium);
-        this._packet.add(this.jackpot);
-        this._packet.add(this.rankID);
-        this._packet.add(this.clanTag);
-        this._packet.add(this.ggRings);
-        this._packet.add(this.useSysFont); //No idea
+        this.add("I");
+        this.add(this.id);
+        this.add(this.name);
+        this.add(this.shipID);
+        this.add(this.speed);
+        this.add(this.shield);
+        this.add(this.maxShield);
+        this.add(this.health);
+        this.add(this.maxHealth);
+        this.add(this.cargo);
+        this.add(this.maxCargo);
+        this.add(this.x);
+        this.add(this.y);
+        this.add(this.mapID);
+        this.add(this.factionID);
+        this.add(this.clanID);
+        this.add(this.batteries);
+        this.add(this.rockets);
+        this.add(this.oState); //No fucking idea
+        this.add(this.isPremium);
+        this.add(this.experience);
+        this.add(this.honor);
+        this.add(this.levelID);
+        this.add(this.credits);
+        this.add(this.uridium);
+        this.add(this.jackpot);
+        this.add(this.rankID);
+        this.add(this.clanTag);
+        this.add(this.ggRings);
+        this.add(this.useSysFont); //No idea
 
-        return this._packet.toString();
+        return super.toString();
     }
 }

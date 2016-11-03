@@ -28,15 +28,15 @@ public class CreatePortal extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
-        this._packet.add("p");
-        this._packet.add(this.id);
-        this._packet.add(this.factionScrap);
-        this._packet.add(this.gfx);
-        this._packet.add(this.x);
-        this._packet.add(this.y);
-        this._packet.add(this.isVisible);
-        this._packet.add(this.assets);
+        this.add("p");
+        this.add(this.id);
+        this.add(this.factionScrap);
+        this.add(this.gfx);
+        this.add(this.x);
+        this.add(this.y);
+        this.add(this.isVisible);
+        this.add(this.assets);
 
-        return this._packet.toString();
+        return super.toString();
     }
 }

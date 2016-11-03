@@ -26,15 +26,15 @@ public class CreateStation extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
-        this._packet.add("s");
-        this._packet.add(this.id);      // Not used
-        this._packet.add(this.type);
-        this._packet.add(this.name);
-        this._packet.add(this.faction);
-        this._packet.add(0);            // Not used
-        this._packet.add(this.x);
-        this._packet.add(this.y);
+        this.add("s");
+        this.add(this.id);      // Not used
+        this.add(this.type);
+        this.add(this.name);
+        this.add(this.faction);
+        this.add(0);            // Not used
+        this.add(this.x);
+        this.add(this.y);
 
-        return this._packet.toString();
+        return super.toString();
     }
 }

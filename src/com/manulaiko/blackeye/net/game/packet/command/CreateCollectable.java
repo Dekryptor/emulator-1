@@ -24,12 +24,12 @@ public class CreateCollectable extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
-        this._packet.add("c");
-        this._packet.add(this.id);
-        this._packet.add(this.gfx);
-        this._packet.add(this.x);
-        this._packet.add(this.y);
+        this.add("c");
+        this.add(this.id);
+        this.add(this.gfx);
+        this.add(this.x);
+        this.add(this.y);
 
-        return this._packet.toString();
+        return super.toString();
     }
 }

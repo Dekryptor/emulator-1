@@ -128,6 +128,10 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
                 (packet = this._in.readLine()) != null &&
                 this._isRunning
             ) {
+                if(packet.startsWith("\u0000")) {
+                    packet = packet.substring(1, packet.length());
+                }
+
                 this.lastReceivedPacket = packet;
                 this.handle(new PacketParser(packet));
             }

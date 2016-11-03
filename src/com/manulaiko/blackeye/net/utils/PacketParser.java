@@ -14,14 +14,14 @@ public class PacketParser
      *
      * @var Packet parameters.
      */
-    private ArrayList<String> _packet = new ArrayList<>();
+    protected ArrayList<String> _packet = new ArrayList<>();
 
     /**
      * Index pointer.
      *
      * @var Current index.
      */
-    private int _i = 0;
+    protected int _i = 0;
 
     /**
      * Constructor.

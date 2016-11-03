@@ -45,7 +45,7 @@ public class Clan implements Cloneable
      * @param name      Clan name.
      * @param factionID Faction ID.
      */
-    public Clan(int id, String tag, String name, int factionOD)
+    public Clan(int id, String tag, String name, int factionID)
     {
         this.id        = id;
         this.tag       = tag;

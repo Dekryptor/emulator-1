@@ -24,9 +24,9 @@ public class DestroyShip extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
-        this._packet.add("K");
-        this._packet.add(this.id);
+        this.add("K");
+        this.add(this.id);
 
-        return this._packet.toString();
+        return super.toString();
     }
 }

@@ -1,7 +1,5 @@
 package com.manulaiko.blackeye.net.utils;
 
-import com.manulaiko.blackeye.net.utils.PacketParser;
-
 /**
  * Command class.
  *
@@ -9,20 +7,14 @@ import com.manulaiko.blackeye.net.utils.PacketParser;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public abstract class Command
+public class Command extends PacketParser
 {
-    /**
-     * Packet parser.
-     */
-    protected PacketParser _packet;
-
     /**
      * Constructor.
      */
     public Command()
     {
-        this._packet = new PacketParser();
-        this._packet.add(0);
+        this.add(0);
     }
 
     /**
@@ -32,8 +24,8 @@ public abstract class Command
      */
     public void setPacketParser(PacketParser p)
     {
-        this._packet = p;
-        this._packet.add(0);
+        this._packet = p._packet;
+        this._i      = p._i;
     }
 
     /**
@@ -45,11 +37,4 @@ public abstract class Command
     {
         return this.getClass().getSimpleName();
     }
-
-    /**
-     * Returns packet as a string.
-     *
-     * @return Packet as a string.
-     */
-    public abstract String toString();
 }

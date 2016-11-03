@@ -24,9 +24,9 @@ public class RemoveShip extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
-        this._packet.add("R");
-        this._packet.add(this.id);
+        this.add("R");
+        this.add(this.id);
 
-        return this._packet.toString();
+        return super.toString();
     }
 }

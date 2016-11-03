@@ -68,15 +68,17 @@ public class Factory
     {
         String id = packet.readString();
 
-        if(!this._packets.containsKey(id)) {
-            Console.println("Packet "+ id +" doesn't exists!");
-            return null;
+        for(Entry<String, String> entry : this._packets.entrySet()) {
+            if(entry.getKey().equals(id)) {
+                Packet p = this.getByName(entry.getValue());
+                p.setPacket(packet);
+
+                return p;
+            }
         }
 
-        Packet p = this.getByID(id);
-        p.setPacket(packet);
-
-        return p;
+        Console.println("Packet with ID "+ id +" does not exist!");
+        return null;
     }
 
     /**

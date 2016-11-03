@@ -26,6 +26,11 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
     public com.manulaiko.blackeye.simulator.account.equipment.item.Factory items = new com.manulaiko.blackeye.simulator.account.equipment.item.Factory();
 
     /**
+     * Settings's factory.
+     */
+    public com.manulaiko.blackeye.simulator.account.settings.Factory settings = new com.manulaiko.blackeye.simulator.account.settings.Factory();
+
+    /**
      * Constructor.
      */
     public Factory()
@@ -42,6 +47,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
     {
         this.hangars.initialize();
         this.items.initialize();
+        this.settings.initialize();
 
         super.initialize();
     }

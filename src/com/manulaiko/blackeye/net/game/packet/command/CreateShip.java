@@ -26,23 +26,23 @@ public class CreateShip extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
-        this._packet.add("C");
-        this._packet.add(this.id);
-        this._packet.add(this.shipID);
-        this._packet.add(this.expansion);
-        this._packet.add(this.clanTag);
-        this._packet.add(this.name);
-        this._packet.add(this.x);
-        this._packet.add(this.y);
-        this._packet.add(this.factionID);
-        this._packet.add(this.clanID);
-        this._packet.add(this.rankID);
-        this._packet.add(this.warningIcon);
-        this._packet.add(this.clanDiplomacy);
-        this._packet.add(this.ggRings);
-        this._packet.add(this.isNPC);
-        this._packet.add(this.isCloaked);
+        this.add("C");
+        this.add(this.id);
+        this.add(this.shipID);
+        this.add(this.expansion);
+        this.add(this.clanTag);
+        this.add(this.name);
+        this.add(this.x);
+        this.add(this.y);
+        this.add(this.factionID);
+        this.add(this.clanID);
+        this.add(this.rankID);
+        this.add(this.warningIcon);
+        this.add(this.clanDiplomacy);
+        this.add(this.ggRings);
+        this.add(this.isNPC);
+        this.add(this.isCloaked);
 
-        return this._packet.toString();
+        return super.toString();
     }
 }
