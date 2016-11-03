@@ -49,6 +49,6 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         // End Packet Commands //
         /////////////////////////
 
-        Console.println(this._packets.size() + " packet handlers and commands loaded!");
+        Console.println(this._packets.size() + " packet handlers and "+ this._commands.size() +"commands loaded!");
     }
 }

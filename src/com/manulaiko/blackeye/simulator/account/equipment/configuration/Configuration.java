@@ -2,6 +2,8 @@ package com.manulaiko.blackeye.simulator.account.equipment.configuration;
 
 import java.util.ArrayList;
 
+import com.manulaiko.blackeye.launcher.ServerManager;
+import com.manulaiko.blackeye.net.game.packet.command.ChangeConfiguration;
 import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 
 import com.manulaiko.tabitha.Console;
@@ -308,5 +310,19 @@ public class Configuration implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Builds and returns ChangeConfiguration command.
+     *
+     * @return ChangeConfiguration command.
+     */
+    public ChangeConfiguration getChangeConfigurationCommand()
+    {
+        ChangeConfiguration p = (ChangeConfiguration) ServerManager.game.packetFactory.getCommandByName("ChangeConfiguration");
+
+        p.id = this.configuration;
+
+        return p;
     }
 }

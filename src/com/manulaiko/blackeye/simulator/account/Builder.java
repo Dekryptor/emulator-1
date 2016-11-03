@@ -1,14 +1,14 @@
 package com.manulaiko.blackeye.simulator.account;
 
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
+import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 import com.manulaiko.blackeye.simulator.account.settings.Settings;
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
-import com.manulaiko.tabitha.Console;
-import com.manulaiko.tabitha.exceptions.NotFound;
 
 /**
  * Account builder.
@@ -56,6 +56,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
         this._setLevel(this._result.getInt("levels_id"));
         this._setHangar(this._result.getInt("accounts_equipment_hangars_id"));
         this._setSettings(this._result.getInt("id"));
+        this._setItems(this._result.getInt("id"));
     }
 
     /**
@@ -112,5 +113,19 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
         Settings s = GameManager.accounts.settings.getByAccountID(id);
 
         ((Account)this._object).setSettings(s);
+    }
+
+    /**
+     * Sets account's items.
+     *
+     * @param id Account ID.
+     *
+     * @thrwos Exception if Account ID does not exist or build failed.
+     */
+    private void _setItems(int id) throws Exception
+    {
+        HashMap<Integer, Item> i = GameManager.accounts.items.getByAccountID(id);
+
+        ((Account)this._object).setItems(i);
     }
 }

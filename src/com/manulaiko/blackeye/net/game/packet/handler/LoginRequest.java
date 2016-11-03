@@ -34,17 +34,22 @@ public class LoginRequest extends Packet
         account.connection = connection;
         connection.account = account;
 
-        connection.send("0|A|SET|1|1|1|1|1|1|1|1|1|1|1|0|0|1|1|1|1|1|1|0|0|0|0|0|1");
-        connection.send(account.getShipInitializationCommand());
-        connection.send("0|m|"+ account.hangar.ship.mapID);
-
-        if(account.rankID >= 21) {
-            connection.send("0|A|ADM|CLI|1");
-        }
-
+        // Send settings
         account.settings.getCommands().forEach((c)->{
             connection.send(c);
         });
+
+        // Send ship initialization
+        connection.send(account.getShipInitializationCommand());
+        connection.send("0|m|"+ account.hangar.ship.mapID);
+        connection.send(account.getBatteriesInitializationCommand());
+        connection.send(account.getRocketsInitializationCommand());
+
+        // Additional info
+        connection.send(account.hangar.activeConfiguration.getChangeConfigurationCommand());
+        if(account.rankID >= 21) {
+            connection.send("0|A|ADM|CLI|1");
+        }
 
         account.hangar.ship.map.addAccount(account);
     }

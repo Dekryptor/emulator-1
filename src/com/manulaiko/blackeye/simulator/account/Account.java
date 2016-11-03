@@ -1,10 +1,16 @@
 package com.manulaiko.blackeye.simulator.account;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
+import com.manulaiko.blackeye.net.game.packet.command.BatteriesInitialization;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
+import com.manulaiko.blackeye.net.game.packet.command.RocketsInitialization;
 import com.manulaiko.blackeye.net.game.packet.command.ShipInitialization;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
+import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 import com.manulaiko.blackeye.simulator.account.settings.Settings;
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
@@ -120,6 +126,13 @@ public class Account implements Cloneable
     public Settings settings;
 
     /**
+     * Account items.
+     *
+     * @var Items.
+     */
+    public HashMap<Integer, Item> items = new HashMap<>();
+
+    /**
      * Connection object.
      *
      * @var Connection.
@@ -201,6 +214,64 @@ public class Account implements Cloneable
     public void setSettings(Settings settings)
     {
         this.settings = settings;
+    }
+
+    /**
+     * Adds an item to the array.
+     *
+     * @param item Item to add.
+     */
+    public void addItem(Item item)
+    {
+        this.items.put(item.id, item);
+    }
+
+    /**
+     * Sets account items.
+     *
+     * @var items Items map.
+     */
+    public void setItems(HashMap<Integer, Item> items)
+    {
+        this.items = items;
+    }
+
+    /**
+     * Returns item with given loot ID.
+     *
+     * @param id Loot ID.
+     *
+     * @return Item with given loot ID.
+     */
+    public Item getItemByLootID(String id)
+    {
+        for(Map.Entry<Integer, Item> item : this.items.entrySet()) {
+            if(item.getValue().item.lootID.equalsIgnoreCase(id)) {
+                return item.getValue();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns all items with given loot ID.
+     *
+     * @param id Loot ID.
+     *
+     * @return Items with given loot ID.
+     */
+    public HashMap<Integer, Item> getItemsByLootID(String id)
+    {
+        HashMap<Integer, Item> items = new HashMap<>();
+
+        this.items.forEach((i, item)->{
+            if(item.item.lootID.equalsIgnoreCase(id)) {
+                items.put(i, item);
+            }
+        });
+
+        return items;
     }
 
     /**
@@ -293,6 +364,53 @@ public class Account implements Cloneable
         p.ggRings       = 0;
         p.isNPC         = false;
         p.isCloaked     = false;
+
+        return p;
+    }
+
+    /**
+     * Builds and returns the BatteriesInitialization command.
+     *
+     * @return BatteriesInitialization command.
+     */
+    public BatteriesInitialization getBatteriesInitializationCommand()
+    {
+        BatteriesInitialization p = (BatteriesInitialization) ServerManager.game.packetFactory.getCommandByName("BatteriesInitialization");
+
+        p.lcb10  = this.getItemByLootID("lcb_10").amount;
+        p.mcb25  = this.getItemByLootID("mcb_25").amount;
+        p.mcb50  = this.getItemByLootID("mcb_50").amount;
+        p.ucb100 = this.getItemByLootID("ucb_100").amount;
+        p.sab50  = this.getItemByLootID("sab_50").amount;
+        p.rsb75  = this.getItemByLootID("rsb_75").amount;
+
+        return p;
+    }
+
+    /**
+     * Builds and returns the RocketsInitialization command.
+     *
+     * @return RocketsInitialization command.
+     */
+    public RocketsInitialization getRocketsInitializationCommand()
+    {
+        RocketsInitialization p = (RocketsInitialization) ServerManager.game.packetFactory.getCommandByName("RocketsInitialization");
+
+        // TODO add rockets to initial database items
+        p.r310    = 0;
+        p.plt2026 = 0;
+        p.plt2021 = 0;
+        p.plt3031 = 0;
+        p.pld8    = 0;
+        p.wiz     = 0;
+        p.dcr     = 0;
+        p.acm     = 0;
+        p.ish     = 0;
+        p.smb     = 0;
+        p.pem     = 0;
+        p.mpem    = 0;
+        p.ddm     = 0;
+        p.sabm    = 0;
 
         return p;
     }
