@@ -1,6 +1,7 @@
 package com.manulaiko.blackeye.simulator.account.settings;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.SETCommand;
@@ -204,21 +205,21 @@ public class Settings implements Cloneable
      *
      * @var Client resolution.
      */
-    public String clientResolution = "";
+    public int clientResolution = 0;
 
     /**
      * Main menu position.
      *
      * @var Main menu position.
      */
-    public String mainmenuPosition = "";
+    public HashMap<Integer, String> mainmenuPosition = new HashMap<>();
 
     /**
      * Minimap size.
      *
      * @var Minimap size.
      */
-    public String minimapSize = "";
+    public HashMap<Integer, Integer> minimapSize = new HashMap<>();
 
     /**
      * Quickbar slots.
@@ -232,7 +233,7 @@ public class Settings implements Cloneable
      *
      * @var Resizable windows.
      */
-    public String resizableWindows = "";
+    public HashMap<Integer, String> resizableWindows = new HashMap<>();
 
     /**
      * Slot menu order.
@@ -246,14 +247,14 @@ public class Settings implements Cloneable
      *
      * @var Slot menu position.
      */
-    public String slotmenu_position = "";
+    public HashMap<Integer, String> slotmenu_position = new HashMap<>();
 
     /**
      * Window settings.
      *
      * @var Window settings.
      */
-    public String windowSettings = "";
+    public HashMap<Integer, String> windowSettings = new HashMap<>();
 
     /**
      * SET Object.
@@ -290,13 +291,8 @@ public class Settings implements Cloneable
      * @param quickSlotStopAttack      Whether quick slot stops attack or not.
      * @param barStatus                Bar status.
      * @param clientResolution         Client resolution.
-     * @param mainmenuPosition         Main menu position.
-     * @param minimapSize              Minimap size.
      * @param quickbarSlot             Quickbar slots.
-     * @param resizableWindows         Resizable windows.
      * @param slotmenu_order           Slot menu order.
-     * @param slotmenu_position        Slot menu position.
-     * @param windowSettings           Window settings.
      */
     public Settings(
             int id, int accountID,
@@ -306,8 +302,7 @@ public class Settings implements Cloneable
             int quality_engine, int quality_explosion, int quality_poizone, int quality_presseting,
             int quality_ship, boolean alwaysDraggableWindows, boolean autoRefinement, boolean autoStart,
             boolean doubleClickAttack, boolean preloadUserShips, boolean quickSlotStopAttack, String barStatus,
-            String clientResolution, String mainmenuPosition, String minimapSize, String quickbarSlot,
-            String resizableWindows, String slotmenu_order, String slotmenu_position, String windowSettings
+            int clientResolution, String quickbarSlot, String slotmenu_order
     ) {
         this.id        = id;
         this.accountID = accountID;
@@ -337,13 +332,63 @@ public class Settings implements Cloneable
         this.quickSlotStopAttack      = quickSlotStopAttack;
         this.barStatus                = barStatus;
         this.clientResolution         = clientResolution;
-        this.mainmenuPosition         = mainmenuPosition;
-        this.minimapSize              = minimapSize;
         this.quickbarSlot             = quickbarSlot;
-        this.resizableWindows         = resizableWindows;
         this.slotmenu_order           = slotmenu_order;
-        this.slotmenu_position        = slotmenu_position;
-        this.windowSettings           = windowSettings;
+    }
+
+    /**
+     * Adds a main menu position.
+     *
+     * @param id       Resolution ID.
+     * @param position Main menu position.
+     */
+    public void addMainMenuPosition(int id, String position)
+    {
+        this.mainmenuPosition.put(id, position);
+    }
+
+    /**
+     * Adds a slot menu position.
+     *
+     * @param id       Resolution ID.
+     * @param position Slot menu position.
+     */
+    public void addSlotMenuPosition(int id, String position)
+    {
+        this.slotmenu_position.put(id, position);
+    }
+
+    /**
+     * Adds a window settings.
+     *
+     * @param id       Resolution ID.
+     * @param settings Window settings.
+     */
+    public void addWindowSettings(int id, String settings)
+    {
+        this.windowSettings.put(id, settings);
+    }
+
+    /**
+     * Adds a resizable windows.
+     *
+     * @param id      Resolution ID.
+     * @param windows Resizable windows.
+     */
+    public void addResizableWindows(int id, String windows)
+    {
+        this.resizableWindows.put(id, windows);
+    }
+
+    /**
+     * Adds a minimap size.
+     *
+     * @param id   Resolution ID.
+     * @param size Resizable windows.
+     */
+    public void addMinimapSize(int id, int size)
+    {
+        this.minimapSize.put(id, size);
     }
 
     /**
@@ -378,8 +423,8 @@ public class Settings implements Cloneable
         commands.add(this.getHSCommand());
         commands.add(this.set.getSETCommand());
         commands.add(this.getClientResolutionCommand());
-        commands.add(this.getMinimapSizeCommand());
-        commands.add(this.getResizableWindowsCommand());
+        commands.addAll(this.getMinimapSizeCommand());
+        commands.addAll(this.getResizableWindowsCommand());
         commands.add(this.getDisplayChatCommand());
         commands.add(this.getDisplayDronesCommand());
         commands.add(this.getDisplayPlayerNamesCommand());
@@ -388,7 +433,7 @@ public class Settings implements Cloneable
         commands.add(this.getPlayMusicCommand());
         commands.add(this.getPlaySoundsCommand());
         commands.add(this.getBarStatusCommand());
-        commands.add(this.getWindowSettingsCommand());
+        commands.addAll(this.getWindowSettingsCommand());
         commands.add(this.getAutoRefinementCommand());
         commands.add(this.getQuickSlotStopAttackCommand());
         commands.add(this.getDoubleclickAttackCommand());
@@ -406,9 +451,9 @@ public class Settings implements Cloneable
         commands.add(this.getQualityEffectCommand());
         commands.add(this.getQualityExplosionCommand());
         commands.add(this.getQuickbarSlotCommand());
-        commands.add(this.getSlotmenuPositionCommand());
+        commands.addAll(this.getSlotmenuPositionCommand());
         commands.add(this.getSlotmenuOrderCommand());
-        commands.add(this.getMainmenuPositionCommand());
+        commands.addAll(this.getMainmenuPositionCommand());
 
         return commands;
     }
@@ -418,13 +463,19 @@ public class Settings implements Cloneable
      *
      * @return MainmenuPosition command.
      */
-    public SettingsCommand getMainmenuPositionCommand()
+    public ArrayList<SettingsCommand> getMainmenuPositionCommand()
     {
-        SettingsCommand p = new SettingsCommand();
-        p.add("MAINMENU_POSITION");
-        p.add(this.mainmenuPosition);
+        ArrayList<SettingsCommand> packets = new ArrayList<>();
 
-        return p;
+        this.mainmenuPosition.forEach((i, m)->{
+            SettingsCommand p = new SettingsCommand();
+            p.add("MAINMENU_POSITION,"+ i);
+            p.add(m);
+
+            packets.add(p);
+        });
+
+        return packets;
     }
 
     /**
@@ -446,13 +497,20 @@ public class Settings implements Cloneable
      *
      * @return SlotmenuPosition command.
      */
-    public SettingsCommand getSlotmenuPositionCommand()
+    public ArrayList<SettingsCommand> getSlotmenuPositionCommand()
     {
-        SettingsCommand p = new SettingsCommand();
-        p.add("SLOTMENU_POSITION");
-        p.add(this.slotmenu_position);
+        ArrayList<SettingsCommand> packets = new ArrayList<>();
 
-        return p;
+        this.windowSettings.forEach((i, s)-> {
+
+            SettingsCommand p = new SettingsCommand();
+            p.add("SLOTMENU_POSITION,"+ i);
+            p.add(s);
+
+            packets.add(p);
+        });
+
+        return packets;
     }
 
     /**
@@ -741,10 +799,24 @@ public class Settings implements Cloneable
      */
     public SettingsCommand getClientResolutionCommand()
     {
+        String res = this.clientResolution +",";
+
+        if(this.clientResolution == 1) {
+            res += "1024,567";
+        } else if(this.clientResolution == 2) {
+            res += "1024,720";
+        } else if(this.clientResolution == 3) {
+            res += "1280,720";
+        } else if(this.clientResolution == 4) {
+            res += "1280,900";
+        } else {
+            res += "820,600";
+        }
+
         SettingsCommand p = new SettingsCommand();
         p.add("CLIENT_RESOLUTION");
-        p.add(this.clientResolution);
-        p.add(1);
+        p.add(res);
+        //p.add(1);
 
         return p;
     }
@@ -754,12 +826,19 @@ public class Settings implements Cloneable
      *
      * @return MinimapSize command.
      */
-    public SettingsCommand getMinimapSizeCommand()
+    public ArrayList<SettingsCommand> getMinimapSizeCommand()
     {
-        SettingsCommand p = new SettingsCommand();
-        p.add("MINIMAP_SCALE,"+ this.minimapSize);
+        ArrayList<SettingsCommand> packets = new ArrayList<>();
 
-        return p;
+        this.minimapSize.forEach((i, s)-> {
+            SettingsCommand p = new SettingsCommand();
+            p.add("MINIMAP_SCALE," + i);
+            p.add(s);
+
+            packets.add(p);
+        });
+
+        return packets;
     }
 
     /**
@@ -767,12 +846,19 @@ public class Settings implements Cloneable
      *
      * @return ResizableWindows command.
      */
-    public SettingsCommand getResizableWindowsCommand()
+    public ArrayList<SettingsCommand> getResizableWindowsCommand()
     {
-        SettingsCommand p = new SettingsCommand();
-        p.add("RESIZABLE_WINDOWS,"+ this.resizableWindows);
+        ArrayList<SettingsCommand> packets = new ArrayList<>();
 
-        return p;
+        this.resizableWindows.forEach((i, w)-> {
+            SettingsCommand p = new SettingsCommand();
+            p.add("RESIZABLE_WINDOWS,"+ i);
+            p.add(w);
+
+            packets.add(p);
+        });
+
+        return packets;
     }
 
     /**
@@ -864,13 +950,19 @@ public class Settings implements Cloneable
      *
      * @return WindowSettings command.
      */
-    public SettingsCommand getWindowSettingsCommand()
+    public ArrayList<SettingsCommand> getWindowSettingsCommand()
     {
-        SettingsCommand p = new SettingsCommand();
-        p.add("WINDOW_SETTINGS,0");
-        p.add(this.windowSettings);
+        ArrayList<SettingsCommand> packets = new ArrayList<>();
 
-        return p;
+        this.windowSettings.forEach((i, s)-> {
+            SettingsCommand p = new SettingsCommand();
+            p.add("WINDOW_SETTINGS,"+ i);
+            p.add(s);
+
+            packets.add(p);
+        });
+
+        return packets;
     }
 
     /**

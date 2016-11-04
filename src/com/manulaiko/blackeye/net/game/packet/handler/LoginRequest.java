@@ -39,13 +39,13 @@ public class LoginRequest extends Packet
             //connection.send(c);
         });
         
-        // For the sole propose of testing, I promis I'll clean this :/
+        // For the sole propose of testing, I promise I'll clean this :/
         connection.send("0|TX|S|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0");
         connection.send("0|A|SET|1|1|1|1|1|1|1|1|1|1|1|0|0|1|1|1|2|1|1|0|0|1|0|1|1");
         connection.send("0|7|AUTO_START|1");
         connection.send("0|7|SHOW_DRONES|1");
         connection.send("0|7|SLOTMENU_ORDER,0|0");
-        connection.send("0|7|CLIENT_RESOLUTION|0,820,600");
+        connection.send("0|7|CLIENT_RESOLUTION|3,1024,720");
         connection.send("0|7|DISPLAY_ENGINE_WASTE|0");
         connection.send("0|7|MAINMENU_POSITION,0|320,502");
         connection.send("0|7|MAINMENU_POSITION,1|349,480");

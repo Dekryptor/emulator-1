@@ -2,8 +2,6 @@ package com.manulaiko.blackeye.simulator.account.settings;
 
 import java.sql.ResultSet;
 
-import com.manulaiko.blackeye.launcher.GameManager;
-import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,8 +28,13 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      */
     public void build() throws Exception
     {
-        JSONObject set = new JSONObject(this._result.getString("settings"));
-        
+        JSONObject set              = new JSONObject(this._result.getString("settings"));
+        JSONArray minimapSize       = new JSONArray(this._result.getString("minimapSize"));
+        JSONArray windowSettings    = new JSONArray(this._result.getString("windowSettings"));
+        JSONArray slotMenu_position = new JSONArray(this._result.getString("slotmenu_position"));
+        JSONArray resizableWindows  = new JSONArray(this._result.getString("resizableWindows"));
+        JSONArray mainMenuPosition  = new JSONArray(this._result.getString("mainmenuPosition"));
+
         this._object = new Settings(
                 this._result.getInt("id"),
                 this._result.getInt("accounts_id"),
@@ -63,17 +66,17 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
                 this._result.getBoolean("quickSlotStopAttack"),
 
                 this._result.getString("barStatus"),
-                this._result.getString("clientResolution"),
-                this._result.getString("mainmenuPosition"),
-                this._result.getString("minimapSize"),
+                this._result.getInt("clientResolution"),
                 this._result.getString("quickbarSlot"),
-                this._result.getString("resizableWindows"),
-                this._result.getString("slotmenu_order"),
-                this._result.getString("slotmenu_position"),
-                this._result.getString("windowSettings")
+                this._result.getString("slotmenu_order")
         );
 
         this._setSet(set);
+        this._setMinimapSize(minimapSize);
+        this._setWindowSettings(windowSettings);
+        this._setSlotMenuPosition(slotMenu_position);
+        this._setMainMenuPosition(mainMenuPosition);
+        this._setResizableWindows(resizableWindows);
     }
 
     /**
@@ -112,5 +115,75 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
                 set.getBoolean("autochangeAmmo"),
                 set.getBoolean("enableFastBuy")
         );
+    }
+
+    /**
+     * Sets minimap sizes.
+     *
+     * @param sizes JSONArray
+     *
+     * @throws JSONException If couldn't parse the JSON
+     */
+    private void _setMinimapSize(JSONArray sizes) throws JSONException
+    {
+        for(int i = 0; i < sizes.length(); i++) {
+            ((Settings)this._object).addMinimapSize(i, sizes.getInt(i));
+        }
+    }
+
+    /**
+     * Sets windows settings.
+     *
+     * @param windows JSONArray
+     *
+     * @throws JSONException If couldn't parse the JSON
+     */
+    private void _setWindowSettings(JSONArray windows) throws JSONException
+    {
+        for(int i = 0; i < windows.length(); i++) {
+            ((Settings)this._object).addWindowSettings(i, windows.getString(i));
+        }
+    }
+
+    /**
+     * Sets slot menu positions.
+     *
+     * @param positions JSONArray
+     *
+     * @throws JSONException If couldn't parse the JSON
+     */
+    private void _setSlotMenuPosition(JSONArray positions) throws JSONException
+    {
+        for(int i = 0; i < positions.length(); i++) {
+            ((Settings)this._object).addSlotMenuPosition(i, positions.getString(i));
+        }
+    }
+
+    /**
+     * Sets main menu positions.
+     *
+     * @param positions JSONArray
+     *
+     * @throws JSONException If couldn't parse the JSON
+     */
+    private void _setMainMenuPosition(JSONArray positions) throws JSONException
+    {
+        for(int i = 0; i < positions.length(); i++) {
+            ((Settings)this._object).addMainMenuPosition(i, positions.getString(i));
+        }
+    }
+
+    /**
+     * Sets resizable windows.
+     *
+     * @param windows JSONArray
+     *
+     * @throws JSONException If couldn't parse the JSON
+     */
+    private void _setResizableWindows(JSONArray windows) throws JSONException
+    {
+        for(int i = 0; i < windows.length(); i++) {
+            ((Settings)this._object).addResizableWindows(i, windows.getString(i));
+        }
     }
 }
