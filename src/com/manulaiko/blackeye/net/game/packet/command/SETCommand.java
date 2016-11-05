@@ -29,6 +29,7 @@ public class SETCommand extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
+        this.add("A");
         this.add("SET");
         this.add(this.boosten);
         this.add(this.dsplyDamage);
