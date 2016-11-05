@@ -3,6 +3,7 @@ package com.manulaiko.blackeye.simulator.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packet.command.*;
@@ -220,6 +221,8 @@ public class Map implements Cloneable
             this.removeAccount(account);
         }
 
+        this.setNearEntities(account);
+
         this.sendNPCs(account.connection);
         this.sendPortals(account.connection);
         this.sendStations(account.connection);
@@ -227,6 +230,44 @@ public class Map implements Cloneable
         this.sendAccounts(account.connection);
 
         this.accounts.put(account.id, account);
+    }
+
+    /**
+     * Sets an account's near entities (npcs, other players, collectables...)
+     *
+     * @param account Account to set.
+     */
+    public void setNearEntities(Account account)
+    {
+        Point position = account.hangar.ship.position;
+        Point maxRange = new Point(
+                position.getX() + Main.configuration.getInt("maps.entity_range"),
+                position.getY() + Main.configuration.getInt("maps.entity_range")
+        );
+
+        // Collectables
+        this.collectables.forEach((i, c)->{
+            if(c.position.isInRange(position, maxRange)) {
+                account.hangar.ship.nearCollectables.put(i, c);
+            }
+        });
+
+        // NPCs
+        this.npcs.forEach((i, n)->{
+            if(n.position.isInRange(position, maxRange)) {
+                account.hangar.ship.nearNPCs.put(i, n);
+            }
+        });
+
+        // Accounts
+        this.accounts.forEach((i, a)->{
+            if(
+                i != account.id && // Just in case someone decides to call this method twice (by someone I mean my future me ¬.¬)
+                a.hangar.ship.position.isInRange(position, maxRange)
+            ) {
+                account.hangar.ship.nearAccounts.put(i, a);
+            }
+        });
     }
 
     /**
@@ -246,11 +287,21 @@ public class Map implements Cloneable
         if(isDestroyed) {
             DestroyShip p = (DestroyShip) ServerManager.game.packetFactory.getCommandByName("DestroyShip");
             p.id = id;
-            this.broadcastPacket(p.toString(), id);
+
+            account.hangar.ship.nearAccounts.forEach((i, a)->{
+                if(a.connection != null) {
+                    a.connection.send(p);
+                }
+            });
         } else {
             RemoveShip p = (RemoveShip) ServerManager.game.packetFactory.getCommandByName("RemoveShip");
             p.id = id;
-            this.broadcastPacket(p.toString(), id);
+
+            account.hangar.ship.nearAccounts.forEach((i, a)->{
+                if(a.connection != null) {
+                    a.connection.send(p);
+                }
+            });
         }
     }
 
@@ -271,9 +322,6 @@ public class Map implements Cloneable
      */
     public void sendNPCs(Connection connection)
     {
-        //Point from = connection.account.hangar.ship.position;
-        //Point to   = new Point(from.getX() + 1000, from.getY() + 1000);
-
         connection.account.hangar.ship.nearNPCs.forEach((key, value) -> {
             CreateShip p = value.getCreateShipCommand();
 

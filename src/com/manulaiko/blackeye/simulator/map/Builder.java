@@ -54,19 +54,19 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
                 limits
         );
 
-        if(Main.configuration.getBoolean("map.enable_stations")) {
+        if(Main.configuration.getBoolean("maps.load_stations")) {
             this._setStations(stations);
         }
 
-        if(Main.configuration.getBoolean("map.enable_npcs")) {
+        if(Main.configuration.getBoolean("maps.load_npcs")) {
             this._setNPCS(npcs);
         }
 
-        if(Main.configuration.getBoolean("map.enable_collectables")) {
+        if(Main.configuration.getBoolean("maps.load_collectables")) {
             this._setCollectables(collectables);
         }
 
-        if(Main.configuration.getBoolean("map.enable_portals")) {
+        if(Main.configuration.getBoolean("maps.load_portals")) {
             this._setPortals();
         }
     }
@@ -109,17 +109,22 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
         for(int i = 0; i < npcs.length(); i++) {
             JSONObject npc = npcs.getJSONObject(i);
 
-            NPC n = ((NPC)GameManager.npcs.getByID(npc.getInt("npcs_id"))).clone();
+            int id     = npc.getInt("npcs_id");
+            int amount = npc.getInt("amount");
 
-            Point position = new Point(
-                    ThreadLocalRandom.current()
-                                     .nextInt(0, ((Map)this._object).limits.getX() + 1),
-                    ThreadLocalRandom.current()
-                                     .nextInt(0, ((Map)this._object).limits.getY() + 1)
-            );
+            for(int j = 0; j < amount; j++) {
+                NPC n = ((NPC)GameManager.npcs.getByID(id)).clone();
 
-            n.position = position;
-            ((Map)this._object).addNPC(n);
+                Point position = new Point(
+                        ThreadLocalRandom.current()
+                                         .nextInt(0, ((Map) this._object).limits.getX() + 1),
+                        ThreadLocalRandom.current()
+                                         .nextInt(0, ((Map) this._object).limits.getY() + 1)
+                );
+
+                n.position = position;
+                ((Map)this._object).addNPC(n);
+            }
         }
     }
 

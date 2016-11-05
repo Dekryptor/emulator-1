@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.Main;
-import com.manulaiko.blackeye.simulator.map.Builder;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -79,7 +78,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
 
         try {
             PreparedStatement ps = Main.database.prepare("SELECT * FROM `maps_portals` WHERE `maps_id`=?");
-            ps.setInt(0, id);
+            ps.setInt(1, id);
 
             ResultSet result = ps.executeQuery();
 

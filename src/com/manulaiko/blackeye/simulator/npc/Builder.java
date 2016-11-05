@@ -31,7 +31,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
      */
     public void build() throws Exception
     {
-        JSONObject rewards = new JSONObject(this._result.getString("rewards"));
+        JSONObject rewards = new JSONObject(this._result.getString("reward"));
 
         this._object = new NPC(
                 this._result.getInt("id"),

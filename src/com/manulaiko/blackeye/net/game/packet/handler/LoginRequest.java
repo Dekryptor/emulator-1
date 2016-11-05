@@ -22,6 +22,8 @@ public class LoginRequest extends Packet
      */
     public void handle(Connection connection)
     {
+        Console.println("Hey... don't ignore my breakpoint :/");
+
         int id           = this._packet.readInt();
         String sessionID = this._packet.readString();
         Account account  = this._loadAccount(id, sessionID);

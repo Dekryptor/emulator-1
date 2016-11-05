@@ -163,6 +163,11 @@ public class GameManager extends Thread
         Console.println(GameManager.ships.getAll().size() +" ships loaded!");
         Console.println(Console.LINE_MINUS);
 
+        Console.println("Loading NPCs...");
+        GameManager.npcs.initialize();
+        Console.println(GameManager.npcs.getAll().size() +" NPCs loaded!");
+        Console.println(Console.LINE_MINUS);
+
         Console.println("Loading maps...");
         GameManager.maps.initialize();
         Console.println(GameManager.maps.getAll().size() +" maps loaded!");
@@ -191,11 +196,6 @@ public class GameManager extends Thread
                 Console.println("Loading clans...");
                 GameManager.clans.initialize();
                 Console.println(GameManager.clans.getAll().size() +" clans loaded!");
-                Console.println(Console.LINE_MINUS);
-            } else if(data.equalsIgnoreCase("npcs")) {
-                Console.println("Loading NPCs...");
-                GameManager.npcs.initialize();
-                Console.println(GameManager.npcs.getAll().size() +" NPCs loaded!");
                 Console.println(Console.LINE_MINUS);
             } else if(data.equalsIgnoreCase("collectables")) {
                 Console.println("Loading collectables...");
