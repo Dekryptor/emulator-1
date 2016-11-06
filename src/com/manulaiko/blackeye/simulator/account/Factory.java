@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import com.manulaiko.blackeye.launcher.Main;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.exceptions.NotFound;
 
 /**
@@ -59,11 +60,14 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Account object.
      */
-    public Object build(ResultSet rs) throws Exception
+    public Simulator build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 
-        return b.get();
+        Simulator s = b.get();
+        s.databaseTable = "accounts";
+
+        return s;
     }
 
     /**
@@ -77,7 +81,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      */
     public Account getBySessionID(String sessionID) throws NotFound
     {
-        for(Map.Entry<Integer, Object> account : this._instances.entrySet()) {
+        for(Map.Entry<Integer, Simulator> account : this._instances.entrySet()) {
             Account a = (Account)account.getValue();
 
             if(a.sessionID.equalsIgnoreCase(sessionID)) {

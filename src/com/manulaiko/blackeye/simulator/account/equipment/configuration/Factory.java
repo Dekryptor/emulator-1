@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.Main;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -30,11 +31,14 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Configuration object.
      */
-    public Object build(ResultSet rs) throws Exception
+    public Simulator build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 
-        return b.get();
+        Simulator s = b.get();
+        s.databaseTable = "accounts_equipment_configurations";
+
+        return s;
     }
 
     /**

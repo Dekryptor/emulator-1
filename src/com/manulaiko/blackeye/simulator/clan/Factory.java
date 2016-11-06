@@ -2,6 +2,7 @@ package com.manulaiko.blackeye.simulator.clan;
 
 import java.sql.ResultSet;
 
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.map.Builder;
 
 /**
@@ -26,10 +27,13 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Clan object.
      */
-    public Object build(ResultSet rs) throws Exception
+    public Simulator build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 
-        return b.get();
+        Simulator s = b.get();
+        s.databaseTable = "clans";
+
+        return s;
     }
 }

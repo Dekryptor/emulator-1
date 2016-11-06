@@ -1,7 +1,9 @@
 package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
 import java.util.HashMap;
+import java.util.function.ObjDoubleConsumer;
 
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.map.Map;
 
@@ -9,13 +11,14 @@ import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
+import org.json.JSONArray;
 
 /**
  * Ship class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Ship
+public class Ship extends Simulator implements Cloneable
 {
     /**
      * Ship ID.
@@ -189,5 +192,39 @@ public class Ship
 
             return null;
         }
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        JSONArray position = new JSONArray();
+        position.put(this.position.getX());
+        position.put(this.position.getY());
+
+        fields.put("ships_id", this.shipID);
+        fields.put("maps_id", this.mapID);
+        fields.put("position", position);
+        fields.put("health", this.health);
+        fields.put("nanohull", this.nanohull);
+        fields.put("shield", this.shield);
+        fields.put("active_configuration", this.activeConfiguration);
+
+        return fields;
     }
 }

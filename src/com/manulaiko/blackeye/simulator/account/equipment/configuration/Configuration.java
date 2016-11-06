@@ -1,19 +1,22 @@
 package com.manulaiko.blackeye.simulator.account.equipment.configuration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.ChangeConfiguration;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 
 import com.manulaiko.tabitha.Console;
+import org.json.JSONArray;
 
 /**
  * Configuration class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Configuration implements Cloneable
+public class Configuration extends Simulator implements Cloneable
 {
     /**
      * Configuration ID.
@@ -324,5 +327,54 @@ public class Configuration implements Cloneable
         p.id = this.configuration;
 
         return p;
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        JSONArray lasers = new JSONArray();
+        this.lasers.forEach((i)->{
+            lasers.put(i.id);
+        });
+
+        JSONArray hellstorms = new JSONArray();
+        this.hellstorms.forEach((i)->{
+            hellstorms.put(i.id);
+        });
+
+        JSONArray generators = new JSONArray();
+        this.generators.forEach((i)->{
+            generators.put(i.id);
+        });
+
+        JSONArray extras = new JSONArray();
+        this.extras.forEach((i)->{
+            extras.put(i.id);
+        });
+
+        fields.put("accounts_equipment_ships_id", this.shipID);
+        fields.put("configuration", this.configuration);
+        fields.put("lasers", lasers);
+        fields.put("hellstorms", hellstorms);
+        fields.put("generators", generators);
+        fields.put("extras", extras);
+
+        return fields;
     }
 }

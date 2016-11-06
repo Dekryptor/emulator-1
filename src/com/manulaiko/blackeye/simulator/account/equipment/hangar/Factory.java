@@ -2,6 +2,8 @@ package com.manulaiko.blackeye.simulator.account.equipment.hangar;
 
 import java.sql.ResultSet;
 
+import com.manulaiko.blackeye.simulator.Simulator;
+
 /**
  * Factory for the `accounts_equipment_hangars` table.
  *
@@ -11,11 +13,15 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
 {
     /**
      * Ships factory.
+     *
+     * @var Ships factory.
      */
     public com.manulaiko.blackeye.simulator.account.equipment.ship.Factory ships = new com.manulaiko.blackeye.simulator.account.equipment.ship.Factory();
 
     /**
      * Configurations factory.
+     *
+     * @var Configurations factory.
      */
     public com.manulaiko.blackeye.simulator.account.equipment.configuration.Factory configurations = new com.manulaiko.blackeye.simulator.account.equipment.configuration.Factory();
 
@@ -47,10 +53,13 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Hangar object.
      */
-    public Object build(ResultSet rs) throws Exception
+    public Simulator build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 
-        return b.get();
+        Simulator s = b.get();
+        s.databaseTable = "accounts_equipment_hangars";
+
+        return s;
     }
 }

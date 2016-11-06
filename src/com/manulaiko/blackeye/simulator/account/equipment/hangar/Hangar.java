@@ -4,16 +4,18 @@ import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.ResourcesInitialization;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.equipment.ship.Ship;
 import com.manulaiko.blackeye.simulator.account.equipment.configuration.Configuration;
 import com.manulaiko.tabitha.Console;
+import org.json.JSONArray;
 
 /**
  * Hangar class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Hangar implements Cloneable
+public class Hangar extends Simulator implements Cloneable
 {
     /**
      * Hangar ID.
@@ -297,5 +299,37 @@ public class Hangar implements Cloneable
         p.palladium = this.resources.getOrDefault(8, 0);
 
         return p;
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        JSONArray resources = new JSONArray();
+        this.resources.forEach((i, a)->{
+            resources.put(a.intValue());
+        });
+
+        fields.put("accounts_id", this.accountID);
+        fields.put("accounts_equipment_ships_id", this.ship.id);
+        fields.put("active_configuration", this.activeConfiguration);
+        fields.put("resources", resources);
+
+        return fields;
     }
 }

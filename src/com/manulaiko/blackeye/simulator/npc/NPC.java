@@ -4,15 +4,18 @@ import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * NPC class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class NPC implements Cloneable
+public class NPC extends Simulator implements Cloneable
 {
     /**
      * NPC ID.
@@ -213,6 +216,38 @@ public class NPC implements Cloneable
     }
 
     /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        fields.put("name", this.name);
+        fields.put("gfx", this.gfx);
+        fields.put("health", this.maxHealth);
+        fields.put("shield", this.maxShield);
+        fields.put("shield_absorption", this.shieldAbs);
+        fields.put("damage", this.damage);
+        fields.put("speed", this.speed);
+        fields.put("ai_type", this.aiType);
+        fields.put("reward", this.reward);
+
+        return fields;
+    }
+
+    /**
      * Reward class.
      * 
      * @author Manulaiko <manulaiko@gmail.com>
@@ -273,6 +308,33 @@ public class NPC implements Cloneable
             this.credits    = credits;
             this.uridium    = uridium;
             this.resources  = resources;
+        }
+
+        /**
+         * Returns the reward as a JSON.
+         *
+         * @return Reward as JSON
+         */
+        public String toString()
+        {
+            JSONObject json = new JSONObject();
+
+            JSONArray resources = new JSONArray();
+            this.resources.forEach((i, a)->{
+                resources.put(a);
+            });
+
+            try {
+                json.append("experience", this.experience);
+                json.append("honor", this.honor);
+                json.append("credits", this.credits);
+                json.append("uridium", this.uridium);
+                json.append("resources", resources);
+            } catch(Exception e) {
+                return "{}";
+            }
+
+            return json.toString();
         }
     }
 }

@@ -7,6 +7,7 @@ import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packet.command.*;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.map.station.Station;
@@ -15,13 +16,14 @@ import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
+import org.json.JSONArray;
 
 /**
  * Map class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Map implements Cloneable
+public class Map extends Simulator implements Cloneable
 {
     /**
      * Map ID.
@@ -426,5 +428,37 @@ public class Map implements Cloneable
                 value.connection.send(packet);
             }
         });
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        JSONArray limits = new JSONArray();
+        limits.put(this.limits.getX());
+        limits.put(this.limits.getY());
+
+        fields.put("name", this.name);
+        fields.put("limits", limits);
+        fields.put("is_pvp", this.isPVP);
+        fields.put("is_starter", this.isStarter);
+        fields.put("factions_id", this.factionsID);
+
+        return fields;
     }
 }

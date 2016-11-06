@@ -53,7 +53,7 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      */
     public Settings getByAccountID(int id) throws Exception
     {
-        for(Map.Entry<Integer, Object> settings : this._instances.entrySet()) {
+        for(Map.Entry<Integer, Simulator> settings : this._instances.entrySet()) {
             if(((Settings)settings.getValue()).accountID == id) {
                 return (Settings)settings.getValue();
             }

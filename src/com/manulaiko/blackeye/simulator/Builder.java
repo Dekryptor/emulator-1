@@ -12,11 +12,11 @@ import java.sql.ResultSet;
 public abstract class Builder
 {
     /**
-     * Object we're building.
+     * Simulator we're building.
      *
-     * @var The building object.
+     * @var The building simulator.
      */
-    protected Object _object;
+    protected Simulator _object;
 
     /**
      * Query result set.
@@ -36,20 +36,20 @@ public abstract class Builder
     }
 
     /**
-     * Builds the object.
+     * Builds the Simulator.
      *
      * @throws Exception In case the build failed.
      */
     public abstract void build() throws Exception;
 
     /**
-     * Returns the object.
+     * Returns the Simulator.
      *
-     * @return The object.
+     * @return The Simulator.
      *
      * @throws Exception In case `build` method failed.
      */
-    public Object get() throws Exception
+    public Simulator get() throws Exception
     {
         if(this._object == null) {
             this.build();

@@ -1,5 +1,8 @@
 package com.manulaiko.blackeye.simulator.item;
 
+import java.util.HashMap;
+
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 import org.json.JSONObject;
 
@@ -8,7 +11,7 @@ import org.json.JSONObject;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Item implements Cloneable
+public class Item extends Simulator implements Cloneable
 {
     /**
      * Item ID.
@@ -115,5 +118,35 @@ public class Item implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        fields.put("loot_id", this.lootID);
+        fields.put("name", this.name);
+        fields.put("category", this.category);
+        fields.put("price", this.price);
+        fields.put("is_elite", this.isElite);
+        fields.put("value", this.value);
+        fields.put("extras", this.extras);
+
+        return fields;
     }
 }

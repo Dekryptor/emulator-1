@@ -1,10 +1,12 @@
 package com.manulaiko.blackeye.simulator.map.collectable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.CreateCollectable;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
+import com.manulaiko.blackeye.simulator.Simulator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,7 +18,7 @@ import com.manulaiko.tabitha.utils.Point;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Collectable
+public class Collectable extends Simulator implements Cloneable
 {
     ///////////////////////////
     // Start class constants //
@@ -143,8 +145,8 @@ public class Collectable
 
         p.id  = this.id;
         p.gfx = this.gfx;
-        p.x   = (int)this.position.getX();
-        p.y   = (int)this.position.getY();
+        p.x   = this.position.getX();
+        p.y   = this.position.getY();
 
         return p;
     }
@@ -209,5 +211,61 @@ public class Collectable
                 return null;
             }
         }
+
+        /**
+         * Parses the object to a JSON.
+         *
+         * @return Reward as JSON.
+         */
+        public String toString()
+        {
+            JSONObject json = new JSONObject();
+
+            try {
+                json.append("items_id", this.itemsID);
+                json.append("amount", this.amount);
+                json.append("probability", this.probability);
+            } catch(Exception e) {
+                return "{}";
+            }
+
+            return json.toString();
+        }
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        JSONArray rewards = new JSONArray();
+        this.rewards.forEach((r)->{
+            try {
+                rewards.put(new JSONObject(r.toString()));
+            } catch(Exception e) {
+                rewards.put(new JSONObject());
+            }
+        });
+
+        fields.put("gfx", this.gfx);
+        fields.put("class", this.classID);
+        fields.put("name", this.name);
+        fields.put("rewards", rewards);
+
+        return fields;
     }
 }

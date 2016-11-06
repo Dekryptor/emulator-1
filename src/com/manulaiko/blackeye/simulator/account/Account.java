@@ -9,6 +9,7 @@ import com.manulaiko.blackeye.net.game.packet.command.BatteriesInitialization;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
 import com.manulaiko.blackeye.net.game.packet.command.RocketsInitialization;
 import com.manulaiko.blackeye.net.game.packet.command.ShipInitialization;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 import com.manulaiko.blackeye.simulator.account.settings.Settings;
@@ -21,7 +22,7 @@ import com.manulaiko.tabitha.Console;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Account implements Cloneable
+public class Account extends Simulator implements Cloneable
 {
     /**
      * Account ID.
@@ -413,5 +414,43 @@ public class Account implements Cloneable
         p.sabm    = 0;
 
         return p;
+    }
+
+    /**
+     * Returns table identifier.
+     * 
+     * @return Table ID.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     * 
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        fields.put("id", this.id);
+        fields.put("session_id", this.sessionID);
+        fields.put("name", this.name);
+        fields.put("factions_id", this.factionsID);
+        fields.put("clans_id", this.clansID);
+        fields.put("uridium", this.uridium);
+        fields.put("credits", this.credits);
+        fields.put("jackpot", this.jackpot);
+        fields.put("experience", this.experience);
+        fields.put("honor", this.honor);
+        fields.put("levels_id", this.levelID);
+        fields.put("is_premium", this.isPremium);
+        fields.put("ranks_id", this.rankID);
+        fields.put("rank_points", this.rankPoints);
+        fields.put("accounts_equipment_hangars_id", this.hangar.id);
+        
+        return fields;
     }
 }

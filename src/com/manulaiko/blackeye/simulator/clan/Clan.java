@@ -1,5 +1,8 @@
 package com.manulaiko.blackeye.simulator.clan;
 
+import java.util.HashMap;
+
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -7,7 +10,7 @@ import com.manulaiko.tabitha.Console;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Clan implements Cloneable
+public class Clan extends Simulator implements Cloneable
 {
     /**
      * Clan ID.
@@ -70,5 +73,31 @@ public class Clan implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @reutrn Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        fields.put("tag", this.tag);
+        fields.put("name", this.name);
+        fields.put("factions_id", this.factionID);
+
+        return fields;
     }
 }

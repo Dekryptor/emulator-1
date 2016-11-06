@@ -1,5 +1,8 @@
 package com.manulaiko.blackeye.simulator.level;
 
+import java.util.HashMap;
+
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -7,7 +10,7 @@ import com.manulaiko.tabitha.Console;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Level implements Cloneable
+public class Level extends Simulator implements Cloneable
 {
     /**
      * Level ID.
@@ -98,5 +101,33 @@ public class Level implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        fields.put("account", this.account);
+        fields.put("pet", this.pet);
+        fields.put("drone", this.drone);
+        fields.put("shield", this.shield);
+        fields.put("damage", this.damage);
+
+        return fields;
     }
 }

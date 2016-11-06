@@ -1,9 +1,13 @@
 package com.manulaiko.blackeye.simulator.map.portal;
 
+import java.util.HashMap;
+
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.CreatePortal;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
+import org.json.JSONArray;
 
 /**
  * Portal class.
@@ -12,7 +16,7 @@ import com.manulaiko.tabitha.utils.Point;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Portal implements Cloneable
+public class Portal extends Simulator implements Cloneable
 {
     /**
      * Portal id.
@@ -153,5 +157,44 @@ public class Portal implements Cloneable
         p.factionScrap = this.factionScrap;
 
         return p;
+    }
+
+    /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        JSONArray position = new JSONArray();
+        position.put(this.position.getX());
+        position.put(this.position.getY());
+
+        JSONArray targetPosition = new JSONArray();
+        targetPosition.put(this.targetPosition.getX());
+        targetPosition.put(this.targetPosition.getY());
+
+        fields.put("maps_id", this.mapsID);
+        fields.put("position", position);
+        fields.put("target_position", targetPosition);
+        fields.put("target_maps_id", this.targetMapsID);
+        fields.put("is_visible", this.isVisible);
+        fields.put("is_working" ,this.isWorking);
+        fields.put("faction_scrap", this.factionScrap);
+        fields.put("gfx", this.gfx);
+
+        return fields;
     }
 }

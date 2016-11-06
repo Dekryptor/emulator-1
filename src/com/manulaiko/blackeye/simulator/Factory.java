@@ -19,13 +19,13 @@ import com.manulaiko.tabitha.exceptions.NotFound;
 public abstract class Factory
 {
     /**
-     * Instanced objects.
+     * Instanced Simulator.
      *
-     * Map with instanced objects for lazy-load.
+     * Map with instanced Simulator for lazy-load.
      *
-     * @var Instanced objects.
+     * @var Instanced Simulator.
      */
-    protected HashMap<Integer, Object> _instances = new HashMap<>();
+    protected HashMap<Integer, Simulator> _instances = new HashMap<>();
 
     /**
      * Factory's table.
@@ -67,7 +67,7 @@ public abstract class Factory
     }
 
     /**
-     * Initializes the factory (loads all objects).
+     * Initializes the factory (loads all Simulator).
      *
      * @throws Exception If query or build failed.
      */
@@ -77,32 +77,32 @@ public abstract class Factory
     }
 
     /**
-     * Returns an object with specified ID.
+     * Returns an Simulator with specified ID.
      *
-     * If the object hasn't been loaded yet, it will be loaded.
+     * If the Simulator hasn't been loaded yet, it will be loaded.
      *
-     * @param id Object id.
+     * @param id Simulator id.
      *
-     * @return Object with ID.
+     * @return Simulator with ID.
      *
      * @throws Exception If given ID does not exist or build failed.
      */
-    public Object getByID(int id) throws Exception
+    public Simulator getByID(int id) throws Exception
     {
         if(this._instances.containsKey(id)) {
             return this._instances.get(id);
         }
 
-        Object obj = this.loadByID(id);
+        Simulator obj = this.loadByID(id);
         this._instances.put(id, obj);
 
         return obj;
     }
 
     /**
-     * Returns all instanced objects.
+     * Returns all instanced Simulator.
      *
-     * @return Instanced objects.
+     * @return Instanced Simulator.
      */
     public HashMap getAll()
     {
@@ -110,18 +110,18 @@ public abstract class Factory
     }
 
     /**
-     * Builds and returns an object with specified ID.
+     * Builds and returns a Simulator with specified ID.
      *
      * Instead of retrieving it from the map, it will be loaded directly
      * from the database.
      *
-     * @param id Object id.
+     * @param id Simulator id.
      *
-     * @return Object with ID.
+     * @return Simulator with ID.
      *
      * @throws Exception If given ID does not exist or build failed.
      */
-    public Object loadByID(int id) throws Exception
+    public Simulator loadByID(int id) throws Exception
     {
         try {
             PreparedStatement ps = Main.database.prepare("SELECT * FROM `?` WHERE `id`=?");
@@ -141,15 +141,15 @@ public abstract class Factory
     }
 
     /**
-     * Builds and returns all objects from database.
+     * Builds and returns all Simulator from database.
      *
-     * @return Database objects.
+     * @return Database Simulator.
      *
      * @throws Exception In case build or query failed.
      */
     public HashMap loadAll() throws Exception
     {
-        HashMap<Integer, Object> objects = new HashMap<>();
+        HashMap<Integer, Simulator> objects = new HashMap<>();
 
         try {
             // Let's assume the guy implementing the class is a nice guy and doesn't mess with SQLi
@@ -175,13 +175,13 @@ public abstract class Factory
     }
 
     /**
-     * Builds and returns an object.
+     * Builds and returns a Simulator.
      *
-     * Instances the builder object and returns the object.
+     * Instances the builder object and returns the Simulator.
      *
      * @param result Query's result.
      *
      * @throws Exception In case build failed.
      */
-    public abstract Object build(ResultSet result) throws Exception;
+    public abstract Simulator build(ResultSet result) throws Exception;
 }

@@ -1,13 +1,17 @@
 package com.manulaiko.blackeye.simulator.ship;
 
+import java.util.HashMap;
+
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
+import org.json.JSONObject;
 
 /**
  * Ship class.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Ship implements Cloneable
+public class Ship extends Simulator implements Cloneable
 {
     /**
      * Ship id.
@@ -147,6 +151,38 @@ public class Ship implements Cloneable
     }
 
     /**
+     * Returns table identifier.
+     *
+     * @return Table identifier.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns table fields.
+     *
+     * @return Table fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        fields.put("items_id", this.itemsID);
+        fields.put("health", this.health);
+        fields.put("speed", this.speed);
+        fields.put("cargo", this.cargo);
+        fields.put("lasers", this.lasers);
+        fields.put("extras", this.extras);
+        fields.put("batteries", this.batteries);
+        fields.put("rockets", this.rockets);
+        fields.put("reward", this.reward);
+
+        return fields;
+    }
+
+    /**
      * Reward class.
      *
      * @author Manulaiko <manulaiko@gmail.com>
@@ -177,6 +213,25 @@ public class Ship implements Cloneable
         {
             this.experience = experience;
             this.honor      = honor;
+        }
+
+        /**
+         * Returns the reward as a JSON.
+         *
+         * @return Reward as JSON.
+         */
+        public String toString()
+        {
+            JSONObject json = new JSONObject();
+
+            try {
+                json.append("experience", this.experience);
+                json.append("honor", this.honor);
+            } catch(Exception e) {
+                return "{}";
+            }
+
+            return json.toString();
         }
     }
 }
