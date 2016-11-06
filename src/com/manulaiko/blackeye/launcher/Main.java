@@ -125,6 +125,7 @@ public class Main
         cp.addCommand(new ReconectToDatabaseCommand());
         cp.addCommand(new ReinitializeGameManagerCommand());
         cp.addCommand(new ReloadConfigurationCommand());
+        cp.addCommand(new SaveCommand());
         cp.start();
     }
 
