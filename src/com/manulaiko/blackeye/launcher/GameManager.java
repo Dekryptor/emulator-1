@@ -1,5 +1,6 @@
 package com.manulaiko.blackeye.launcher;
 
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -211,6 +212,46 @@ public class GameManager extends Thread
      */
     public static void save()
     {
-        // TODO update database with changes
+        Console.println("Updating `accounts` table...");
+        GameManager.accounts.getAll().forEach((i, s)->{
+            ((Simulator)s).save();
+        });
+        Console.println("`accounts` table successfully updated!");
+        Console.println(Console.LINE_MINUS);
+
+        Console.println("Updating `accounts_settings` table");
+        GameManager.accounts.settings.getAll().forEach((i, s)->{
+            ((Simulator)s).save();
+        });
+        Console.println("`accounts_settings` table successfully updated!");
+        Console.println(Console.LINE_MINUS);
+
+        Console.println("Updating `accounts_equipment_configurations` table");
+        GameManager.accounts.hangars.configurations.getAll().forEach((i, s)->{
+            ((Simulator)s).save();
+        });
+        Console.println("`accounts_equipment_configurations` table successfully updated!");
+        Console.println(Console.LINE_MINUS);
+
+        Console.println("Updating `accounts_equipment_ships` table");
+        GameManager.accounts.hangars.ships.getAll().forEach((i, s)->{
+            ((Simulator)s).save();
+        });
+        Console.println("`accounts_equipment_ships` table successfully updated!");
+        Console.println(Console.LINE_MINUS);
+
+        Console.println("Updating `accounts_equipment_hangars` table");
+        GameManager.accounts.hangars.getAll().forEach((i, s)->{
+            ((Simulator)s).save();
+        });
+        Console.println("`accounts_equipment_hangars` table successfully updated!");
+        Console.println(Console.LINE_MINUS);
+
+        Console.println("Updating `accounts_equipment_items` table");
+        GameManager.accounts.items.getAll().forEach((i, s)->{
+            ((Simulator)s).save();
+        });
+        Console.println("`accounts_equipment_items` table successfully updated!");
+        Console.println(Console.LINE_MINUS);
     }
 }
