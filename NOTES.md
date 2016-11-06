@@ -88,3 +88,10 @@ Available resolutions:
  * 2: 1024x720
  * 3: 1280x720
  * 4: 1280x900
+
+Sunday, November 06 2016
+------------------------
+
+As for now, settings works like a charm, they're updated in the database and multiple resolutions are working, I've never been so proud of making something this easy.
+
+The only thing that isn't working is the quickbar slots, the values are updated in the database and the packet (*0|7|QUICKBAR_SLOT|...*) is properly sent and received but for some reason the client interprets it as an empty packet (*0|7|QUICKBAR_SLOT|-1,-1...*), fml.
