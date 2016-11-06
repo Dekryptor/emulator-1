@@ -222,9 +222,9 @@ public class Collectable extends Simulator implements Cloneable
             JSONObject json = new JSONObject();
 
             try {
-                json.append("items_id", this.itemsID);
-                json.append("amount", this.amount);
-                json.append("probability", this.probability);
+                json.put("items_id", this.itemsID);
+                json.put("amount", this.amount);
+                json.put("probability", this.probability);
             } catch(Exception e) {
                 return "{}";
             }

@@ -225,8 +225,8 @@ public class Ship extends Simulator implements Cloneable
             JSONObject json = new JSONObject();
 
             try {
-                json.append("experience", this.experience);
-                json.append("honor", this.honor);
+                json.put("experience", this.experience);
+                json.put("honor", this.honor);
             } catch(Exception e) {
                 return "{}";
             }

@@ -122,9 +122,9 @@ public class Level extends Simulator implements Cloneable
     {
         HashMap<String, Object> fields = new HashMap<>();
 
-        fields.put("account", this.account);
-        fields.put("pet", this.pet);
-        fields.put("drone", this.drone);
+        fields.put("accounts", this.account);
+        fields.put("pets", this.pet);
+        fields.put("drones", this.drone);
         fields.put("shield", this.shield);
         fields.put("damage", this.damage);
 

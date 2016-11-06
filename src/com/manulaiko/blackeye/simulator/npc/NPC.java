@@ -325,11 +325,11 @@ public class NPC extends Simulator implements Cloneable
             });
 
             try {
-                json.append("experience", this.experience);
-                json.append("honor", this.honor);
-                json.append("credits", this.credits);
-                json.append("uridium", this.uridium);
-                json.append("resources", resources);
+                json.put("experience", this.experience);
+                json.put("honor", this.honor);
+                json.put("credits", this.credits);
+                json.put("uridium", this.uridium);
+                json.put("resources", resources);
             } catch(Exception e) {
                 return "{}";
             }
