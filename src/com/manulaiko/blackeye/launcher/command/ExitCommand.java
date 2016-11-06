@@ -8,7 +8,7 @@ import com.manulaiko.tabitha.Console;
 /**
  * Exit command.
  *
- * Start specified server(s), read description for more.
+ * Closes BlackEye.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */

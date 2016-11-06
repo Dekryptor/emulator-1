@@ -4,9 +4,9 @@ import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.tabitha.Console;
 
 /**
- * Reload configuration command.
+ * Reinitialize GameManager command.
  *
- * Start specified server(s), read description for more.
+ * Reinitializes GameManager.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */

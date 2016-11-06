@@ -8,7 +8,7 @@ import com.manulaiko.tabitha.Configuration;
 /**
  * Reload configuration command.
  *
- * Start specified server(s), read description for more.
+ * Reloads configuration file.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */

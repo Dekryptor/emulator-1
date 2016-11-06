@@ -7,7 +7,7 @@ import com.manulaiko.tabitha.database.Connection;
 /**
  * Reconnect to Database command.
  *
- * Start specified server(s), read description for more.
+ * Reconnects to database, read description for more.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */

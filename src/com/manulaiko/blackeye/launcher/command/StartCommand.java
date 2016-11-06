@@ -5,7 +5,7 @@ import com.manulaiko.blackeye.launcher.ServerManager;
 /**
  * Start command.
  *
- * Start specified server(s), read description for more.
+ * Starts specified server(s), read description for more.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
