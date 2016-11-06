@@ -34,6 +34,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
         JSONArray slotMenu_position = new JSONArray(this._result.getString("slotmenu_position"));
         JSONArray resizableWindows  = new JSONArray(this._result.getString("resizableWindows"));
         JSONArray mainMenuPosition  = new JSONArray(this._result.getString("mainmenuPosition"));
+        JSONArray slotMenu_order    = new JSONArray(this._result.getString("slotmenu_order"));
 
         this._object = new Settings(
                 this._result.getInt("id"),
@@ -67,8 +68,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
 
                 this._result.getString("barStatus"),
                 this._result.getInt("clientResolution"),
-                this._result.getString("quickbarSlot"),
-                this._result.getString("slotmenu_order")
+                this._result.getString("quickbarSlot")
         );
 
         this._setSet(set);
@@ -77,6 +77,7 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
         this._setSlotMenuPosition(slotMenu_position);
         this._setMainMenuPosition(mainMenuPosition);
         this._setResizableWindows(resizableWindows);
+        this._setSlotMenuOrder(slotMenu_order);
     }
 
     /**
@@ -104,8 +105,8 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
                 set.getBoolean("bgmusicOnOff"),
                 set.getBoolean("dsplyStatus"),
                 set.getBoolean("dsplyBubble"),
-                set.getBoolean("selectedLaser"),
-                set.getBoolean("selectedRocket"),
+                set.getInt("selectedLaser"),
+                set.getInt("selectedRocket"),
                 set.getBoolean("dsplyDigits"),
                 set.getBoolean("dsplyChat"),
                 set.getBoolean("dsplyDrones"),
@@ -184,6 +185,20 @@ public class Builder extends com.manulaiko.blackeye.simulator.Builder
     {
         for(int i = 0; i < windows.length(); i++) {
             ((Settings)this._object).addResizableWindows(i, windows.getString(i));
+        }
+    }
+
+    /**
+     * Sets slot menu orders.
+     *
+     * @param orders JSONArray
+     *
+     * @throws JSONException If couldn't parse the JSON
+     */
+    private void _setSlotMenuOrder(JSONArray orders) throws JSONException
+    {
+        for(int i = 0; i < orders.length(); i++) {
+            ((Settings)this._object).addSlotMenuOrder(i, orders.getInt(i));
         }
     }
 }

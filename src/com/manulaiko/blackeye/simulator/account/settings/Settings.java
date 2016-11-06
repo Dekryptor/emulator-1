@@ -7,7 +7,10 @@ import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.SETCommand;
 import com.manulaiko.blackeye.net.game.packet.command.SettingsCommand;
 import com.manulaiko.blackeye.net.utils.Command;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Settings class.
@@ -16,7 +19,7 @@ import com.manulaiko.tabitha.Console;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Settings implements Cloneable
+public class Settings extends Simulator implements Cloneable
 {
     /**
      * Settings ID.
@@ -240,7 +243,7 @@ public class Settings implements Cloneable
      *
      * @var Slot menu order.
      */
-    public String slotmenu_order = "";
+    public HashMap<Integer, Integer> slotmenu_order = new HashMap<>();
 
     /**
      * Slot menu position.
@@ -292,7 +295,6 @@ public class Settings implements Cloneable
      * @param barStatus                Bar status.
      * @param clientResolution         Client resolution.
      * @param quickbarSlot             Quickbar slots.
-     * @param slotmenu_order           Slot menu order.
      */
     public Settings(
             int id, int accountID,
@@ -302,7 +304,7 @@ public class Settings implements Cloneable
             int quality_engine, int quality_explosion, int quality_poizone, int quality_presseting,
             int quality_ship, boolean alwaysDraggableWindows, boolean autoRefinement, boolean autoStart,
             boolean doubleClickAttack, boolean preloadUserShips, boolean quickSlotStopAttack, String barStatus,
-            int clientResolution, String quickbarSlot, String slotmenu_order
+            int clientResolution, String quickbarSlot
     ) {
         this.id        = id;
         this.accountID = accountID;
@@ -333,7 +335,17 @@ public class Settings implements Cloneable
         this.barStatus                = barStatus;
         this.clientResolution         = clientResolution;
         this.quickbarSlot             = quickbarSlot;
-        this.slotmenu_order           = slotmenu_order;
+    }
+
+    /**
+     * Adds a slot menu order.
+     *
+     * @param id    Resolution ID.
+     * @param order Slot menu order.
+     */
+    public void addSlotMenuOrder(int id, int order)
+    {
+        this.slotmenu_order.put(id, order);
     }
 
     /**
@@ -398,8 +410,8 @@ public class Settings implements Cloneable
             boolean boosten, boolean dsplyDamage, boolean dsplyAllLas, boolean dsplyExplo,
             boolean dsplyPlayerName, boolean dsplyFirmIcon, boolean dsplyAlphaBg, boolean ignoreRES,
             boolean ignoreBOX, boolean convertGates, boolean convertOppo, boolean soundOnOff,
-            boolean bgmusicOnOff, boolean dsplyStatus, boolean dsplyBubble, boolean selectedLaser,
-            boolean selectedRocket, boolean dsplyDigits, boolean dsplyChat, boolean dsplyDrones,
+            boolean bgmusicOnOff, boolean dsplyStatus, boolean dsplyBubble, int selectedLaser,
+            int selectedRocket, boolean dsplyDigits, boolean dsplyChat, boolean dsplyDrones,
             boolean showStarsystem, boolean ignoreCARGO, boolean ignoreHostileCARGO, boolean autochangeAmmo,
             boolean enableFastBuy
     ) {
@@ -420,7 +432,6 @@ public class Settings implements Cloneable
     {
         ArrayList<Command> commands = new ArrayList<>();
 
-        commands.add(this.getHSCommand());
         commands.add(this.set.getSETCommand());
         commands.add(this.getClientResolutionCommand());
         commands.addAll(this.getMinimapSizeCommand());
@@ -452,8 +463,9 @@ public class Settings implements Cloneable
         commands.add(this.getQualityExplosionCommand());
         commands.add(this.getQuickbarSlotCommand());
         commands.addAll(this.getSlotmenuPositionCommand());
-        commands.add(this.getSlotmenuOrderCommand());
+        commands.addAll(this.getSlotmenuOrderCommand());
         commands.addAll(this.getMainmenuPositionCommand());
+        commands.add(this.getHandShakeCommand());
 
         return commands;
     }
@@ -483,13 +495,19 @@ public class Settings implements Cloneable
      *
      * @return SlotmenuOrder command.
      */
-    public SettingsCommand getSlotmenuOrderCommand()
+    public ArrayList<SettingsCommand> getSlotmenuOrderCommand()
     {
-        SettingsCommand p = new SettingsCommand();
-        p.add("SLOTMENU_ORDER");
-        p.add(this.slotmenu_order);
+        ArrayList<SettingsCommand> packets = new ArrayList<>();
 
-        return p;
+        this.slotmenu_order.forEach((i, s)-> {
+            SettingsCommand p = new SettingsCommand();
+            p.add("SLOTMENU_ORDER,"+ i);
+            p.add(s);
+
+            packets.add(p);
+        });
+
+        return packets;
     }
 
     /**
@@ -501,8 +519,7 @@ public class Settings implements Cloneable
     {
         ArrayList<SettingsCommand> packets = new ArrayList<>();
 
-        this.windowSettings.forEach((i, s)-> {
-
+        this.slotmenu_position.forEach((i, s)-> {
             SettingsCommand p = new SettingsCommand();
             p.add("SLOTMENU_POSITION,"+ i);
             p.add(s);
@@ -780,11 +797,11 @@ public class Settings implements Cloneable
     }
 
     /**
-     * Builds and returns HS command.
+     * Builds and returns HandShake command.
      *
-     * @return HS command.
+     * @return HandShake command.
      */
-    public SettingsCommand getHSCommand()
+    public SettingsCommand getHandShakeCommand()
     {
         SettingsCommand p = new SettingsCommand();
         p.add("HS");
@@ -989,8 +1006,8 @@ public class Settings implements Cloneable
         public boolean bgmusicOnOff = false;
         public boolean dsplyStatus = false;
         public boolean dsplyBubble = false;
-        public boolean selectedLaser = false;
-        public boolean selectedRocket = false;
+        public int selectedLaser = 1;
+        public int selectedRocket = 2;
         public boolean dsplyDigits = false;
         public boolean dsplyChat = false;
         public boolean dsplyDrones = false;
@@ -1033,8 +1050,8 @@ public class Settings implements Cloneable
                 boolean boosten, boolean dsplyDamage, boolean dsplyAllLas, boolean dsplyExplo,
                 boolean dsplyPlayerName, boolean dsplyFirmIcon, boolean dsplyAlphaBg, boolean ignoreRES,
                 boolean ignoreBOX, boolean convertGates, boolean convertOppo, boolean soundOnOff,
-                boolean bgmusicOnOff, boolean dsplyStatus, boolean dsplyBubble, boolean selectedLaser,
-                boolean selectedRocket, boolean dsplyDigits, boolean dsplyChat, boolean dsplyDrones,
+                boolean bgmusicOnOff, boolean dsplyStatus, boolean dsplyBubble, int selectedLaser,
+                int selectedRocket, boolean dsplyDigits, boolean dsplyChat, boolean dsplyDrones,
                 boolean showStarsystem, boolean ignoreCARGO, boolean ignoreHostileCARGO, boolean autochangeAmmo,
                 boolean enableFastBuy
         ) {
@@ -1121,6 +1138,48 @@ public class Settings implements Cloneable
                 return null;
             }
         }
+
+        /**
+         * Returns the object as a JSON.
+         *
+         * @return Object as a JSON.
+         */
+        public String toString()
+        {
+            JSONObject json = new JSONObject();
+
+            try {
+                json.put("boosten", this.boosten);
+                json.put("dsplyDamage", this.dsplyDamage);
+                json.put("dsplyAllLas", this.dsplyAllLas);
+                json.put("dsplyExplo", this.dsplyExplo);
+                json.put("dsplyPlayerName", this.dsplyPlayerName);
+                json.put("dsplyFirmIcon", this.dsplyFirmIcon);
+                json.put("dsplyAlphaBg", this.dsplyAlphaBg);
+                json.put("ignoreRES", this.ignoreRES);
+                json.put("ignoreBOX", this.ignoreBOX);
+                json.put("convertGates", this.convertGates);
+                json.put("convertOppo", this.convertOppo);
+                json.put("soundOnOff", this.soundOnOff);
+                json.put("bgmusicOnOff", this.bgmusicOnOff);
+                json.put("dsplyStatus", this.dsplyStatus);
+                json.put("dsplyBubble", this.dsplyBubble);
+                json.put("selectedLaser", this.selectedLaser);
+                json.put("selectedRocket", this.selectedRocket);
+                json.put("dsplyDigits", this.dsplyDigits);
+                json.put("dsplyChat", this.dsplyChat);
+                json.put("dsplyDrones", this.dsplyDrones);
+                json.put("showStarsystem", this.showStarsystem);
+                json.put("ignoreCARGO", this.ignoreCARGO);
+                json.put("ignoreHostileCARGO", this.ignoreHostileCARGO);
+                json.put("autochangeAmmo", this.autochangeAmmo);
+                json.put("enableFastBuy", this.enableFastBuy);
+            } catch(Exception e) {
+                return "{\"boosten\":true,\"dsplyDamage\":true,\"dsplyAllLas\":true,\"dsplyExplo\":true,\"dsplyPlayerName\":true,\"dsplyFirmIcon\":true,\"dsplyAlphaBg\":true,\"ignoreRES\":true,\"ignoreBOX\":true,\"convertGates\":true,\"convertOppo\":true,\"soundOnOff\":false,\"bgmusicOnOff\":false,\"dsplyStatus\":true,\"dsplyBubble\":true,\"selectedLaser\":1,\"selectedRocket\":2,\"dsplyDigits\":true,\"dsplyChat\":true,\"dsplyDrones\":true,\"showStarsystem\":true,\"ignoreCARGO\":true,\"ignoreHostileCARGO\":true,\"autochangeAmmo\":true,\"enableFastBuy\":true}";
+            }
+
+            return json.toString();
+        }
     }
 
     /**
@@ -1142,5 +1201,97 @@ public class Settings implements Cloneable
 
             return null;
         }
+    }
+
+    /**
+     * Returns identifier.
+     * 
+     * @return Database ID.
+     */
+    protected int _getDatabaseIdentifier()
+    {
+        return this.id;
+    }
+
+    /**
+     * Returns row fields.
+     * 
+     * @return Row fields.
+     */
+    protected HashMap<String, Object> _getDatabaseFields()
+    {
+        HashMap<String, Object> fields = new HashMap<>();
+
+        JSONArray minimapSize = new JSONArray();
+        this.minimapSize.forEach((i, s)->{
+            minimapSize.put(s);
+        });
+
+        JSONArray windowSettings = new JSONArray();
+        this.windowSettings.forEach((i, s)->{
+            windowSettings.put(s);
+        });
+
+        JSONArray slotMenu_position = new JSONArray();
+        this.slotmenu_position.forEach((i, s)->{
+            slotMenu_position.put(s);
+        });
+
+        JSONArray resizableWindows  = new JSONArray();
+        this.resizableWindows.forEach((i, s)->{
+            resizableWindows.put(s);
+        });
+
+        JSONArray mainMenuPosition  = new JSONArray();
+        this.mainmenuPosition.forEach((i, s)->{
+            mainMenuPosition.put(s);
+        });
+
+        JSONArray slotmenu_order = new JSONArray();
+        this.slotmenu_order.forEach((i, s)->{
+            slotmenu_order.put(s);
+        });
+
+        fields.put("accounts_id", this.accountID);
+
+        fields.put("display_chat", this.display_chat);
+        fields.put("display_drones", this.display_drones);
+        fields.put("display_notification", this.display_notification);
+        fields.put("display_playerNames", this.display_playerNames);
+        fields.put("display_windowBackground", this.display_windowBackground);
+        fields.put("play_music", this.play_music);
+        fields.put("play_sfx", this.play_sfx);
+
+        fields.put("quality_attack", this.quality_attack);
+        fields.put("quality_background", this.quality_background);
+        fields.put("quality_collectable", this.quality_collectable);
+        fields.put("quality_customized", this.quality_customized);
+        fields.put("quality_effect", this.quality_effect);
+        fields.put("quality_engine", this.quality_engine);
+        fields.put("quality_explosion", this.quality_explosion);
+        fields.put("quality_poizone", this.quality_poizone);
+        fields.put("quality_presseting", this.quality_presseting);
+        fields.put("quality_ship", this.quality_ship);
+
+        fields.put("alwaysDraggableWindows", this.alwaysDraggableWindows);
+        fields.put("autoRefinement", this.autoRefinement);
+        fields.put("autoStart", this.autoStart);
+        fields.put("doubleClickAttack", this.doubleClickAttack);
+        fields.put("preloadUserShips", this.preloadUserShips);
+        fields.put("quickSlotStopAttack", this.quickSlotStopAttack);
+
+        fields.put("barStatus", this.barStatus);
+        fields.put("clientResolution", this.clientResolution);
+        fields.put("quickbarSlot", this.quickbarSlot);
+
+        fields.put("settings", this.set);
+        fields.put("minimapSize", minimapSize);
+        fields.put("windowSettings", windowSettings);
+        fields.put("slotmenu_position", slotMenu_position);
+        fields.put("slotmenu_order", slotmenu_order);
+        fields.put("resizableWindows", resizableWindows);
+        fields.put("mainmenuPosition", mainMenuPosition);
+        
+        return fields;
     }
 }

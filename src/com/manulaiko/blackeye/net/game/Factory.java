@@ -29,6 +29,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._packets.put("0", "EchoPacket");
         this._packets.put("PNG", "Ping");
         //this._packets.put("1", "Movement");
+        this._packets.put("7", "UpdateSettings");
         /////////////////////////
         // End Packet Handlers //
         /////////////////////////

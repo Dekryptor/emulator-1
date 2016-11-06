@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.manulaiko.blackeye.launcher.Main;
+import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -31,11 +32,14 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      *
      * @return Settings object.
      */
-    public Object build(ResultSet rs) throws Exception
+    public Simulator build(ResultSet rs) throws Exception
     {
         Builder b = new Builder(rs);
 
-        return b.get();
+        Simulator s = (Simulator)b.get();
+        s.databaseTable = "accounts_settings";
+
+        return s;
     }
 
     /**

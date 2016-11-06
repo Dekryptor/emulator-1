@@ -15,9 +15,11 @@ public class SETCommand extends com.manulaiko.blackeye.net.utils.Command
     public boolean boosten = false, dsplyDamage = false, dsplyAllLas = false, dsplyExplo = false,
         dsplyPlayerName = false, dsplyFirmIcon = false, dsplyAlphaBg = false, ignoreRES = false, ignoreBOX = false,
         convertGates = false, convertOppo = false, soundOnOff = false, bgmusicOnOff = false, dsplyStatus = false,
-        dsplyBubble = false, selectedLaser = false, selectedRocket = false, dsplyDigits = false, dsplyChat = false,
+        dsplyBubble = false, dsplyDigits = false, dsplyChat = false,
         dsplyDrones = false, showStarsystem = false, ignoreCARGO = false, ignoreHostileCARGO = false, autochangeAmmo = false,
         enableFastBuy = false;
+
+    public int selectedLaser = 1, selectedRocket = 2;
     ///////////////////
     // End Variables //
     ///////////////////
