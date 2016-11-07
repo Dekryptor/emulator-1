@@ -5,10 +5,7 @@ import java.util.Map;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
-import com.manulaiko.blackeye.net.game.packet.command.BatteriesInitialization;
-import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
-import com.manulaiko.blackeye.net.game.packet.command.RocketsInitialization;
-import com.manulaiko.blackeye.net.game.packet.command.ShipInitialization;
+import com.manulaiko.blackeye.net.game.packet.command.*;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
@@ -276,6 +273,14 @@ public class Account extends Simulator implements Cloneable
     }
 
     /**
+     * Updates account's space map status.
+     */
+    public void update()
+    {
+        this.hangar.ship.update();
+    }
+
+    /**
      * Clones the object.
      *
      * @return Cloned object.
@@ -353,7 +358,7 @@ public class Account extends Simulator implements Cloneable
         p.id            = this.id;
         p.shipID        = this.hangar.ship.ship.id;
         p.expansion     = this.hangar.getExpansions();
-        p.clanTag       = this.clan.tag;
+        p.clanTag       = (this.clan == null) ? "" : this.clan.tag;
         p.name          = this.name;
         p.x             = this.hangar.ship.position.getX();
         p.y             = this.hangar.ship.position.getY();
@@ -412,6 +417,34 @@ public class Account extends Simulator implements Cloneable
         p.mpem    = 0;
         p.ddm     = 0;
         p.sabm    = 0;
+
+        return p;
+    }
+
+    /**
+     * Builds and returns the RemoveShip command.
+     *
+     * @return RemoveShip command.
+     */
+    public RemoveShip getRemoveShipCommand()
+    {
+        RemoveShip p = (RemoveShip)ServerManager.game.packetFactory.getCommandByName("RemoveShip");
+
+        p.id = this.id;
+
+        return p;
+    }
+
+    /**
+     * Builds and returns the DestroyShip command.
+     *
+     * @return DestroyShip command.
+     */
+    public DestroyShip getDestroyShipCommand()
+    {
+        DestroyShip p = (DestroyShip)ServerManager.game.packetFactory.getCommandByName("DestroyShip");
+
+        p.id = this.id;
 
         return p;
     }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.CreateCollectable;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
+import com.manulaiko.blackeye.net.game.packet.command.RemoveCollectable;
 import com.manulaiko.blackeye.simulator.Simulator;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -147,6 +148,20 @@ public class Collectable extends Simulator implements Cloneable
         p.gfx = this.gfx;
         p.x   = this.position.getX();
         p.y   = this.position.getY();
+
+        return p;
+    }
+
+    /**
+     * Builds and returns the RemoveCollectable command.
+     *
+     * @return RemoveCollectable command.
+     */
+    public RemoveCollectable getRemoveCollectableCommand()
+    {
+        RemoveCollectable p = (RemoveCollectable)ServerManager.game.packetFactory.getCommandByName("RemoveCollectable");
+
+        p.id = this.id;
 
         return p;
     }

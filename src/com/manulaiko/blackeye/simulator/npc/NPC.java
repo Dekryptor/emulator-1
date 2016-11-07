@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
+import com.manulaiko.blackeye.net.game.packet.command.DestroyShip;
+import com.manulaiko.blackeye.net.game.packet.command.RemoveShip;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
@@ -176,6 +178,34 @@ public class NPC extends Simulator implements Cloneable
         p.ggRings       = 0;
         p.isNPC         = true;
         p.isCloaked     = false;
+
+        return p;
+    }
+
+    /**
+     * Builds and returns the RemoveShip command.
+     *
+     * @return RemoveShip command.
+     */
+    public RemoveShip getRemoveShipCommand()
+    {
+        RemoveShip p = (RemoveShip)ServerManager.game.packetFactory.getCommandByName("RemoveShip");
+
+        p.id = this.id;
+
+        return p;
+    }
+
+    /**
+     * Builds and returns the DestroyShip command.
+     *
+     * @return DestroyShip command.
+     */
+    public DestroyShip getDestroyShipCommand()
+    {
+        DestroyShip p = (DestroyShip)ServerManager.game.packetFactory.getCommandByName("DestroyShip");
+
+        p.id = this.id;
 
         return p;
     }
