@@ -9,6 +9,7 @@ import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packet.command.*;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.Account;
+import com.manulaiko.blackeye.simulator.account.equipment.ship.Ship;
 import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.map.station.Station;
 import com.manulaiko.blackeye.simulator.npc.NPC;
@@ -23,7 +24,7 @@ import org.json.JSONArray;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Map extends Simulator implements Cloneable
+public class Map extends Simulator implements Cloneable, Runnable
 {
     /**
      * Map ID.
@@ -223,53 +224,13 @@ public class Map extends Simulator implements Cloneable
             this.removeAccount(account);
         }
 
-        this.setNearEntities(account);
-
-        this.sendNPCs(account.connection);
-        this.sendPortals(account.connection);
-        this.sendStations(account.connection);
-        this.sendCollectables(account.connection);
-        this.sendAccounts(account.connection);
+        this.sendPortals(account);
+        this.sendStations(account);
+        this.sendCollectables(account);
+        this.sendAccounts(account);
+        this.sendNPCs(account);
 
         this.accounts.put(account.id, account);
-    }
-
-    /**
-     * Sets an account's near entities (npcs, other players, collectables...)
-     *
-     * @param account Account to set.
-     */
-    public void setNearEntities(Account account)
-    {
-        Point position = account.hangar.ship.position;
-        Point maxRange = new Point(
-                position.getX() + Main.configuration.getInt("maps.entity_range"),
-                position.getY() + Main.configuration.getInt("maps.entity_range")
-        );
-
-        // Collectables
-        this.collectables.forEach((i, c)->{
-            if(c.position.isInRange(position, maxRange)) {
-                account.hangar.ship.nearCollectables.put(i, c);
-            }
-        });
-
-        // NPCs
-        this.npcs.forEach((i, n)->{
-            if(n.position.isInRange(position, maxRange)) {
-                account.hangar.ship.nearNPCs.put(i, n);
-            }
-        });
-
-        // Accounts
-        this.accounts.forEach((i, a)->{
-            if(
-                i != account.id && // Just in case someone decides to call this method twice (by someone I mean my future me ¬.¬)
-                a.hangar.ship.position.isInRange(position, maxRange)
-            ) {
-                account.hangar.ship.nearAccounts.put(i, a);
-            }
-        });
     }
 
     /**
@@ -318,87 +279,272 @@ public class Map extends Simulator implements Cloneable
     }
 
     /**
-     * Sends map's NPCs.
-     *
-     * @param connection Connection to send packets.
-     */
-    public void sendNPCs(Connection connection)
-    {
-        connection.account.hangar.ship.nearNPCs.forEach((key, value) -> {
-            CreateShip p = value.getCreateShipCommand();
-
-            connection.send(p);
-        });
-    }
-
-    /**
-     * Sends map's Accounts.
-     *
-     * @param connection Connection to send packets.
-     */
-    public void sendAccounts(Connection connection)
-    {
-        connection.account.hangar.ship.nearAccounts.forEach((key, value) -> {
-            CreateShip p = value.getCreateShipCommand();
-
-            // Set warning icon on minimap based on account's factionsID
-            if(p.factionID != this.factionsID) {
-                p.warningIcon = this.isStarter;
-            }
-
-            connection.send(p);
-
-            p = connection.account.getCreateShipCommand();
-
-            // Set warning icon on minimap based on account's factionsID
-            if(p.factionID != this.factionsID) {
-                p.warningIcon = this.isStarter;
-            }
-
-            value.connection.send(p);
-        });
-    }
-
-    /**
      * Sends map's portals.
      *
-     * @param connection Connection to send packets.
+     * @param account Account to send packets.
      */
-    public void sendPortals(Connection connection)
+    public void sendPortals(Account account)
     {
+        if(account.connection == null) {
+            return;
+        }
+
         this.portals.forEach((key, value) -> {
             CreatePortal packet = value.getCreatePortalCommand();
 
-            connection.send(packet);
+            account.connection.send(packet);
         });
     }
 
     /**
      * Sends map's stations
      *
-     * @param connection Connection to send packets
+     * @param account Account to send packets
      */
-    public void sendStations(Connection connection)
+    public void sendStations(Account account)
     {
+        if(account.connection == null) {
+            return;
+        }
+
         this.stations.forEach((value) -> {
             CreateStation p = value.getCreateStationCommand();
 
-            connection.send(p);
+            account.connection.send(p);
         });
+    }
+
+    /**
+     * Sends map's NPCs.
+     *
+     * @param account Account to send packets.
+     */
+    public void sendNPCs(Account account)
+    {
+        if(account.connection == null) {
+            return;
+        }
+
+        // Shortcuts
+        Connection c = account.connection;
+        Ship  s      = account.hangar.ship;
+
+        Point position = s.position;
+        Point maxRange = new Point(
+                position.getX() + Main.configuration.getInt("maps.entity_range"),
+                position.getY() + Main.configuration.getInt("maps.entity_range")
+        );
+
+        this.npcs.forEach((i, n)->{
+            // Check that npc is in range and isn't already sent
+            if(
+                n.position.isInRange(position, maxRange) &&
+                !s.nearNPCs.containsKey(i)
+            ) {
+                s.nearNPCs.put(i, n);
+
+                c.send(n.getCreateShipCommand());
+            }
+        });
+    }
+
+    /**
+     * Updates near NPCs.
+     *
+     * @param account Account to update.
+     */
+    public void updateNPCs(Account account)
+    {
+        if(account.connection == null) {
+            return;
+        }
+
+        // Shortcuts
+        Connection c = account.connection;
+        Ship       s = account.hangar.ship;
+
+        Point position = s.position;
+        Point maxRange = new Point(
+                position.getX() + Main.configuration.getInt("maps.entity_range"),
+                position.getY() + Main.configuration.getInt("maps.entity_range")
+        );
+
+        this.npcs.forEach((i, n)->{
+            if(
+                !n.position.isInRange(position, maxRange) &&
+                s.nearNPCs.containsKey(i)
+            ) {
+                s.nearNPCs.remove(i);
+
+                c.send(n.getRemoveShipCommand());
+            }
+        });
+
+        this.sendNPCs(account);
+    }
+
+    /**
+     * Sends map's Accounts.
+     *
+     * @param account Account to send packets.
+     */
+    public void sendAccounts(Account account)
+    {
+        if(account.connection == null) {
+            return;
+        }
+
+        // Shortcuts
+        Connection c = account.connection;
+        Ship  s      = account.hangar.ship;
+
+        Point position = s.position;
+        Point maxRange = new Point(
+                position.getX() + Main.configuration.getInt("maps.entity_range"),
+                position.getY() + Main.configuration.getInt("maps.entity_range")
+        );
+
+        this.accounts.forEach((i, a)->{
+            // Check that npc is in range and isn't already sent
+            if(
+                a.hangar.ship.position.isInRange(position, maxRange) &&
+                !s.nearAccounts.containsKey(i)
+            ) {
+                s.nearAccounts.put(i, a);
+
+                CreateShip p = a.getCreateShipCommand();
+
+                if(p.factionID != this.factionsID) {
+                    p.warningIcon = this.isStarter;
+                }
+
+                c.send(p);
+            }
+        });
+    }
+
+    /**
+     * Updates near Accounts.
+     *
+     * @param account Account to update.
+     */
+    public void updateAccounts(Account account)
+    {
+        if(account.connection == null) {
+            return;
+        }
+
+        // Shortcuts
+        Connection c = account.connection;
+        Ship       s = account.hangar.ship;
+
+        Point position = s.position;
+        Point maxRange = new Point(
+                position.getX() + Main.configuration.getInt("maps.entity_range"),
+                position.getY() + Main.configuration.getInt("maps.entity_range")
+        );
+
+        this.accounts.forEach((i, a)->{
+            if(
+                (i != account.id || !a.hangar.ship.position.isInRange(position, maxRange)) &&
+                s.nearAccounts.containsKey(i)
+            ) {
+                s.nearAccounts.remove(i);
+
+                c.send(a.getRemoveShipCommand());
+            }
+        });
+
+        this.sendAccounts(account);
     }
 
     /**
      * Sends map's collectables.
      *
-     * @param connection Connection to send packets.
+     * @param account Account to send packets.
      */
-    public void sendCollectables(Connection connection)
+    public void sendCollectables(Account account)
     {
-        this.collectables.forEach((key, value) -> {
-            CreateCollectable p = value.getCreateCollectableCommand();
+        if(account.connection == null) {
+            return;
+        }
 
-            connection.send(p);
+        // Shortcuts
+        Connection c = account.connection;
+        Ship       s = account.hangar.ship;
+
+        Point position = s.position;
+        Point maxRange = new Point(
+                position.getX() + Main.configuration.getInt("maps.entity_range"),
+                position.getY() + Main.configuration.getInt("maps.entity_range")
+        );
+
+        this.collectables.forEach((i, col)->{
+            // Check that npc is in range and isn't already sent
+            if(
+                col.position.isInRange(position, maxRange) &&
+                !s.nearCollectables.containsKey(i)
+            ) {
+                s.nearCollectables.put(i, col);
+
+                c.send(col.getCreateCollectableCommand());
+            }
         });
+    }
+
+    /**
+     * Updates near collectables.
+     *
+     * @param account Account to update.
+     */
+    public void updateCollectables(Account account)
+    {
+        if(account.connection == null) {
+            return;
+        }
+
+        // Shortcuts
+        Connection c = account.connection;
+        Ship       s = account.hangar.ship;
+
+        Point position = s.position;
+        Point maxRange = new Point(
+                position.getX() + Main.configuration.getInt("maps.entity_range"),
+                position.getY() + Main.configuration.getInt("maps.entity_range")
+        );
+
+        this.collectables.forEach((i, col)->{
+            if(
+                !col.position.isInRange(position, maxRange) &&
+                s.nearCollectables.containsKey(i)
+            ) {
+                s.nearCollectables.remove(i);
+
+                c.send(col.getRemoveCollectableCommand());
+            }
+        });
+
+        this.sendAccounts(account);
+    }
+
+    /**
+     * Updates the map.
+     */
+    public void run()
+    {
+        this.accounts.forEach((i, a)->{
+            a.update();
+
+            this.updateAccounts(a);
+            this.updateNPCs(a);
+            this.updateCollectables(a);
+        });
+
+        /*
+        this.npcs.forEach((i, n)->{
+            n.update();
+        });
+         */
     }
 
     /**

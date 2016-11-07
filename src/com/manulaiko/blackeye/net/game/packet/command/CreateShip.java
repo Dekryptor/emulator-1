@@ -1,9 +1,9 @@
 package com.manulaiko.blackeye.net.game.packet.command;
 
 /**
- * CreateShip command
+ * CreateShip command.
  *
- * Builds the Create ship command
+ * Builds the Create ship command.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
@@ -22,7 +22,9 @@ public class CreateShip extends com.manulaiko.blackeye.net.utils.Command
     ////////////////
 
     /**
-     * Returns the packet as a string
+     * Returns the packet as a string.
+     *
+     * @return Packet as a string.
      */
     public String toString()
     {

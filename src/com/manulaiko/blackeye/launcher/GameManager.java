@@ -1,6 +1,7 @@
 package com.manulaiko.blackeye.launcher;
 
 import com.manulaiko.blackeye.simulator.Simulator;
+import com.manulaiko.blackeye.simulator.map.Map;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -25,6 +26,11 @@ import com.manulaiko.tabitha.Console;
  */
 public class GameManager extends Thread
 {
+    /**
+     * Optimal time on which the game should be updated
+     */
+    public static final double OPTIMAL_TIME = 1000000000 / 60;
+
     //////////////////////////
     // Start Game Factories //
     //////////////////////////
@@ -118,6 +124,8 @@ public class GameManager extends Thread
      */
     public static boolean initialize() throws Exception
     {
+        boolean ret = true;
+
         Console.println("Initializing GameManager...");
         GameManager.loadNecessaryData();
 
@@ -128,15 +136,18 @@ public class GameManager extends Thread
             if(Main.configuration.getBoolean("core.debug")) {
                 Console.println("Exception message: "+ e.getMessage());
             }
-
-            Console.println("GameManager initialized!");
-
-            return false;
+            ret = false;
         }
+
+        Console.println("Initializing updater thread...");
+        Thread t = new Thread(new GameManager());
+        t.setName("GameManager Updater");
+        t.start();
+        Console.println("Updater thread initialized!");
 
         Console.println("GameManager initialized!");
 
-        return true;
+        return ret;
     }
 
     /**
@@ -253,5 +264,42 @@ public class GameManager extends Thread
         });
         Console.println("`accounts_equipment_items` table successfully updated!");
         Console.println(Console.LINE_MINUS);
+    }
+
+    /**
+     * Updates the game
+     */
+    public void run()
+    {
+        boolean isRunning = true;
+        double  delta     = 0D;
+
+        long lastTime = System.nanoTime();
+
+        while (isRunning) {
+            long now = System.nanoTime();
+            long lastTickDuration = now - lastTime;
+
+            delta += lastTickDuration / GameManager.OPTIMAL_TIME;
+            lastTime = now;
+
+            while (delta >= 1) {
+                this.update();
+                delta--;
+            }
+        }
+    }
+
+    /**
+     * Performs the update
+     */
+    public void update()
+    {
+        GameManager.maps.getAll().forEach((i, m) -> {
+            //Console.println("Updating map "+ ((Map)m).id);
+            Thread t = new Thread((Map)m);
+
+            t.start();
+        });
     }
 }

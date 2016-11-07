@@ -103,19 +103,60 @@ public class Ship extends Simulator implements Cloneable
     public int activeConfiguration;
 
     /**
-     * Near accounts
+     * Near accounts.
+     *
+     * @var Accounts.
      */
     public HashMap<Integer, Account> nearAccounts = new HashMap<>();
 
     /**
-     * Near NPCs
+     * Near NPCs.
+     *
+     * @var NPCs.
      */
     public HashMap<Integer, NPC> nearNPCs = new HashMap<>();
 
     /**
-     * Near collectables
+     * Near collectables.
+     *
+     * @var Collectables.
      */
     public HashMap<Integer, Collectable> nearCollectables = new HashMap<>();
+
+    /**
+     * Destination position.
+     *
+     * @var Destination position.
+     */
+    public Point newPosition;
+
+    /**
+     * Original position before moving.
+     *
+     * @var Old position.
+     */
+    public Point oldPosition;
+
+    /**
+     * Whether the ship is moving or not.
+     *
+     * @var Ship movement flag.
+     */
+    public boolean isMoving;
+
+    /**
+     * Flight start time.
+     *
+     * @var Start time.
+     */
+    public long time;
+
+    /**
+     * Flight end time.
+     *
+     * @var End time.
+     */
+    public long endTime;
 
     /**
      * Constructor.
@@ -226,5 +267,37 @@ public class Ship extends Simulator implements Cloneable
         fields.put("active_configuration", this.activeConfiguration);
 
         return fields;
+    }
+
+    /**
+     * Updates ship movement.
+     */
+    public void update()
+    {
+        if(!this.isMoving) {
+            return;
+        }
+
+        long timeLeft = this.endTime - System.currentTimeMillis();
+
+        if(
+            timeLeft > 0 &&
+            !this.position.toString().equalsIgnoreCase(this.newPosition.toString())
+        ) {
+            Point distanceLeft = new Point(
+                    (int)(((double)this.oldPosition.getX() / this.time) * timeLeft),
+                    (int)(((double)this.oldPosition.getY() / this.time) * timeLeft)
+            );
+
+            this.position = new Point(
+                    this.newPosition.getX() - distanceLeft.getX(),
+                    this.newPosition.getY() - distanceLeft.getY()
+            );
+        } else {
+            this.position = this.newPosition;
+            this.isMoving = false;
+            this.time = 0;
+            this.endTime = 0;
+        }
     }
 }
