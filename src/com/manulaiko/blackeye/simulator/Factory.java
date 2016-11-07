@@ -104,7 +104,7 @@ public abstract class Factory
      *
      * @return Instanced Simulator.
      */
-    public HashMap getAll()
+    public HashMap<Integer, Simulator> getAll()
     {
         return this._instances;
     }
