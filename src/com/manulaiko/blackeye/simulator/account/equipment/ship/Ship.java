@@ -2,12 +2,14 @@ package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
 import java.util.HashMap;
 
+import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.map.Map;
 
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 import com.manulaiko.blackeye.simulator.npc.NPC;
+import com.manulaiko.blackeye.utils.Updatable;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 import org.json.JSONArray;
@@ -17,7 +19,7 @@ import org.json.JSONArray;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Ship extends Simulator implements Cloneable
+public class Ship extends Simulator implements Cloneable, Updatable
 {
     /**
      * Ship ID.
@@ -295,8 +297,10 @@ public class Ship extends Simulator implements Cloneable
         } else {
             this.position = this.newPosition;
             this.isMoving = false;
-            this.time = 0;
-            this.endTime = 0;
+            this.time     = 0;
+            this.endTime  = 0;
+
+            GameManager.updaterManager.unsubscribe(this);
         }
     }
 }

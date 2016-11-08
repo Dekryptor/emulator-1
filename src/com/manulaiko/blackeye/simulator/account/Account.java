@@ -281,14 +281,6 @@ public class Account extends Simulator implements Cloneable
     }
 
     /**
-     * Updates account's space map status.
-     */
-    public void update()
-    {
-        this.hangar.ship.update();
-    }
-
-    /**
      * Clones the object.
      *
      * @return Cloned object.

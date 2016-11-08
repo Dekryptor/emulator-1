@@ -3,6 +3,7 @@ package com.manulaiko.blackeye.simulator.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
@@ -15,6 +16,7 @@ import com.manulaiko.blackeye.simulator.map.station.Station;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 
+import com.manulaiko.blackeye.utils.Updatable;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 import org.json.JSONArray;
@@ -24,7 +26,7 @@ import org.json.JSONArray;
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class Map extends Simulator implements Cloneable, Runnable
+public class Map extends Simulator implements Cloneable, Updatable
 {
     /**
      * Map ID.
@@ -123,6 +125,8 @@ public class Map extends Simulator implements Cloneable, Runnable
         this.isStarter  = isStarter;
         this.name       = name;
         this.limits     = limits;
+
+        GameManager.updaterManager.subscribe(this);
     }
 
     /**
@@ -532,11 +536,9 @@ public class Map extends Simulator implements Cloneable, Runnable
     /**
      * Updates the map.
      */
-    public void run()
+    public void update()
     {
         this.accounts.forEach((i, a)->{
-            a.update();
-
             this.updateAccounts(a);
             this.updateNPCs(a);
             this.updateCollectables(a);

@@ -1,5 +1,6 @@
 package com.manulaiko.blackeye.net.game.packet.handler;
 
+import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
 
@@ -28,6 +29,8 @@ public class Movement extends com.manulaiko.blackeye.net.utils.Packet
 
         Console.println("Old position: "+ oldPosition, " New position: "+ newPosition);
 
+        GameManager.updaterManager.unsubscribe(connection.account.hangar.ship);
+
         long time    = this.getDuration(oldPosition, newPosition, connection);
         long endTime = System.currentTimeMillis() + time;
 
@@ -45,6 +48,8 @@ public class Movement extends com.manulaiko.blackeye.net.utils.Packet
         //connection.account.hangar.ship.isMoving    = true;
         connection.account.hangar.ship.time        = time;
         connection.account.hangar.ship.endTime     = endTime;
+
+        GameManager.updaterManager.subscribe(connection.account.hangar.ship);
 
         com.manulaiko.tabitha.Console.println("Moving time: "+ time, " End time: "+ endTime);
     }
