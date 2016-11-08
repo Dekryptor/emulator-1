@@ -6,6 +6,7 @@ import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
 import com.manulaiko.blackeye.net.game.packet.command.DestroyShip;
 import com.manulaiko.blackeye.net.game.packet.command.RemoveShip;
+import com.manulaiko.blackeye.net.game.packet.command.SelectShip;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
@@ -275,6 +276,24 @@ public class NPC extends Simulator implements Cloneable
         fields.put("reward", this.reward);
 
         return fields;
+    }
+
+    /**
+     * Builds and returns SelectShip command.
+     *
+     * @return SelectShip command.
+     */
+    public SelectShip getSelectShipCommand()
+    {
+        SelectShip p = (SelectShip)ServerManager.game.packetFactory.getCommandByName("SelectShip");
+
+        p.shipID    = this.gfx;
+        p.health    = this.health;
+        p.maxHealth = this.maxHealth;
+        p.shield    = this.shield;
+        p.maxShield = this.maxShield;
+
+        return p;
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.manulaiko.blackeye.simulator.account.equipment.ship;
 
 import java.util.HashMap;
-import java.util.function.ObjDoubleConsumer;
 
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.Account;

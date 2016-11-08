@@ -9,6 +9,7 @@ import com.manulaiko.blackeye.net.game.packet.command.*;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
+import com.manulaiko.blackeye.simulator.account.handler.Attack;
 import com.manulaiko.blackeye.simulator.account.settings.Settings;
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
@@ -136,6 +137,13 @@ public class Account extends Simulator implements Cloneable
      * @var Connection.
      */
     public Connection connection;
+
+    /**
+     * Attack handler.
+     *
+     * @var Attack handler.
+     */
+    public Attack attack = new Attack();
 
     /**
      * Constructor.
@@ -485,5 +493,23 @@ public class Account extends Simulator implements Cloneable
         fields.put("accounts_equipment_hangars_id", this.hangar.id);
         
         return fields;
+    }
+
+    /**
+     * Builds and returns SelectShip command.
+     *
+     * @return SelectShip command.
+     */
+    public SelectShip getSelectShipCommand()
+    {
+        SelectShip p = (SelectShip)ServerManager.game.packetFactory.getCommandByName("SelectShip");
+
+        p.shipID    = this.hangar.ship.ship.id;
+        p.health    = this.hangar.ship.health;
+        p.maxHealth = this.hangar.ship.ship.health;
+        p.shield    = this.hangar.ship.shield;
+        p.maxShield = this.hangar.activeConfiguration.shield;
+
+        return p;
     }
 }

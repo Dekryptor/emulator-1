@@ -30,6 +30,8 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._packets.put("PNG", "Ping");
         this._packets.put("1", "Movement");
         this._packets.put("7", "UpdateSettings");
+        this._packets.put("SEL", "Select");
+        this._packets.put("a", "LaserAttack");
         /////////////////////////
         // End Packet Handlers //
         /////////////////////////
@@ -50,6 +52,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._commands.put("3", "RocketsInitialization");
         this._commands.put("E", "ResourcesInitialization");
         this._commands.put("A|CC", "ChangeConfiguration");
+        this._commands.put("N", "SelectShip");
         /////////////////////////
         // End Packet Commands //
         /////////////////////////
