@@ -405,8 +405,9 @@ public class Map extends Simulator implements Cloneable, Runnable
         );
 
         this.accounts.forEach((i, a)->{
-            // Check that npc is in range and isn't already sent
+            // Check that account is in range and isn't already sent
             if(
+                i != account.id                                      &&
                 a.hangar.ship.position.isInRange(position, maxRange) &&
                 !s.nearAccounts.containsKey(i)
             ) {
@@ -446,7 +447,8 @@ public class Map extends Simulator implements Cloneable, Runnable
 
         this.accounts.forEach((i, a)->{
             if(
-                (i != account.id || !a.hangar.ship.position.isInRange(position, maxRange)) &&
+                i != account.id                                       &&
+                !a.hangar.ship.position.isInRange(position, maxRange) &&
                 s.nearAccounts.containsKey(i)
             ) {
                 s.nearAccounts.remove(i);

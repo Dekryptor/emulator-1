@@ -41,7 +41,8 @@ public class Movement extends com.manulaiko.blackeye.net.utils.Packet
 
         connection.account.hangar.ship.newPosition = newPosition;
         connection.account.hangar.ship.oldPosition = oldPosition;
-        connection.account.hangar.ship.isMoving    = true;
+        connection.account.hangar.ship.position    = newPosition; // Cuz yolo
+        //connection.account.hangar.ship.isMoving    = true;
         connection.account.hangar.ship.time        = time;
         connection.account.hangar.ship.endTime     = endTime;
 
