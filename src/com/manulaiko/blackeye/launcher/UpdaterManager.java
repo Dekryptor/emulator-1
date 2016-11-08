@@ -1,8 +1,10 @@
 package com.manulaiko.blackeye.launcher;
 
+import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 
 import com.manulaiko.blackeye.utils.Updatable;
+import com.manulaiko.tabitha.Console;
 
 /**
  * Updater manager.
@@ -40,6 +42,8 @@ public class UpdaterManager extends Thread
         }
 
         this._events.add(event);
+
+        Console.println("Subscribed "+ event.toString());
     }
 
     /**
@@ -54,9 +58,9 @@ public class UpdaterManager extends Thread
         }
 
         this._events.remove(event);
+
+        Console.println("Unsubscribed "+ event.toString());
     }
-
-
 
     /**
      * Updates the game
@@ -87,19 +91,25 @@ public class UpdaterManager extends Thread
      */
     public void update()
     {
-        this._events.forEach((e)->{
-            Thread t = new Thread() {
-                /**
-                 * Execute the update on a separated thread.
-                 */
-                public void run()
+        try {
+            this._events.forEach((e) -> {
+                Thread t = new Thread()
                 {
-                    e.update();
-                }
-            };
+                    /**
+                     * Execute the update on a separated thread.
+                     */
+                    public void run()
+                    {
+                        e.update();
+                    }
+                };
 
-            t.setName("Update Event "+ e.toString());
-            t.start();
-        });
+                t.setName("Update Event " + e.toString());
+                t.start();
+            });
+        } catch(ConcurrentModificationException e) {
+            Console.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

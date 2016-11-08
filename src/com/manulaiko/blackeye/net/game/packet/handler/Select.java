@@ -23,6 +23,10 @@ public class Select extends com.manulaiko.blackeye.net.utils.Packet
         int id = this._packet.readInt();
         Map m  = connection.account.hangar.ship.map;
 
+        if(connection.account.attack.isAttacking) {
+            connection.account.attack.stopLaserAttack();
+        }
+
         if(id <= 0) {
             this._selectNPC(connection, id, m);
 

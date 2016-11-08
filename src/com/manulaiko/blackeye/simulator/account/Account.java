@@ -180,6 +180,8 @@ public class Account extends Simulator implements Cloneable
         this.isPremium  = isPremium;
         this.rankID     = rankID;
         this.rankPoints = rankPoints;
+
+        this.attack.attacker = this;
     }
 
     /**
