@@ -1,6 +1,7 @@
 package com.manulaiko.blackeye.simulator.account.handler;
 
 import com.manulaiko.blackeye.launcher.GameManager;
+import com.manulaiko.blackeye.net.game.packet.command.LaserAttack;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.npc.NPC;
@@ -45,13 +46,6 @@ public class Attack implements Updatable
     public boolean isAttacking;
 
     /**
-     * Last laser shoot.
-     *
-     * @var Last laser shoot.
-     */
-    private long _lastLaserShoot = 0;
-
-    /**
      * Next laser shoot.
      *
      * @var Next laser shoot.
@@ -83,8 +77,7 @@ public class Attack implements Updatable
 
         this.isAttacking = true;
 
-        this._lastLaserShoot = System.currentTimeMillis();
-        this._nextLaserShoot = this._lastLaserShoot - 1;
+        this._nextLaserShoot = System.currentTimeMillis();
 
         GameManager.updaterManager.subscribe(this);
     }
@@ -94,17 +87,15 @@ public class Attack implements Updatable
      */
     public void update()
     {
-        if(this._lastLaserShoot < this._nextLaserShoot) {
+        if(System.currentTimeMillis() < this._nextLaserShoot) {
             return;
         }
 
         Console.println(
-                "Last: "+ this._lastLaserShoot,
                 " Next: "+ this._nextLaserShoot,
                 " Current: "+ System.currentTimeMillis()
         );
 
-        this._lastLaserShoot  = this._nextLaserShoot;
         this._nextLaserShoot += 1000;
 
         if(this.target instanceof NPC) {
@@ -124,9 +115,13 @@ public class Attack implements Updatable
         if(this.attacker instanceof Account) {
             Account attacker = (Account)this.attacker;
 
-            attacker.connection.send("0|a|" + this._id + "|" + target.id + "|1|0|0");
+            LaserAttack p = attacker.getLaserAttackCommand();
+
+            p.target = target.id;
+
+            attacker.connection.send(p);
             attacker.hangar.ship.nearAccounts.forEach((i, a)->{
-                a.connection.send("0|a|" + this._id + "|" + target.id + "|1|0|0");
+                a.connection.send(p);
             });
         }
     }

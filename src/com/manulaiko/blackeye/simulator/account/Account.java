@@ -7,6 +7,7 @@ import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packet.command.*;
 import com.manulaiko.blackeye.simulator.Simulator;
+import com.manulaiko.blackeye.simulator.account.equipment.configuration.Configuration;
 import com.manulaiko.blackeye.simulator.account.equipment.hangar.Hangar;
 import com.manulaiko.blackeye.simulator.account.equipment.item.Item;
 import com.manulaiko.blackeye.simulator.account.handler.Attack;
@@ -503,6 +504,29 @@ public class Account extends Simulator implements Cloneable
         p.maxHealth = this.hangar.ship.ship.health;
         p.shield    = this.hangar.ship.shield;
         p.maxShield = this.hangar.activeConfiguration.shield;
+
+        return p;
+    }
+
+    /**
+     * Builds and returns LaserAttack command.
+     *
+     * @return LaserAttack command.
+     */
+    public LaserAttack getLaserAttackCommand()
+    {
+        LaserAttack p = (LaserAttack)ServerManager.game.packetFactory.getCommandByName("LaserAttack");
+        Configuration c = this.hangar.activeConfiguration;
+
+        int gfx = 0;
+
+        if(c.lasers.size() == c.eliteLasers) {
+            gfx = 1;
+        }
+
+        p.attacker = this.id;
+        p.gfx      = gfx;
+        //p.laserSkill = this.profile.hasLaserSkillGfx();
 
         return p;
     }
