@@ -221,10 +221,10 @@ public class Configuration extends Simulator implements Cloneable
     {
         int expansions = 1;
 
-        if(this.eliteLasers <= (this.lasers.size() / 2)) {
-            expansions = 2;
-        } else if(this.eliteLasers == this.lasers.size()) {
+        if(this.eliteLasers == this.lasers.size()) {
             expansions = 3;
+        } else if(this.eliteLasers <= (this.lasers.size() / 2)) {
+            expansions = 2;
         }
 
         return expansions;
