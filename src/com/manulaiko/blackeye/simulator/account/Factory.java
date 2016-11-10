@@ -46,8 +46,8 @@ public class Factory extends com.manulaiko.blackeye.simulator.Factory
      */
     public void initialize() throws Exception
     {
-        this.hangars.initialize();
         this.items.initialize();
+        this.hangars.initialize();
         this.settings.initialize();
 
         super.initialize();

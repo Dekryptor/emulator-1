@@ -1,20 +1,20 @@
 package com.manulaiko.blackeye.net.game.packet.command;
 
 /**
- * LaserAttack command.
+ * AttackInfo command.
  *
- * Builds the Laser attack command.
+ * Builds the Attack info command.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class LaserAttack extends com.manulaiko.blackeye.net.utils.Command
+public class AttackInfo extends com.manulaiko.blackeye.net.utils.Command
 {
     //////////////////
     // Start params //
     //////////////////
-    public int attacker, target, gfx;
+    public int attacker, target, damage, shield, health;
 
-    public boolean laserSkill, shieldSkill;
+    public boolean isHeal;
     ////////////////
     // End params //
     ////////////////
@@ -26,12 +26,13 @@ public class LaserAttack extends com.manulaiko.blackeye.net.utils.Command
      */
     public String toString()
     {
-        this.add("a");
+        this.add("Y");
         this.add(this.attacker);
         this.add(this.target);
-        this.add(this.gfx);
-        this.add(this.shieldSkill);
-        this.add(this.laserSkill);
+        this.add((this.isHeal) ? "H" : "L");
+        this.add(this.health);
+        this.add(this.shield);
+        this.add(this.damage);
 
         return super.toString();
     }
