@@ -94,4 +94,19 @@ Sunday, November 06 2016
 
 As for now, settings works like a charm, they're updated in the database and multiple resolutions are working, I've never been so proud of making something this easy.
 
-The only thing that isn't working is the quickbar slots, the values are updated in the database and the packet (*0|7|QUICKBAR_SLOT|...*) is properly sent and received but for some reason the client interprets it as an empty packet (*0|7|QUICKBAR_SLOT|-1,-1...*), fml.
+The only thing that isn't working is the quickbar slots, the values are updated in the database and the packet (*0|7|QUICKBAR_SLOT|...*) is properly sent and received but for some reason the client interprets it as an empty packet (*0|7|QUICKBAR_SLOT|-1,-1...*),
+
+Thursday, November 10 2016
+--------------------------
+
+Laser attack system is working, but only for Account against NPC.
+The way it's implemented lets NPC attack other NPCs, idk if it's a good idea making an event where NPCs attack between them.
+
+Anyway, I still need to finish the reward (spawn cargo box) and NPC against Account logic.
+
+Maybe I'll move `Attack._destroy` to `Account` and `Attack._respawn` to `NPC`.
+This way it would be possible to automatically respawn an account once it's destroyed.
+
+A thing about `UpdaterManager` is that sometimes it throws `ConcurrentModificationException` when an event is unsubscribed and the thread stills looping through it, it's actually harmless and everything works as expected, idk if is worth fixing it.
+
+And idk what else I've done :/
