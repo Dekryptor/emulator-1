@@ -1,6 +1,7 @@
 package com.manulaiko.blackeye.simulator.npc;
 
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.*;
@@ -191,6 +192,8 @@ public class NPC extends Simulator implements Cloneable
 
         account.experience += this.reward.experience;
         account.honor      += this.reward.honor;
+        account.credits    += this.reward.credits;
+        account.uridium    += this.reward.uridium;
 
         if(account.connection == null) {
             return;
@@ -207,6 +210,18 @@ public class NPC extends Simulator implements Cloneable
         p.value    = this.reward.honor;
         p.newValue = account.honor;
         account.connection.send(p);
+
+        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
+        p.type     = LootMessage.CREDITS;
+        p.value    = this.reward.credits;
+        p.newValue = account.credits;
+        account.connection.send(p);
+
+        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
+        p.type     = LootMessage.URIDIUM;
+        p.value    = this.reward.uridium;
+        p.newValue = account.uridium;
+        account.connection.send(p);
     }
 
     /**
@@ -219,6 +234,21 @@ public class NPC extends Simulator implements Cloneable
                 a.connection.send(this.getDestroyShipCommand());
             }
         });
+
+        this.health   = this.maxHealth;
+        this.shield   = this.maxShield;
+        this.position = new Point(
+                ThreadLocalRandom.current()
+                                 .nextInt(
+                                         0,
+                                         this.map.limits.getX()
+                                 ),
+                ThreadLocalRandom.current()
+                                 .nextInt(
+                                         0,
+                                         this.map.limits.getY()
+                                 )
+        );
     }
 
     /**
