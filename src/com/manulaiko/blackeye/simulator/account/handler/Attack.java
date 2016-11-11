@@ -160,7 +160,7 @@ public class Attack implements Updatable
         target.health -= healthDamage;
 
         if(target.health <= 0) {
-            this._destroy(attacker, target);
+            target.destroy(attacker);
 
             this.stopLaserAttack();
         }
@@ -174,88 +174,6 @@ public class Attack implements Updatable
         p.damage   = damage;
 
         attacker.connection.send(p);
-    }
-
-    /**
-     * Destroys the target.
-     *
-     * The account has successfully destroyed the target.
-     *
-     * @param attacker Attacker account.
-     * @param target   Target NPC.
-     */
-    private void _destroy(Account attacker, NPC target)
-    {
-        DestroyShip p = target.getDestroyShipCommand();
-
-        attacker.hangar.ship.map.broadcastPacket(p.toString());
-
-        this._reward(attacker, target.reward);
-        this._respawn(target, attacker.hangar.ship.map.limits);
-    }
-
-    /**
-     * Awards NPC's reward.
-     *
-     * @param attacker Attacker to award.
-     * @param reward   Reward.
-     */
-    private void _reward(Account attacker, NPC.Reward reward)
-    {
-        attacker.experience += reward.experience;
-        attacker.honor      += reward.honor;
-        attacker.credits    += reward.credits;
-        attacker.uridium    += reward.uridium;
-
-        // TODO Create cargo box
-
-        LootMessage p = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type        = LootMessage.EXPERIENCE;
-        p.value       = reward.experience;
-        p.newValue    = attacker.experience;
-        attacker.connection.send(p);
-
-        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type     = LootMessage.HONOR;
-        p.value    = reward.honor;
-        p.newValue = attacker.honor;
-        attacker.connection.send(p);
-
-        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type     = LootMessage.CREDITS;
-        p.value    = reward.credits;
-        p.newValue = attacker.credits;
-        attacker.connection.send(p);
-
-        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type     = LootMessage.URIDIUM;
-        p.value    = reward.uridium;
-        p.newValue = attacker.uridium;
-        attacker.connection.send(p);
-    }
-
-    /**
-     * Respawns the target.
-     *
-     * @param target Target to respawn.
-     * @param limits Map limits.
-     */
-    private void _respawn(NPC target, Point limits)
-    {
-        target.health   = target.maxHealth;
-        target.shield   = target.maxShield;
-        target.position = new Point(
-                ThreadLocalRandom.current()
-                                 .nextInt(
-                                         0,
-                                         limits.getX()
-                                 ),
-                ThreadLocalRandom.current()
-                                 .nextInt(
-                                         0,
-                                         limits.getY()
-                                 )
-        );
     }
 
     /**
