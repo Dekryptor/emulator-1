@@ -142,7 +142,8 @@ public class Map extends Simulator implements Cloneable, Updatable
             id = 0;
         }
 
-        npc.id = id;
+        npc.id  = id;
+        npc.map = this;
 
         this.npcs.put(id, npc);
     }
@@ -346,6 +347,7 @@ public class Map extends Simulator implements Cloneable, Updatable
                 !s.nearNPCs.containsKey(i)
             ) {
                 s.nearNPCs.put(i, n);
+                n.nearAccounts.put(account.id, account);
 
                 c.send(n.getCreateShipCommand());
             }
@@ -379,6 +381,7 @@ public class Map extends Simulator implements Cloneable, Updatable
                 s.nearNPCs.containsKey(i)
             ) {
                 s.nearNPCs.remove(i);
+                n.nearAccounts.remove(account.id);
 
                 c.send(n.getRemoveShipCommand());
             }
