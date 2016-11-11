@@ -229,11 +229,7 @@ public class NPC extends Simulator implements Cloneable
      */
     private void _destroy()
     {
-        this.nearAccounts.forEach((i, a)->{
-            if(a.connection != null) {
-                a.connection.send(this.getDestroyShipCommand());
-            }
-        });
+        this.map.broadcastPacket(this.getDestroyShipCommand().toString());
 
         this.health   = this.maxHealth;
         this.shield   = this.maxShield;
