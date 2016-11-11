@@ -3,11 +3,10 @@ package com.manulaiko.blackeye.simulator.npc;
 import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
-import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
-import com.manulaiko.blackeye.net.game.packet.command.DestroyShip;
-import com.manulaiko.blackeye.net.game.packet.command.RemoveShip;
-import com.manulaiko.blackeye.net.game.packet.command.SelectShip;
+import com.manulaiko.blackeye.net.game.packet.command.*;
 import com.manulaiko.blackeye.simulator.Simulator;
+import com.manulaiko.blackeye.simulator.account.Account;
+import com.manulaiko.blackeye.simulator.map.Map;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 import org.json.JSONArray;
@@ -112,6 +111,20 @@ public class NPC extends Simulator implements Cloneable
     public Reward reward;
 
     /**
+     * Near accounts.
+     *
+     * @var Near accounts.
+     */
+    public HashMap<Integer, Account> nearAccounts = new HashMap<>();
+
+    /**
+     * Map where the NPC is located.
+     *
+     * @var Map.
+     */
+    public Map map;
+
+    /**
      * Constructor.
      *
      * @param id        NPC id.
@@ -153,6 +166,59 @@ public class NPC extends Simulator implements Cloneable
     public void setReward(int experience, int honor, int credits, int uridium, HashMap resources)
     {
         this.reward = new Reward(experience, honor, credits, uridium, resources);
+    }
+
+    /**
+     * Destroys the NPC by another NPC.
+     *
+     * @param npc NPC that destroyed the NPC.
+     */
+    public void destroy(NPC npc)
+    {
+        // Maybe I can make something cool like digievolving the NPC when it
+        // reaches certain amount of accounts killed :D
+        this._destroy();
+    }
+
+    /**
+     * Destroys the NPC by an Account.
+     *
+     * @param account Account that destroyed the NPC.
+     */
+    public void destroy(Account account)
+    {
+        this._destroy();
+
+        account.experience += this.reward.experience;
+        account.honor      += this.reward.honor;
+
+        if(account.connection == null) {
+            return;
+        }
+
+        LootMessage p = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
+        p.type        = LootMessage.EXPERIENCE;
+        p.value       = this.reward.experience;
+        p.newValue    = account.experience;
+        account.connection.send(p);
+
+        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
+        p.type     = LootMessage.HONOR;
+        p.value    = this.reward.honor;
+        p.newValue = account.honor;
+        account.connection.send(p);
+    }
+
+    /**
+     * Sends destroy command to near accounts.
+     */
+    private void _destroy()
+    {
+        this.nearAccounts.forEach((i, a)->{
+            if(a.connection != null) {
+                a.connection.send(this.getDestroyShipCommand());
+            }
+        });
     }
 
     /**
