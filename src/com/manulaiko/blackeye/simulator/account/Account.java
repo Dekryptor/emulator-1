@@ -14,6 +14,7 @@ import com.manulaiko.blackeye.simulator.account.handler.Attack;
 import com.manulaiko.blackeye.simulator.account.settings.Settings;
 import com.manulaiko.blackeye.simulator.clan.Clan;
 import com.manulaiko.blackeye.simulator.level.Level;
+import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.tabitha.Console;
 
 /**
@@ -261,6 +262,65 @@ public class Account extends Simulator implements Cloneable
         }
 
         return null;
+    }
+
+    /**
+     * Destroys the ship by an NPC.
+     *
+     * @param npc NPC that destroyed the account.
+     */
+    public void destroy(NPC npc)
+    {
+        // Maybe I can make something cool like digievolving the NPC when it
+        // reaches certain amount of accounts killed :D
+        this._destroy();
+    }
+
+    /**
+     * Destroys the ship by another Account.
+     *
+     * @param account Account that destroyed the account.
+     */
+    public void destroy(Account account)
+    {
+        this._destroy();
+
+        account.experience += this.hangar.ship.ship.reward.experience;
+        account.honor      += this.hangar.ship.ship.reward.honor;
+
+        if(account.connection == null) {
+            return;
+        }
+
+        LootMessage p = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
+        p.type        = LootMessage.EXPERIENCE;
+        p.value       = this.hangar.ship.ship.reward.experience;
+        p.newValue    = account.experience;
+        account.connection.send(p);
+
+        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
+        p.type     = LootMessage.HONOR;
+        p.value    = this.hangar.ship.ship.reward.honor;
+        p.newValue = account.honor;
+        account.connection.send(p);
+    }
+
+    /**
+     * Sends destroy command to near accounts.
+     */
+    private void _destroy()
+    {
+        this.hangar.ship.nearAccounts.forEach((i, a)->{
+            if(a.connection != null) {
+                a.connection.send(this.getDestroyShipCommand());
+            }
+        });
+
+        if(this.connection == null) {
+            return;
+        }
+
+        this.connection.send(this.getDestroyShipCommand());
     }
 
     /**
