@@ -375,10 +375,10 @@ public class Map extends Simulator implements Cloneable, Updatable
                 position.getY() + Main.configuration.getInt("maps.entity_range")
         );
 
-        this.npcs.forEach((i, n)->{
+        s.nearNPCs.forEach((i, n)->{
             if(
-                !n.position.isInRange(position, maxRange) &&
-                s.nearNPCs.containsKey(i)
+                !n.position.isInRange(position, maxRange) ||
+                !this.npcs.containsKey(i)
             ) {
                 s.nearNPCs.remove(i);
                 n.nearAccounts.remove(account.id);
@@ -452,11 +452,10 @@ public class Map extends Simulator implements Cloneable, Updatable
                 position.getY() + Main.configuration.getInt("maps.entity_range")
         );
 
-        this.accounts.forEach((i, a)->{
+        s.nearAccounts.forEach((i, a)->{
             if(
-                i != account.id                                       &&
-                !a.hangar.ship.position.isInRange(position, maxRange) &&
-                s.nearAccounts.containsKey(i)
+                !a.hangar.ship.position.isInRange(position, maxRange) ||
+                !this.accounts.containsKey(i)
             ) {
                 s.nearAccounts.remove(i);
 
@@ -522,10 +521,10 @@ public class Map extends Simulator implements Cloneable, Updatable
                 position.getY() + Main.configuration.getInt("maps.entity_range")
         );
 
-        this.collectables.forEach((i, col)->{
+        s.nearCollectables.forEach((i, col)->{
             if(
-                !col.position.isInRange(position, maxRange) &&
-                s.nearCollectables.containsKey(i)
+                !col.position.isInRange(position, maxRange) ||
+                !this.collectables.containsKey(i)
             ) {
                 s.nearCollectables.remove(i);
 

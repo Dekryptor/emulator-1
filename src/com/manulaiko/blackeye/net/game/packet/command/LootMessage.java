@@ -16,6 +16,8 @@ public class LootMessage extends com.manulaiko.blackeye.net.utils.Command
     public static final String HONOR      = "HON";
     public static final String CREDITS    = "CRE";
     public static final String URIDIUM    = "URI";
+    public static final String JACKPOT    = "JPE";
+    public static final String ORE        = "CAR";
     ///////////////////
     // End constants //
     ///////////////////

@@ -33,6 +33,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._packets.put("SEL", "Select");
         this._packets.put("a", "LaserAttack");
         this._packets.put("G", "StopLaserAttack");
+        this._packets.put("x", "CollectCollectable");
         /////////////////////////
         // End Packet Handlers //
         /////////////////////////
