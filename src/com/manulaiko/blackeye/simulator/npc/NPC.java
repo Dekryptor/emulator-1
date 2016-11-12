@@ -3,11 +3,13 @@ package com.manulaiko.blackeye.simulator.npc;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.*;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.map.Map;
+import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.utils.Point;
 import org.json.JSONArray;
@@ -230,6 +232,7 @@ public class NPC extends Simulator implements Cloneable
     private void _destroy()
     {
         this.map.broadcastPacket(this.getDestroyShipCommand().toString());
+        this._createCargoBox();
 
         this.health   = this.maxHealth;
         this.shield   = this.maxShield;
@@ -245,6 +248,31 @@ public class NPC extends Simulator implements Cloneable
                                          this.map.limits.getY()
                                  )
         );
+    }
+
+    /**
+     * Creates cargo box on map.
+     */
+    private void _createCargoBox()
+    {
+        try {
+            Collectable cargoBox = (Collectable)GameManager.collectables.getByID(2);
+
+            this.reward.resources.forEach((i, a)->{
+                try {
+                    JSONObject json = new JSONObject("{\"items_id\":" + i + ",\"amount\":" + a + ",\"probability\":100.00}");
+
+                    cargoBox.addReward(json);
+                } catch(Exception e) {
+                    // Ignore
+                }
+            });
+            cargoBox.position = this.position.clone();
+
+            this.map.addCollectable(cargoBox);
+        } catch(Exception e) {
+            // Ignore
+        }
     }
 
     /**

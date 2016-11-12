@@ -142,7 +142,7 @@ public class Collectable extends Simulator implements Cloneable
      */
     public CreateCollectable getCreateCollectableCommand()
     {
-        CreateCollectable p = (CreateCollectable) ServerManager.game.packetFactory.getCommandByName("CreateShip");
+        CreateCollectable p = (CreateCollectable) ServerManager.game.packetFactory.getCommandByName("CreateCollectable");
 
         p.id  = this.id;
         p.gfx = this.gfx;

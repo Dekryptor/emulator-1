@@ -533,7 +533,7 @@ public class Map extends Simulator implements Cloneable, Updatable
             }
         });
 
-        this.sendAccounts(account);
+        this.sendCollectables(account);
     }
 
     /**
