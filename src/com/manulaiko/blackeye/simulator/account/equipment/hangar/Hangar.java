@@ -327,7 +327,7 @@ public class Hangar extends Simulator implements Cloneable
 
         fields.put("accounts_id", this.accountID);
         fields.put("accounts_equipment_ships_id", this.ship.id);
-        fields.put("active_configuration", this.activeConfiguration);
+        fields.put("active_configuration", this.activeConfiguration.configuration);
         fields.put("resources", resources);
 
         return fields;
