@@ -7,7 +7,7 @@ import com.manulaiko.tabitha.Console;
  *
  * @author S7KYuuki
  */
-public class Point
+public class Point implements Cloneable
 {
     /**
      * Adds 2 vectors
@@ -167,9 +167,9 @@ public class Point
     }
 
     /**
-     * Parses the object to a string
+     * Parses the object to a string.
      *
-     * @return The vector as a String
+     * @return The vector as a String.
      */
     @Override
     public String toString()
@@ -178,11 +178,11 @@ public class Point
     }
 
     /**
-     * Checks if this vector is the same as obj
+     * Checks if this vector is the same as obj.
      *
-     * @param obj Point to check
+     * @param obj Point to check.
      *
-     * @return Whether this == obj
+     * @return Whether this == obj.
      */
     @Override
     public boolean equals(Object obj)
@@ -200,13 +200,35 @@ public class Point
     }
 
     /**
-     * Hashes the vector
+     * Hashes the vector.
      *
-     * @return Hashed vector
+     * @return Hashed vector.
      */
     @Override
     public int hashCode()
     {
         return (this.getX() + " " + this.getY()).hashCode();
+    }
+
+    /**
+     * Clones and returns the object.
+     *
+     * @return Cloned object.
+     */
+    public Point clone()
+    {
+        try {
+            Point p = (Point)super.clone();
+
+            p._x = this._x;
+            p._y = this._y;
+
+            return p;
+        } catch(Exception e) {
+            Console.println("Couldn't clone point!");
+            Console.println(e.getMessage());
+
+            return null;
+        }
     }
 }
