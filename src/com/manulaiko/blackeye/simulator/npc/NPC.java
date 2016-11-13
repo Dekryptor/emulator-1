@@ -201,26 +201,26 @@ public class NPC extends Simulator implements Cloneable
             return;
         }
 
-        LootMessage p = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type        = LootMessage.EXPERIENCE;
+        LogMessage p = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
+        p.type        = LogMessage.EXPERIENCE;
         p.value       = this.reward.experience;
         p.newValue    = account.experience;
         account.connection.send(p);
 
-        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type     = LootMessage.HONOR;
+        p          = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
+        p.type     = LogMessage.HONOR;
         p.value    = this.reward.honor;
         p.newValue = account.honor;
         account.connection.send(p);
 
-        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type     = LootMessage.CREDITS;
+        p          = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
+        p.type     = LogMessage.CREDITS;
         p.value    = this.reward.credits;
         p.newValue = account.credits;
         account.connection.send(p);
 
-        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type     = LootMessage.URIDIUM;
+        p          = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
+        p.type     = LogMessage.URIDIUM;
         p.value    = this.reward.uridium;
         p.newValue = account.uridium;
         account.connection.send(p);

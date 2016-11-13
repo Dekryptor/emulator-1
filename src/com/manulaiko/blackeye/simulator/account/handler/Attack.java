@@ -5,14 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.packet.command.AttackInfo;
-import com.manulaiko.blackeye.net.game.packet.command.DestroyShip;
 import com.manulaiko.blackeye.net.game.packet.command.LaserAttack;
-import com.manulaiko.blackeye.net.game.packet.command.LootMessage;
 import com.manulaiko.blackeye.simulator.Simulator;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.utils.Updatable;
-import com.manulaiko.tabitha.utils.Point;
 
 /**
  * Attack handler.

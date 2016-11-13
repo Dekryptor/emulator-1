@@ -292,14 +292,14 @@ public class Account extends Simulator implements Cloneable
             return;
         }
 
-        LootMessage p = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type        = LootMessage.EXPERIENCE;
+        LogMessage p = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
+        p.type        = LogMessage.EXPERIENCE;
         p.value       = this.hangar.ship.ship.reward.experience;
         p.newValue    = account.experience;
         account.connection.send(p);
 
-        p          = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
-        p.type     = LootMessage.HONOR;
+        p          = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
+        p.type     = LogMessage.HONOR;
         p.value    = this.hangar.ship.ship.reward.honor;
         p.newValue = account.honor;
         account.connection.send(p);

@@ -4,7 +4,7 @@ import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.launcher.ServerManager;
 import com.manulaiko.blackeye.net.game.Connection;
-import com.manulaiko.blackeye.net.game.packet.command.LootMessage;
+import com.manulaiko.blackeye.net.game.packet.command.LogMessage;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.item.Item;
 import com.manulaiko.blackeye.simulator.map.Map;
@@ -86,9 +86,9 @@ public class CollectCollectable extends com.manulaiko.blackeye.net.utils.Packet
 
         account.hangar.resources.put(id, (resources + amount));
 
-        LootMessage p = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
+        LogMessage p = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
 
-        p.type     = LootMessage.ORE;
+        p.type     = LogMessage.ORE;
         p.value    = amount;
         p.newValue = id;
 
@@ -104,14 +104,14 @@ public class CollectCollectable extends com.manulaiko.blackeye.net.utils.Packet
      */
     private void _addCurrency(int id, int amount, Account account)
     {
-        LootMessage p = (LootMessage)ServerManager.game.packetFactory.getCommandByName("LootMessage");
+        LogMessage p = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
 
         switch(+(id))
         {
             case 1:
                 account.credits += amount;
 
-                p.type     = LootMessage.CREDITS;
+                p.type     = LogMessage.CREDITS;
                 p.value    = amount;
                 p.newValue = account.credits;
 
@@ -121,7 +121,7 @@ public class CollectCollectable extends com.manulaiko.blackeye.net.utils.Packet
             case 2:
                 account.uridium += amount;
 
-                p.type     = LootMessage.URIDIUM;
+                p.type     = LogMessage.URIDIUM;
                 p.value    = amount;
                 p.newValue = account.uridium;
 
@@ -131,7 +131,7 @@ public class CollectCollectable extends com.manulaiko.blackeye.net.utils.Packet
             case 3:
                 account.jackpot += amount;
 
-                p.type     = LootMessage.JACKPOT;
+                p.type     = LogMessage.JACKPOT;
                 p.value    = amount;
                 p.newValue = (int)account.jackpot;
 
@@ -142,7 +142,7 @@ public class CollectCollectable extends com.manulaiko.blackeye.net.utils.Packet
                 account.experience += amount;
                 //account.checkLevel();
 
-                p.type     = LootMessage.EXPERIENCE;
+                p.type     = LogMessage.EXPERIENCE;
                 p.value    = amount;
                 p.newValue = account.experience;
 
@@ -152,7 +152,7 @@ public class CollectCollectable extends com.manulaiko.blackeye.net.utils.Packet
             case 5:
                 account.honor += amount;
 
-                p.type     = LootMessage.HONOR;
+                p.type     = LogMessage.HONOR;
                 p.value    = amount;
                 p.newValue = account.honor;
 

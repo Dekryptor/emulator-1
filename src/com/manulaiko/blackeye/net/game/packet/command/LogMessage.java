@@ -1,13 +1,13 @@
 package com.manulaiko.blackeye.net.game.packet.command;
 
 /**
- * AttackInfo command.
+ * LogMessage command.
  *
- * Builds the Attack info command.
+ * Builds the Log message command.
  *
  * @author Manulaiko <manulaiko@gmail.com>
  */
-public class LootMessage extends com.manulaiko.blackeye.net.utils.Command
+public class LogMessage extends com.manulaiko.blackeye.net.utils.Command
 {
     /////////////////////
     // Start constants //
