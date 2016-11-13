@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import com.manulaiko.blackeye.net.game.packet.command.StandardMessage;
 import com.manulaiko.blackeye.simulator.account.Account;
 
 import com.manulaiko.blackeye.launcher.ServerManager;
@@ -93,6 +94,20 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
             Console.println("Couldn't set in/out streams!");
             Console.println(e.getMessage());
         }
+    }
+
+    /**
+     * Sends a message to the connection.
+     *
+     * @param s Message to send.
+     */
+    public void sendMessage(String s)
+    {
+        StandardMessage sm = (StandardMessage)ServerManager.game.packetFactory.getCommandByName("StandardMessage");
+
+        sm.message = s;
+
+        this.send(sm);
     }
 
     /**

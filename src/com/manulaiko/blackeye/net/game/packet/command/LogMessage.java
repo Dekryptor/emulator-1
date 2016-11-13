@@ -18,6 +18,7 @@ public class LogMessage extends com.manulaiko.blackeye.net.utils.Command
     public static final String URIDIUM    = "URI";
     public static final String JACKPOT    = "JPE";
     public static final String ORE        = "CAR";
+    public static final String ITEM       = "LOT";
     ///////////////////
     // End constants //
     ///////////////////
@@ -25,9 +26,9 @@ public class LogMessage extends com.manulaiko.blackeye.net.utils.Command
     //////////////////
     // Start params //
     //////////////////
-    public long newValue;
+    public Object value;
 
-    public int value;
+    public long newValue;
 
     public String type;
     ////////////////
@@ -44,7 +45,17 @@ public class LogMessage extends com.manulaiko.blackeye.net.utils.Command
         this.add("LM");
         this.add("ST");
         this.add(this.type);
-        this.add(this.value);
+
+        if(this.value instanceof Integer) {
+            this.add((int)this.value);
+        } else if(this.value instanceof Long) {
+            this.add((long)this.value);
+        } else if(this.value instanceof Boolean) {
+            this.add((boolean)this.value);
+        }else {
+            this.add(this.value.toString());
+        }
+
         this.add(this.newValue);
 
         return super.toString();

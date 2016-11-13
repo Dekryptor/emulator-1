@@ -59,6 +59,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._commands.put("Y", "AttackInfo");
         this._commands.put("LM", "LogMessage");
         this._commands.put("2", "RemoveCollectable");
+        this._commands.put("A|STD", "StandardMessage");
         /////////////////////////
         // End Packet Commands //
         /////////////////////////

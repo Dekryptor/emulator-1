@@ -7,6 +7,7 @@ import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.game.packet.command.LogMessage;
 import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.item.Item;
+import com.manulaiko.blackeye.simulator.level.Level;
 import com.manulaiko.blackeye.simulator.map.Map;
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 import com.manulaiko.tabitha.Console;
@@ -175,7 +176,26 @@ public class CollectCollectable extends com.manulaiko.blackeye.net.utils.Packet
         try {
             Item i = (Item)GameManager.items.getByID(id);
 
-            // TODO
+            com.manulaiko.blackeye.simulator.account.equipment.item.Item item = com.manulaiko.blackeye.simulator.account.equipment.item.Item.create();
+
+            item.accountID = account.id;
+            item.amount    = amount;
+            item.item      = i;
+            item.itemID    = i.id;
+            item.levelID   = 1;
+            item.level     = (Level)GameManager.levels.getByID(1);
+
+            item.save();
+
+            account.addItem(item);
+
+            LogMessage p = (LogMessage)ServerManager.game.packetFactory.getCommandByName("LogMessage");
+
+            p.type     = LogMessage.ITEM;
+            p.value    = i.lootID;
+            p.newValue = amount;
+
+            account.connection.send(p);
         } catch(Exception e) {
             Console.println("Couldn't add item!");
             Console.println(e.getMessage());
