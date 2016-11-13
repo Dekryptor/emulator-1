@@ -126,6 +126,7 @@ public class Main
         cp.addCommand(new ReinitializeGameManagerCommand());
         cp.addCommand(new ReloadConfigurationCommand());
         cp.addCommand(new SaveCommand());
+        cp.addCommand(new SendMessageCommand());
         cp.start();
     }
 
