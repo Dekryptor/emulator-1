@@ -8,6 +8,7 @@ import com.manulaiko.blackeye.net.game.packet.command.CreateCollectable;
 import com.manulaiko.blackeye.net.game.packet.command.CreateShip;
 import com.manulaiko.blackeye.net.game.packet.command.RemoveCollectable;
 import com.manulaiko.blackeye.simulator.Simulator;
+import com.manulaiko.blackeye.simulator.map.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -31,6 +32,20 @@ public class Collectable extends Simulator implements Cloneable
     /////////////////////////
     // End class constants //
     /////////////////////////
+
+    /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Collectable create()
+    {
+        Collectable c   = new Collectable(0, 0, 0, "", null);
+        c._isInsert     = true;
+        c.databaseTable = "collectables";
+
+        return c;
+    }
 
     /**
      * Collectable ID.
@@ -256,6 +271,16 @@ public class Collectable extends Simulator implements Cloneable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

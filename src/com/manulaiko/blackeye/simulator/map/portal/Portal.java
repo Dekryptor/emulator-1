@@ -19,6 +19,20 @@ import org.json.JSONArray;
 public class Portal extends Simulator implements Cloneable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Portal create()
+    {
+        Portal p        = new Portal(0, 0, 0, null, null, 0, false, false, 0, 0);
+        p._isInsert     = true;
+        p.databaseTable = "maps_portals";
+
+        return p;
+    }
+
+    /**
      * Portal id.
      *
      * @var ID.
@@ -167,6 +181,16 @@ public class Portal extends Simulator implements Cloneable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

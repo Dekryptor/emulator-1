@@ -14,6 +14,20 @@ import org.json.JSONObject;
 public class Item extends Simulator implements Cloneable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Item create()
+    {
+        Item s          = new Item(0, "", "", "", 0, false, 0, null);
+        s._isInsert     = true;
+        s.databaseTable = "items";
+
+        return s;
+    }
+
+    /**
      * Item ID.
      *
      * @var ID.
@@ -128,6 +142,16 @@ public class Item extends Simulator implements Cloneable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

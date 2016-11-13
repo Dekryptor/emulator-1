@@ -1214,6 +1214,16 @@ public class Settings extends Simulator implements Cloneable
     }
 
     /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
+    }
+
+    /**
      * Returns row fields.
      * 
      * @return Row fields.

@@ -13,6 +13,20 @@ import com.manulaiko.tabitha.Console;
 public class Clan extends Simulator implements Cloneable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Clan create()
+    {
+        Clan s          = new Clan(0, "", "", 0);
+        s._isInsert     = true;
+        s.databaseTable = "clans";
+
+        return s;
+    }
+
+    /**
      * Clan ID.
      *
      * @var ID.
@@ -83,6 +97,16 @@ public class Clan extends Simulator implements Cloneable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

@@ -25,6 +25,20 @@ import com.manulaiko.tabitha.Console;
 public class Account extends Simulator implements Cloneable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Account create()
+    {
+        Account s       = new Account(0, "", "", 0, 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        s._isInsert     = true;
+        s.databaseTable = "accounts";
+
+        return s;
+    }
+
+    /**
      * Account ID.
      */
     public int id;
@@ -520,6 +534,16 @@ public class Account extends Simulator implements Cloneable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

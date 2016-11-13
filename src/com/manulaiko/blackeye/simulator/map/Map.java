@@ -29,6 +29,20 @@ import org.json.JSONArray;
 public class Map extends Simulator implements Cloneable, Updatable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Map create()
+    {
+        Map m           = new Map(0, 0, false, false, "", null);
+        m._isInsert     = true;
+        m.databaseTable = "maps";
+
+        return m;
+    }
+
+    /**
      * Map ID.
      *
      * @var ID.
@@ -590,6 +604,16 @@ public class Map extends Simulator implements Cloneable, Updatable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

@@ -23,6 +23,20 @@ import org.json.JSONObject;
 public class NPC extends Simulator implements Cloneable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static NPC create()
+    {
+        NPC s           = new NPC(0, 0, "", 0, 0, 0, 0, 0, 0);
+        s._isInsert     = true;
+        s.databaseTable = "npcs";
+
+        return s;
+    }
+
+    /**
      * NPC ID.
      *
      * @var ID.
@@ -374,6 +388,16 @@ public class NPC extends Simulator implements Cloneable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

@@ -22,6 +22,20 @@ import org.json.JSONArray;
 public class Ship extends Simulator implements Cloneable, Updatable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Ship create()
+    {
+        Ship s          = new Ship(0, 0, 0, 0, 0, 0, 0, 0);
+        s._isInsert     = true;
+        s.databaseTable = "accounts_equipment_ships";
+
+        return s;
+    }
+
+    /**
      * Ship ID.
      *
      * @var Ship ID.
@@ -244,6 +258,16 @@ public class Ship extends Simulator implements Cloneable, Updatable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

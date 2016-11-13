@@ -18,6 +18,20 @@ import org.json.JSONArray;
 public class Hangar extends Simulator implements Cloneable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Hangar create()
+    {
+        Hangar s        = new Hangar(0, 0);
+        s._isInsert     = true;
+        s.databaseTable = "accounts_equipment_hangars";
+
+        return s;
+    }
+
+    /**
      * Hangar ID.
      *
      * @var Hangar ID.
@@ -309,6 +323,16 @@ public class Hangar extends Simulator implements Cloneable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

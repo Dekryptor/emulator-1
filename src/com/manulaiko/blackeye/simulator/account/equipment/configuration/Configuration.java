@@ -19,6 +19,30 @@ import org.json.JSONArray;
 public class Configuration extends Simulator implements Cloneable
 {
     /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    public static Configuration create()
+    {
+        Configuration s = new Configuration(0, 0, 0);
+        s._isInsert     = true;
+        s.databaseTable = "accounts_equipment_configurations";
+
+        return s;
+    }
+
+    /**
+     * Instances and returns a new Simulator.
+     *
+     * @return New Simulator object.
+     */
+    protected static Simulator _instance()
+    {
+        return new Configuration(0, 0, 0);
+    }
+
+    /**
      * Configuration ID.
      *
      * @var Configuration ID.
@@ -337,6 +361,16 @@ public class Configuration extends Simulator implements Cloneable
     protected int _getDatabaseIdentifier()
     {
         return this.id;
+    }
+
+    /**
+     * Sets database ID.
+     *
+     * @param id Database ID.
+     */
+    protected void _setDatabaseIdentifier(int id)
+    {
+        this.id = id;
     }
 
     /**

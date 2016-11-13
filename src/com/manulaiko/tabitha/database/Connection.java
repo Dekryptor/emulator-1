@@ -119,10 +119,20 @@ public class Connection
      * 
      * @throws SQLException 
      */
-    public PreparedStatement prepare(String query) throws SQLException
+    public PreparedStatement prepare(String query, int flags) throws SQLException
     {
-        PreparedStatement st = this._connection.prepareStatement(query);
+        PreparedStatement st = this._connection.prepareStatement(query, flags);
         
         return st;
+    }
+
+    /**
+     * Returns a prepared statement object
+     *
+     * @throws SQLException
+     */
+    public PreparedStatement prepare(String query) throws SQLException
+    {
+        return this.prepare(query, 0);
     }
 }
