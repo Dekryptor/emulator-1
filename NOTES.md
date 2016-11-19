@@ -110,3 +110,11 @@ This way it would be possible to automatically respawn an account once it's dest
 A thing about `UpdaterManager` is that sometimes it throws `ConcurrentModificationException` when an event is unsubscribed and the thread stills looping through it, it's actually harmless and everything works as expected, idk if is worth fixing it.
 
 And idk what else I've done :/
+
+Saturday, November 19 2016
+--------------------------
+
+The portals are working as expected, you can use them and that shit,
+the only problem is that when you use the portal, you can't see the portals
+of the new map, although the packets are sent, they don't appear in the client.
+However they still there and can be used.
