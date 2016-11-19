@@ -250,6 +250,7 @@ public class Map extends Simulator implements Cloneable, Updatable
         this.sendNPCs(account);
 
         this.accounts.put(account.id, account);
+        this.update();
     }
 
     /**
@@ -285,6 +286,29 @@ public class Map extends Simulator implements Cloneable, Updatable
                 }
             });
         }
+
+        account.hangar.ship.nearAccounts.forEach((i, a)->{
+            if(account.connection != null) {
+                account.connection.send(a.getRemoveShipCommand());
+            }
+        });
+        account.hangar.ship.nearAccounts.clear();
+
+        account.hangar.ship.nearCollectables.forEach((i, c)->{
+            if(account.connection != null) {
+                account.connection.send(c.getRemoveCollectableCommand());
+            }
+        });
+        account.hangar.ship.nearCollectables.clear();
+
+        account.hangar.ship.nearNPCs.forEach((i, n)->{
+            if(account.connection != null) {
+                account.connection.send(n.getRemoveShipCommand());
+            }
+        });
+        account.hangar.ship.nearNPCs.clear();
+
+        account.hangar.ship.nearPortals.clear();
     }
 
     /**
@@ -537,9 +561,9 @@ public class Map extends Simulator implements Cloneable, Updatable
 
         s.nearCollectables.forEach((i, col)->{
             if(
-                !col.position.isInRange(position, maxRange) ||
-                !this.collectables.containsKey(i)
-            ) {
+                    !col.position.isInRange(position, maxRange) ||
+                            !this.collectables.containsKey(i)
+                    ) {
                 s.nearCollectables.remove(i);
 
                 c.send(col.getRemoveCollectableCommand());
@@ -547,6 +571,46 @@ public class Map extends Simulator implements Cloneable, Updatable
         });
 
         this.sendCollectables(account);
+    }
+
+    /**
+     * Updates near portals.
+     *
+     * @param account Account to update.
+     */
+    public void updatePortals(Account account)
+    {
+        if(account.connection == null) {
+            return;
+        }
+
+        // Shortcuts
+        Connection c = account.connection;
+        Ship       s = account.hangar.ship;
+
+        Point position = s.position;
+        Point maxRange = new Point(
+                position.getX() + Main.configuration.getInt("maps.entity_range"),
+                position.getY() + Main.configuration.getInt("maps.entity_range")
+        );
+
+        s.nearPortals.forEach((i, p)->{
+            if(
+                !p.position.isInRange(position, maxRange) ||
+                !this.portals.containsKey(i)
+            ) {
+                s.nearPortals.remove(i);
+            }
+        });
+
+        this.portals.forEach((i, p)->{
+            if(
+                p.position.isInRange(position, maxRange) &&
+                !s.nearPortals.containsKey(i)
+            ) {
+                s.nearPortals.put(i, p);
+            }
+        });
     }
 
     /**
@@ -558,6 +622,7 @@ public class Map extends Simulator implements Cloneable, Updatable
             this.updateAccounts(a);
             this.updateNPCs(a);
             this.updateCollectables(a);
+            this.updatePortals(a);
         });
 
         /*

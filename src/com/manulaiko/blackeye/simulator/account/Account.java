@@ -402,7 +402,7 @@ public class Account extends Simulator implements Cloneable
         p.maxCargo   = this.hangar.getMaxCargo();
         p.x          = this.hangar.ship.position.getX();
         p.y          = this.hangar.ship.position.getY();
-        p.mapID      = this.hangar.ship.mapID;
+        p.mapID      = this.hangar.ship.map.id;
         p.factionID  = this.factionsID;
         p.clanID     = (this.clan == null) ? 0 : this.clan.id;
         p.batteries  = this.hangar.getBatteriesAmount();
@@ -440,7 +440,7 @@ public class Account extends Simulator implements Cloneable
         p.x             = this.hangar.ship.position.getX();
         p.y             = this.hangar.ship.position.getY();
         p.factionID     = this.factionsID;
-        p.clanID        = this.clansID;
+        p.clanID        = (this.clan == null) ? 0 : this.clan.id;
         p.rankID        = this.rankID;
         p.warningIcon   = false;
         p.clanDiplomacy = 0;
@@ -559,13 +559,13 @@ public class Account extends Simulator implements Cloneable
         fields.put("session_id", this.sessionID);
         fields.put("name", this.name);
         fields.put("factions_id", this.factionsID);
-        fields.put("clans_id", this.clansID);
+        fields.put("clans_id", ((this.clan == null) ? 0 : this.clan.id));
         fields.put("uridium", this.uridium);
         fields.put("credits", this.credits);
         fields.put("jackpot", this.jackpot);
         fields.put("experience", this.experience);
         fields.put("honor", this.honor);
-        fields.put("levels_id", this.levelID);
+        fields.put("levels_id", this.level.id);
         fields.put("is_premium", this.isPremium);
         fields.put("ranks_id", this.rankID);
         fields.put("rank_points", this.rankPoints);

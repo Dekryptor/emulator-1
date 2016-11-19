@@ -8,6 +8,7 @@ import com.manulaiko.blackeye.simulator.account.Account;
 import com.manulaiko.blackeye.simulator.map.Map;
 
 import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
+import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.npc.NPC;
 import com.manulaiko.blackeye.utils.Updatable;
 import com.manulaiko.tabitha.Console;
@@ -137,6 +138,13 @@ public class Ship extends Simulator implements Cloneable, Updatable
      * @var Collectables.
      */
     public HashMap<Integer, Collectable> nearCollectables = new HashMap<>();
+
+    /**
+     * Near portals.
+     *
+     * @var Portals.
+     */
+    public HashMap<Integer, Portal> nearPortals = new HashMap<>();
 
     /**
      * Destination position.
@@ -283,8 +291,8 @@ public class Ship extends Simulator implements Cloneable, Updatable
         position.put(this.position.getX());
         position.put(this.position.getY());
 
-        fields.put("ships_id", this.shipID);
-        fields.put("maps_id", this.mapID);
+        fields.put("ships_id", this.ship.id);
+        fields.put("maps_id", this.map.id);
         fields.put("position", position);
         fields.put("health", this.health);
         fields.put("nanohull", this.nanohull);

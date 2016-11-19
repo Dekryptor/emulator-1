@@ -42,8 +42,6 @@ public class UpdaterManager extends Thread
         }
 
         this._events.add(event);
-
-        Console.println("Subscribed "+ event.toString());
     }
 
     /**
@@ -58,8 +56,6 @@ public class UpdaterManager extends Thread
         }
 
         this._events.remove(event);
-
-        Console.println("Unsubscribed "+ event.toString());
     }
 
     /**

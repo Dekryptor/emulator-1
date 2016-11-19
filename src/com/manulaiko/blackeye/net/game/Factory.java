@@ -34,6 +34,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._packets.put("a", "LaserAttack");
         this._packets.put("G", "StopLaserAttack");
         this._packets.put("x", "CollectCollectable");
+        this._packets.put("j", "PortalJump");
         /////////////////////////
         // End Packet Handlers //
         /////////////////////////
@@ -60,6 +61,7 @@ public class Factory extends com.manulaiko.blackeye.net.Factory
         this._commands.put("LM", "LogMessage");
         this._commands.put("2", "RemoveCollectable");
         this._commands.put("A|STD", "StandardMessage");
+        this._commands.put("U", "ActivatePortal");
         /////////////////////////
         // End Packet Commands //
         /////////////////////////

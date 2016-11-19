@@ -34,8 +34,8 @@ public class CreatePortal extends com.manulaiko.blackeye.net.utils.Command
         this.add(this.gfx);
         this.add(this.x);
         this.add(this.y);
-        this.add(this.isVisible);
-        this.add(this.assets);
+        /*this.add(this.isVisible);
+        this.add(this.assets);*/
 
         return super.toString();
     }

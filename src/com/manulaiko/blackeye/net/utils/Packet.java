@@ -2,6 +2,8 @@ package com.manulaiko.blackeye.net.utils;
 
 import com.manulaiko.blackeye.net.game.Connection;
 import com.manulaiko.blackeye.net.utils.PacketParser;
+import com.manulaiko.blackeye.simulator.account.equipment.ship.Ship;
+import com.manulaiko.blackeye.simulator.map.portal.Portal;
 
 /**
  * Packet class.
