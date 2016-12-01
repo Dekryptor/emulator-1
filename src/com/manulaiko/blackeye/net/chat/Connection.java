@@ -20,6 +20,11 @@ import com.manulaiko.tabitha.Console;
 public class Connection extends com.manulaiko.tabitha.net.Connection
 {
     /**
+     * Thread object.
+     */
+    private Thread _thread;
+
+    /**
      * Input stream.
      *
      * @var Input.

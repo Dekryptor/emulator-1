@@ -6,8 +6,6 @@ import java.util.HashMap;
 import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.simulator.account.equipment.configuration.Configuration;
 import com.manulaiko.blackeye.simulator.account.equipment.ship.Ship;
-import com.manulaiko.tabitha.Console;
-import com.manulaiko.tabitha.exceptions.NotFound;
 import org.json.JSONArray;
 import org.json.JSONException;
 

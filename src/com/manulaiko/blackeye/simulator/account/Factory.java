@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.blackeye.simulator.Simulator;
-import com.manulaiko.tabitha.exceptions.NotFound;
+import com.manulaiko.blackeye.utils.NotFound;
 
 /**
  * Factory for the `accounts` table.

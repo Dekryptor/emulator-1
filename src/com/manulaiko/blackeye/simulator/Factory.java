@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import com.manulaiko.blackeye.launcher.Main;
 import com.manulaiko.tabitha.Console;
-import com.manulaiko.tabitha.exceptions.NotFound;
+import com.manulaiko.blackeye.utils.NotFound;
 
 /**
  * Base class for all factories.

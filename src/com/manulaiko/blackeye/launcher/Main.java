@@ -1,12 +1,12 @@
 package com.manulaiko.blackeye.launcher;
 
+import java.io.FileNotFoundException;
+
 import com.manulaiko.blackeye.launcher.command.*;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.Configuration;
 import com.manulaiko.tabitha.configuration.IConfiguration;
 import com.manulaiko.tabitha.database.Connection;
-import com.manulaiko.tabitha.exceptions.NotFound;
-import com.manulaiko.tabitha.exceptions.database.ConnectionFailed;
 import com.manulaiko.tabitha.utils.CommandPrompt;
 
 /**
@@ -81,12 +81,14 @@ public class Main
             Console.println("Stage 1: Reading configuration file...");
 
             Main.configuration = Configuration.load(Main.configurationFileLocation);
-        } catch(NotFound e) {
+        } catch(FileNotFoundException e) {
             Main.exit("Be sure that the configuration file is located in `"+ Main.configurationFileLocation +"`");
         } catch(Exception e) {
             Console.println("There was a problem reading configuration file.");
             Main.exit(e.getMessage());
         }
+
+        Console.debug = Main.configuration.getBoolean("core.debug");
 
         // 2nd stage: Database
         try {
@@ -99,7 +101,7 @@ public class Main
                     Main.configuration.getString("database.password"),
                     Main.configuration.getString("database.name")
             );
-        } catch(ConnectionFailed e) {
+        } catch(Exception e) {
             Main.exit(e.getMessage());
         }
 

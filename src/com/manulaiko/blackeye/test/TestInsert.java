@@ -5,8 +5,7 @@ import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.tabitha.Configuration;
 import com.manulaiko.tabitha.Console;
 import com.manulaiko.tabitha.database.Connection;
-import com.manulaiko.tabitha.exceptions.NotFound;
-import com.manulaiko.tabitha.exceptions.database.ConnectionFailed;
+import com.manulaiko.blackeye.utils.NotFound;
 import com.manulaiko.tabitha.utils.Point;
 
 /**
@@ -51,7 +50,7 @@ public class TestInsert
                     Main.configuration.getString("database.password"),
                     Main.configuration.getString("database.name")
             );
-        } catch(ConnectionFailed e) {
+        } catch(Exception e) {
             Main.exit(e.getMessage());
         }
 

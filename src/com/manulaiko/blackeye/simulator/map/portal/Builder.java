@@ -1,20 +1,9 @@
 package com.manulaiko.blackeye.simulator.map.portal;
 
 import java.sql.ResultSet;
-import java.util.concurrent.ThreadLocalRandom;
 
-import com.manulaiko.blackeye.launcher.GameManager;
-import com.manulaiko.blackeye.launcher.Main;
-import com.manulaiko.blackeye.simulator.map.Map;
-import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
-import com.manulaiko.blackeye.simulator.map.station.Station;
-import com.manulaiko.blackeye.simulator.npc.NPC;
-import com.manulaiko.tabitha.Console;
-import com.manulaiko.tabitha.exceptions.NotFound;
 import com.manulaiko.tabitha.utils.Point;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Portal builder.

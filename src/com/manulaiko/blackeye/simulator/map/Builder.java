@@ -9,8 +9,6 @@ import com.manulaiko.blackeye.simulator.map.collectable.Collectable;
 import com.manulaiko.blackeye.simulator.map.portal.Portal;
 import com.manulaiko.blackeye.simulator.map.station.Station;
 import com.manulaiko.blackeye.simulator.npc.NPC;
-import com.manulaiko.tabitha.Console;
-import com.manulaiko.tabitha.exceptions.NotFound;
 import com.manulaiko.tabitha.utils.Point;
 import org.json.JSONArray;
 import org.json.JSONException;

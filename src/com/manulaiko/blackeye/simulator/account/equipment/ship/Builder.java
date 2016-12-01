@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 
 import com.manulaiko.blackeye.launcher.GameManager;
 import com.manulaiko.blackeye.simulator.map.Map;
-import com.manulaiko.tabitha.Console;
-import com.manulaiko.tabitha.exceptions.NotFound;
 import com.manulaiko.tabitha.utils.Point;
 import org.json.JSONArray;
 import org.json.JSONException;

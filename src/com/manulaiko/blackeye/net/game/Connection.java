@@ -33,6 +33,11 @@ public class Connection extends com.manulaiko.tabitha.net.Connection
     public static final int MAX_PING_AMOUNT = 5;
 
     /**
+     * Thread object.
+     */
+    private Thread _thread;
+
+    /**
      * Input stream.
      *
      * @var Input.
